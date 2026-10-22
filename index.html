@@ -1175,7 +1175,7 @@
 
   <div class="toast-msg" id="toastMessage"></div>
 
-  <div class="plus-main-container">
+  <div class="plus-main-container" id="viewPlusMain">
 
     <!-- 1. هيدر المنصة الفاخر بشعار الأستاذ مصطفى رجب -->
     <div class="plus-hero-card">
@@ -1271,7 +1271,7 @@
 
       <div class="plus-modules-grid">
         <!-- المسار 1: دورة تدريب الارشاد السياحي -->
-        <div class="plus-module-card" id="modCard_rehberlik_kursu">
+        <div class="plus-module-card" id="modCard_rehberlik_kursu" onclick="openModuleDetails('rehberlik_kursu')" style="cursor: pointer;">
           <div class="plus-module-top">
             <span class="plus-module-icon">🎓</span>
             <span class="plus-lock-badge" id="lockBadge_rehberlik_kursu">🔒 محتوى مقفول (يتطلب اشتراك)</span>
@@ -1292,7 +1292,7 @@
         </div>
 
         <!-- المسار 2: مرشدك أون لاين فى مصر -->
-        <div class="plus-module-card" id="modCard_rehber_misir">
+        <div class="plus-module-card" id="modCard_rehber_misir" onclick="openModuleDetails('rehber_misir')" style="cursor: pointer;">
           <div class="plus-module-top">
             <span class="plus-module-icon">🇪🇬</span>
             <span class="plus-lock-badge" id="lockBadge_rehber_misir">🔒 محتوى مقفول (يتطلب اشتراك)</span>
@@ -1313,7 +1313,7 @@
         </div>
 
         <!-- المسار 3: مرشدك أون لاين فى تركيا -->
-        <div class="plus-module-card" id="modCard_rehber_turkiye">
+        <div class="plus-module-card" id="modCard_rehber_turkiye" onclick="openModuleDetails('rehber_turkiye')" style="cursor: pointer;">
           <div class="plus-module-top">
             <span class="plus-module-icon">🇹🇷</span>
             <span class="plus-lock-badge" id="lockBadge_rehber_turkiye">🔒 محتوى مقفول (يتطلب اشتراك)</span>
@@ -1334,7 +1334,7 @@
         </div>
 
         <!-- المسار 4: Turkojob لجميع فرص العمل باللغة التركية -->
-        <div class="plus-module-card" id="modCard_kariyer_rehberi">
+        <div class="plus-module-card" id="modCard_kariyer_rehberi" onclick="handleKariyerCardClick(event)" style="cursor: pointer;">
           <div class="plus-module-top">
             <span class="plus-module-icon">💼</span>
             <span class="plus-lock-badge" id="lockBadge_kariyer_rehberi">🔒 محتوى مقفول (يتطلب اشتراك)</span>
@@ -1349,7 +1349,7 @@
             <span>✓ نماذج سيرة ذاتية تركية احترافية (Türkçe CV Şablonları)</span>
             <span>✓ بنك أسئلة مقابلات العمل التركية وإرشادات اجتياز المقابلة (Mülakat)</span>
           </div>
-          <button type="button" class="btn-module-action" onclick="if(isUserVipActive()){ openTurkojobPlatform(); } else { openModuleDetails('kariyer_rehberi'); }">
+          <button type="button" class="btn-module-action" onclick="handleKariyerCardClick(event)">
             <span id="modBtnText_kariyer_rehberi">معاينة بوابة فرص العمل</span> 🔍
           </button>
         </div>
@@ -1560,7 +1560,18 @@
     </div>
 
     
-  <!-- ====================================================================
+  
+
+<!-- تذييل الصفحة -->
+    <footer>
+      <span>منصة <b>Turko PLUS+</b> للتدريب السياحي وتأهيل التوظيف واللغة التركية</span>
+      <span>إشراف وتطوير <b>الأستاذ مصطفى رجب (Mostafa Ragab HOCA) 🎓</b> © جميع الحقوق محفوظة</span>
+    </footer>
+  </div>
+
+  
+
+<!-- ====================================================================
        منصة Turkojob لجميع فرص العمل باللغة التركية (مدمجة داخل المسار)
        ==================================================================== -->
   <div id="viewTurkojob" style="display: none; width: 100%; min-height: 100vh;">
@@ -2812,13 +2823,6 @@
   <!-- Application Logic Script -->
   </div>
 
-<!-- تذييل الصفحة -->
-    <footer>
-      <span>منصة <b>Turko PLUS+</b> للتدريب السياحي وتأهيل التوظيف واللغة التركية</span>
-      <span>إشراف وتطوير <b>الأستاذ مصطفى رجب (Mostafa Ragab HOCA) 🎓</b> © جميع الحقوق محفوظة</span>
-    </footer>
-  </div>
-
   <!-- النافذة المنبثقة للتفاصيل والفواتير -->
   <div class="plus-modal-overlay" id="plusModalOverlay" onclick="closePlusModal(event)">
     <div class="plus-modal-card" id="plusModalCard" onclick="event.stopPropagation()">
@@ -3246,8 +3250,11 @@
             <div><b>حالة المسارات:</b> <span style="color: #22c55e; font-weight: 800;">مفتوحة ومفعلة 100% 🔓</span></div>
           </div>
 
-          <button type="button" class="btn-cc-submit" onclick="closePlusModal(); document.querySelector('.plus-app-map-section').scrollIntoView({behavior: 'smooth'});">
-            <span>تصفح واستخدام خريطة المسارات المفتوحة 🚀</span>
+          <button type="button" class="btn-cc-submit" onclick="closePlusModal(); openTurkojobPlatform();" style="background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);">
+            <span>💼 فتح منصة Turkojob لفرص العمل والمقابلات فوراً 🚀</span>
+          </button>
+          <button type="button" class="btn-cc-submit" onclick="closePlusModal(); document.querySelector('.plus-app-map-section').scrollIntoView({behavior: 'smooth'});" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #cbd5e1; margin-top: 6px;">
+            <span>تصفح باقي مسارات خريطة Turko PLUS+ 🗺️</span>
           </button>
         </div>
       `;
@@ -3437,49 +3444,116 @@
       showToast('💾 تم حفظ وتثبيت إعدادات Paddle بنجاح!');
     }
 
-    function showToast(text) {
+    function showToast(message, type = "success") {
       const toast = document.getElementById('toastMessage');
-      toast.textContent = text;
-      toast.style.display = 'block';
-      setTimeout(() => { toast.style.display = 'none'; }, 3200);
+      if (toast) {
+        toast.textContent = message;
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 3200);
+      }
+      const container = document.getElementById("toastContainer");
+      if (container) {
+        const t = document.createElement("div");
+        let bg = "bg-emerald-600 text-white";
+        if (type === "info") bg = "bg-slate-800 text-slate-200 border border-slate-700";
+        if (type === "warning") bg = "bg-amber-600 text-white";
+        t.className = `p-3.5 rounded-xl shadow-xl text-xs font-bold transition transform duration-200 ease-out flex items-center gap-2 pointer-events-auto ${bg}`;
+        t.innerHTML = `
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span>${message}</span>
+        `;
+        container.appendChild(t);
+        setTimeout(() => {
+          t.style.opacity = "0";
+          setTimeout(() => t.remove(), 250);
+        }, 3500);
+      }
     }
   
 
     // =======================================================================
-    // دوال الربط والانتقال السلس لمنصة Turkojob
+    // دوال التحقق من الاشتراك والربط والانتقال السلس لمنصة Turkojob
     // =======================================================================
+    function isUserVipActive() {
+      const sub = getUserSubscriptionInfo();
+      return Boolean(sub && sub.active === true);
+    }
+
+    function handleKariyerCardClick(event) {
+      if (event) {
+        event.stopPropagation();
+      }
+      if (isUserVipActive()) {
+        openTurkojobPlatform();
+      } else {
+        openModuleDetails('kariyer_rehberi');
+      }
+    }
+
     function openTurkojobPlatform() {
       closePlusModal();
-      const mainContainer = document.querySelector('.plus-main-container');
+      const plusMain = document.getElementById('viewPlusMain') || document.querySelector('.plus-main-container');
       const tjView = document.getElementById('viewTurkojob');
-      if (mainContainer && tjView) {
-        mainContainer.style.display = 'none';
+      
+      if (plusMain) {
+        plusMain.style.display = 'none';
+      }
+      
+      // ضبط خصائص الصفحة لتعمل منصة Turkojob بكامل الشاشة وبشكل مثالي
+      document.body.style.display = 'block';
+      document.body.style.padding = '0';
+      document.body.style.backgroundColor = '#0b1120';
+      
+      if (tjView) {
         tjView.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        // تشغيل وإعادة تهيئة إعدادات وأقسام Turkojob
-        if (typeof updateCvLockState === 'function') updateCvLockState();
-        if (typeof renderJobs === 'function') renderJobs();
-        if (typeof renderSocialPosts === 'function') renderSocialPosts();
-        if (typeof renderEnglishCvPreview === 'function') renderEnglishCvPreview();
-        if (typeof displayInterviewQuestion === 'function') displayInterviewQuestion(0);
-        
-        if (typeof showToast === 'function') {
-          showToast('💼 مرحباً بك في منصة Turkojob لوظائف ومقابلات اللغة التركية!', 'success');
+      }
+
+      // تفعيل كامل الصلاحيات للمشترك المعتمد
+      const sub = getUserSubscriptionInfo();
+      if (sub && sub.active) {
+        isCvSavedAndRegistered = true;
+        isFullyRegistered = true;
+        isTrialMode = false;
+
+        if (sub.user) {
+          if (sub.user.name && typeof candidateData !== 'undefined') candidateData.name = sub.user.name;
+          if (sub.user.email && typeof candidateData !== 'undefined') candidateData.email = sub.user.email;
         }
+      }
+      
+      // تشغيل وإعادة تهيئة إعدادات وأقسام Turkojob
+      if (typeof updateCvLockState === 'function') updateCvLockState();
+      if (typeof renderJobs === 'function') renderJobs();
+      if (typeof renderSocialPosts === 'function') renderSocialPosts();
+      if (typeof renderEnglishCvPreview === 'function') renderEnglishCvPreview();
+      if (typeof displayInterviewQuestion === 'function') displayInterviewQuestion(0);
+      
+      if (typeof showToast === 'function') {
+        showToast('💼 تم فتح منصة Turkojob للوظائف والمقابلات والـ CV بنجاح!', 'success');
       }
     }
 
     function returnToTurkoPlusFromJob() {
-      const mainContainer = document.querySelector('.plus-main-container');
+      const plusMain = document.getElementById('viewPlusMain') || document.querySelector('.plus-main-container');
       const tjView = document.getElementById('viewTurkojob');
-      if (mainContainer && tjView) {
+      
+      if (tjView) {
         tjView.style.display = 'none';
-        mainContainer.style.display = 'flex';
+      }
+      
+      // استعادة إعدادات وتنسيق منصة Turko PLUS+ المركزية
+      document.body.style.display = 'flex';
+      document.body.style.padding = '16px 12px 30px 12px';
+      document.body.style.background = 'radial-gradient(circle at 50% 0%, #1e1035 0%, #0d071a 45%, #05020a 100%)';
+      
+      if (plusMain) {
+        plusMain.style.display = 'flex';
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (typeof showToast === 'function') {
-          showToast('👑 عدت إلى منصة Turko PLUS+ الرئيسية');
-        }
+      }
+      
+      if (typeof showToast === 'function') {
+        showToast('👑 عدت إلى منصة Turko PLUS+ الرئيسية');
       }
     }
 
@@ -4707,27 +4781,7 @@
     // ==========================================
     // 9. MODALS & TOASTS
     // ==========================================
-    function showToast(message, type = "success") {
-      const container = document.getElementById("toastContainer");
-      if (!container) return;
-      const toast = document.createElement("div");
-
-      let bg = "bg-emerald-600 text-white";
-      if (type === "info") bg = "bg-slate-800 text-slate-200 border border-slate-700";
-      if (type === "warning") bg = "bg-amber-600 text-white";
-
-      toast.className = `p-3.5 rounded-xl shadow-xl text-xs font-bold transition transform duration-200 ease-out flex items-center gap-2 pointer-events-auto ${bg}`;
-      toast.innerHTML = `
-        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        <span>${message}</span>
-      `;
-
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = "0";
-        setTimeout(() => toast.remove(), 250);
-      }, 3500);
-    }
+    // Unified showToast is active
 
     function openJobDetailsModal(jobId) {
       const job = TURKISH_JOBS_DB.find(j => j.id === jobId);
