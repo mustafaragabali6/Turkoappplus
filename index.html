@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#7c3aed">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Turko PLUS+">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="apple-touch-icon.png">
+
+  <!-- Google Analytics 4 (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QFHR2D3FH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4QFHR2D3FH');
+  </script>
+
+  <!-- Paddle.js v2 Official SDK -->
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+
+  <title>Turko PLUS+ — Mostafa Ragab HOCA | منصة الخدمات السياحية والتعليمية وفرص العمل التركية</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Tahoma, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --plus-purple-main: #7c3aed;
+      --plus-purple-glow: #8b5cf6;
+      --plus-purple-dark: #4c1d95;
+      --plus-purple-gradient: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 50%, #4c1d95 100%);
+      --plus-gold: #f59e0b;
+      --plus-gold-glow: #fbbf24;
+      --plus-bg-dark: #070311;
+      --plus-card-dark: #0f172a;
+      --plus-border-dark: rgba(168, 85, 247, 0.35);
+      --border: #e2e8f0;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #1e1035 0%, #0d071a 45%, #05020a 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 16px 12px 30px 12px;
+      line-height: 1.5;
+    }
+
+    .plus-main-container {
+      width: 100%;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* هيدر المنصة الفاخر بشعار الأستاذ مصطفى رجب */
+    .plus-hero-card {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+      border: 1.5px solid rgba(192, 132, 252, 0.45);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 30px rgba(124, 58, 237, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .plus-hero-card::after {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .plus-avatar-frame {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .plus-hoca-avatar {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #a855f7;
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+      display: block;
+      background: #0f172a;
+      cursor: pointer;
+    }
+
+    .plus-crown-badge {
+      position: absolute;
+      top: -6px;
+      right: -4px;
+      background: #f59e0b;
+      color: #0f172a;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      cursor: pointer;
+    }
+
+    .plus-hero-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .plus-hero-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .plus-main-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 0%, #c084fc 60%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .plus-vip-pill-badge {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 119, 6, 0.35) 100%);
+      border: 1px solid #f59e0b;
+      color: #fef08a;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 99px;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
+    }
+
+    .plus-teacher-name-small {
+      font-size: 0.95rem;
+      color: #f1f5f9;
+      font-weight: 800;
+    }
+
+    .plus-specialized-tagline {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #fbbf24;
+      line-height: 1.4;
+    }
+
+    /* بطاقة الترويج لقناة اليوتيوب */
+    .channel-promo-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.3);
+    }
+
+    .promo-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #fca5a5;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .promo-sub {
+      font-size: 0.74rem;
+      color: #94a3b8;
+    }
+
+    .social-btn-youtube {
+      background: #dc2626;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4);
+      transition: all 0.2s;
+    }
+
+    .social-btn-youtube:hover {
+      background: #b91c1c;
+      transform: translateY(-1px);
+    }
+
+    /* تنويه رسمي */
+    .plus-notice-box {
+      background: linear-gradient(135deg, rgba(69, 10, 10, 0.7) 0%, rgba(30, 27, 75, 0.85) 100%);
+      border: 1.5px solid #f87171;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);
+    }
+
+    .plus-notice-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .plus-notice-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #fca5a5;
+      margin-bottom: 4px;
+    }
+
+    .plus-notice-desc {
+      font-size: 0.78rem;
+      color: #f1f5f9;
+      line-height: 1.5;
+    }
+
+    /* قسم إنشاء الحساب والدخول */
+    .plus-auth-card {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid rgba(168, 85, 247, 0.4);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .plus-auth-tabs {
+      display: flex;
+      background: rgba(2, 6, 23, 0.8);
+      border-radius: 10px;
+      padding: 4px;
+      gap: 4px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .plus-auth-tab {
+      flex: 1;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 9px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .plus-auth-tab.active {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
+    }
+
+    .plus-auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .plus-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .plus-input-group label {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+
+    .plus-input-group input {
+      width: 100%;
+      background: #020617;
+      border: 1.5px solid rgba(168, 85, 247, 0.4);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.92rem;
+      color: #ffffff;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .plus-input-group input:focus {
+      border-color: #c084fc;
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.25);
+      background: #090d16;
+    }
+
+    .btn-plus-auth-submit {
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 50%, #6d28d9 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 0.96rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
+      margin-top: 4px;
+      transition: all 0.2s;
+    }
+
+    .btn-plus-auth-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(168, 85, 247, 0.5);
+    }
+
+    /* بطاقة الجلسة النشطة */
+    .plus-session-card {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+      border: 1.5px solid #22c55e;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 4px 18px rgba(34, 197, 94, 0.2);
+    }
+
+    .plus-session-user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .plus-session-avatar {
+      background: #7c3aed;
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      border: 2px solid #a855f7;
+    }
+
+    .plus-session-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .plus-session-email {
+      font-size: 0.76rem;
+      color: #94a3b8;
+    }
+
+    .plus-session-badge {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid #22c55e;
+      color: #86efac;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-indicator {
+      width: 9px;
+      height: 9px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #22c55e;
+    }
+
+    .btn-plus-logout {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-plus-logout:hover {
+      background: #ef4444;
+      color: white;
+    }
+
+    /* خريطة تطبيق Turko PLUS+ (المسارات الأربعة المعتمدة) */
+    .plus-app-map-section {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .plus-map-header {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .plus-map-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #fef08a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .plus-map-sub {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .plus-modules-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .plus-module-card {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid rgba(168, 85, 247, 0.35);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .plus-module-card:hover {
+      border-color: #a855f7;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(124, 58, 237, 0.3);
+    }
+
+    .plus-module-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .plus-module-icon {
+      font-size: 1.7rem;
+    }
+
+    .plus-lock-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+    }
+
+    .plus-lock-badge.unlocked {
+      background: rgba(34, 197, 94, 0.2) !important;
+      border-color: #22c55e !important;
+      color: #86efac !important;
+    }
+
+    .plus-module-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .plus-module-tr {
+      font-size: 0.78rem;
+      color: #c084fc;
+      direction: ltr;
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .plus-module-desc {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .plus-module-features {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.76rem;
+      color: #e2e8f0;
+      background: rgba(2, 6, 23, 0.6);
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .btn-module-action {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.25) 0%, rgba(168, 85, 247, 0.35) 100%);
+      border: 1.5px solid #a855f7;
+      color: #e9d5ff;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+      margin-top: 4px;
+    }
+
+    .btn-module-action:hover {
+      background: #7c3aed;
+      color: #ffffff;
+    }
+
+    /* خطط الاشتراك وتحديد العملة */
+    .plus-plans-card {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid rgba(245, 158, 11, 0.4);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
+    }
+
+    .plus-plans-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .plus-currency-tag {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid #22c55e;
+      color: #86efac;
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-size: 0.74rem;
+      font-weight: 800;
+    }
+
+    .currency-selector-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: rgba(2, 6, 23, 0.75);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .curr-select-label {
+      font-size: 0.76rem;
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+
+    .currency-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .curr-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .curr-pill.active {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #0f172a;
+      border-color: #fbbf24;
+      font-weight: 900;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+    }
+
+    .plus-plans-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .plan-option {
+      background: rgba(2, 6, 23, 0.75);
+      border: 1.5px solid rgba(148, 163, 184, 0.25);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .plan-option.selected {
+      border-color: #f59e0b;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(30, 27, 75, 0.6) 100%);
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
+    }
+
+    .plan-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .plan-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .plan-badge {
+      color: white;
+      font-size: 0.65rem;
+      padding: 2px 7px;
+      border-radius: 99px;
+      font-weight: 800;
+    }
+
+    .plan-period {
+      font-size: 0.74rem;
+      color: #94a3b8;
+    }
+
+    .plan-price-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .plan-price {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #fbbf24;
+    }
+
+    .plan-period-sub {
+      font-size: 0.72rem;
+      color: #cbd5e1;
+    }
+
+    /* نموذج الدفع بالكريديت كارد */
+    .plus-card-payment-box {
+      background: rgba(15, 23, 42, 0.92);
+      border: 1.5px solid rgba(168, 85, 247, 0.4);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+    }
+
+    .interactive-credit-card {
+      background: linear-gradient(135deg, #1e1145 0%, #3b0764 50%, #0f172a 100%);
+      border: 1.5px solid rgba(192, 132, 252, 0.5);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .interactive-credit-card::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -20%;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-chip {
+      width: 38px;
+      height: 28px;
+      background: linear-gradient(135deg, #fcd34d 0%, #b45309 100%);
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      position: relative;
+    }
+
+    .card-brand-network {
+      font-size: 1.15rem;
+      font-weight: 900;
+      font-style: italic;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+
+    .card-number-display {
+      font-size: 1.15rem;
+      letter-spacing: 2px;
+      font-weight: 800;
+      color: #f1f5f9;
+      direction: ltr;
+      text-align: center;
+      padding: 4px 0;
+      font-family: monospace;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      direction: ltr;
+    }
+
+    .meta-label {
+      font-size: 0.62rem;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .meta-val {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .cc-form-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cc-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cc-field label {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+
+    .cc-field input {
+      width: 100%;
+      background: #020617;
+      border: 1.5px solid rgba(168, 85, 247, 0.4);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.92rem;
+      color: #ffffff;
+      outline: none;
+      direction: ltr;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .cc-field input:focus {
+      border-color: #c084fc;
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.25);
+    }
+
+    .cc-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .cc-security-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(2, 6, 23, 0.7);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      color: #86efac;
+      font-weight: 700;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .btn-cc-submit {
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
+      transition: all 0.2s;
+    }
+
+    .btn-cc-submit:hover {
+      background: #15803d;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(22, 163, 74, 0.5);
+    }
+
+    .alternative-payouts-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .alt-title {
+      font-size: 0.76rem;
+      color: #94a3b8;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .alt-buttons-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .btn-alt-pay {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 10px 6px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: white;
+      transition: all 0.15s;
+    }
+
+    .btn-alt-pay.payoneer { background: #ff4800; }
+    .btn-alt-pay.paypal { background: #003087; }
+    .btn-alt-pay.skrill { background: #811e4d; }
+
+    /* لوحة ربط بوابات التحصيل المالي للمطور */
+    .plus-gateway-setup-card {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1.5px solid rgba(245, 158, 11, 0.4);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .gateway-header {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      
+    }
+
+    .gateway-title {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #fef08a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .gateway-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(2, 6, 23, 0.9);
+      border-top: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .gateway-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .gateway-field label {
+      font-size: 0.76rem;
+      color: #e2e8f0;
+      font-weight: 700;
+    }
+
+    .gateway-field input {
+      width: 100%;
+      background: #090d16;
+      border: 1.5px solid rgba(148, 163, 184, 0.3);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 0.85rem;
+      color: #ffffff;
+      outline: none;
+      direction: ltr;
+    }
+
+    .btn-save-gateways {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 11px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
+    }
+
+    /* النافذة المنبثقة للتفاصيل والفواتير */
+    .plus-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .plus-modal-card {
+      background: #0f172a;
+      border: 1.5px solid #a855f7;
+      border-radius: 18px;
+      padding: 22px;
+      max-width: 480px;
+      width: 100%;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 10px 40px rgba(124, 58, 237, 0.45);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .plus-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+      padding-bottom: 10px;
+    }
+
+    .plus-modal-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #fef08a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-close-modal {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #cbd5e1;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .toast-msg {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #7c3aed;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      text-align: center;
+      font-weight: 700;
+      display: none;
+      z-index: 100000;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -10px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    footer {
+      text-align: center;
+      padding-top: 14px;
+      border-top: 1px solid rgba(168, 85, 247, 0.25);
+      font-size: 0.78rem;
+      color: #94a3b8;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    footer b {
+      color: #fbbf24;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toast-msg" id="toastMessage"></div>
+
+  <div class="plus-main-container">
+
+    <!-- 1. هيدر المنصة الفاخر بشعار الأستاذ مصطفى رجب -->
+    <div class="plus-hero-card">
+      <div class="plus-avatar-frame">
+        <img src="data:image/jpeg;base64,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" alt="Mostafa Ragab HOCA" class="plus-hoca-avatar" onclick="handleAdminSecretTap()" title="Mostafa Ragab HOCA">
+        <span class="plus-crown-badge" onclick="handleAdminSecretTap()" title="المشرف">👑</span>
+      </div>
+      <div class="plus-hero-details">
+        <div class="plus-hero-title-row">
+          <span class="plus-main-title">Turko PLUS+</span>
+          <span class="plus-vip-pill-badge">⭐ إصدار VIP</span>
+        </div>
+        <div class="plus-teacher-name-small">الأستاذ مصطفى رجب (Mostafa Ragab HOCA 🎓)</div>
+        <div class="plus-specialized-tagline">برنامج متخصص فى الخدمات السياحية والتعليمية وفرص العمل باللغة التركية</div>
+      </div>
+    </div>
+
+    <!-- بطاقة قناة يوتيوب -->
+    <div class="channel-promo-card">
+      <div class="promo-content">
+        <div class="promo-title">
+          <span>🎧</span> دروس وبودكاست ومحادثات تركية
+        </div>
+        <div class="promo-sub">اشترك في قناة <b>TurkoMostafa</b> على يوتيوب للاستفادة الكاملة!</div>
+      </div>
+      <a href="https://www.youtube.com/@Mostafahoca" target="_blank" rel="noopener noreferrer" class="social-btn-youtube">
+        <span>▶️</span> YouTube
+      </a>
+    </div>
+
+    <!-- تنويه رسمي -->
+    <div class="plus-notice-box">
+      <div class="plus-notice-icon">🛡️</div>
+      <div class="plus-notice-content">
+        <div class="plus-notice-title">منصة التدريب السياحي والتأهيل التوظيفي المعتمد</div>
+        <p class="plus-notice-desc">
+          الوصول إلى المواد التدريبية المتقدمة، وخدمات المرشد الشخصي في مصر وتركيا، وبنك الوظائف الشاغرة يتطلب اشتراكاً مسدداً. يتم تفعيل الأقسام وفتح الروابط تلقائياً فور تأكيد وسحب الدفعة البنكية (نظام نتفليكس التلقائي).
+        </p>
+      </div>
+    </div>
+
+    <!-- 2. قسم إنشاء الحساب وتسجيل الدخول -->
+    <div class="plus-auth-card" id="plusAuthCard">
+      <div class="plus-auth-tabs">
+        <button type="button" class="plus-auth-tab active" id="tabRegister" onclick="switchAuthTab('register')">إنشاء حساب VIP جديد</button>
+        <button type="button" class="plus-auth-tab" id="tabLogin" onclick="switchAuthTab('login')">تسجيل الدخول</button>
+      </div>
+      <div class="plus-auth-form" id="plusAuthForm">
+        <div class="plus-input-group" id="groupName">
+          <label>الاسم بالكامل:</label>
+          <input type="text" id="plusInputName" placeholder="مثال: مصطفى أحمد" dir="auto">
+        </div>
+        <div class="plus-input-group">
+          <label>البريد الإلكتروني (Email):</label>
+          <input type="email" id="plusInputEmail" placeholder="your-email@example.com" dir="ltr">
+        </div>
+        <div class="plus-input-group">
+          <label>كلمة المرور (Password):</label>
+          <input type="password" id="plusInputPassword" placeholder="••••••••" dir="ltr">
+        </div>
+        <button type="button" class="btn-plus-auth-submit" id="btnAuthSubmit" onclick="handlePlusAuthSubmit()">
+          <span id="authSubmitText">إنشاء حسابي وتأكيد التسجيل ✨</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- بطاقة الجلسة النشطة بعد تسجيل الدخول -->
+    <div class="plus-session-card" id="plusSessionCard" style="display: none;">
+      <div class="plus-session-user-info">
+        <div class="plus-session-avatar">👤</div>
+        <div>
+          <div class="plus-session-name" id="sessionUserName">عضو Turko Plus</div>
+          <div class="plus-session-email" id="sessionUserEmail">user@example.com</div>
+        </div>
+      </div>
+      <div class="plus-session-badge" id="sessionVipBadge">
+        <span class="status-indicator" id="sessionStatusDot"></span>
+        <span id="sessionStatusText">عضوية مسجلة — في انتظار تفعيل الاشتراك ⏳</span>
+      </div>
+      <button type="button" class="btn-plus-logout" onclick="handlePlusLogout()">تبديل الحساب / تسجيل الخروج 🚪</button>
+    </div>
+
+    <!-- 3. خريطة تطبيق Turko PLUS+ (المسارات الأربعة المحددة بدقة) -->
+    <div class="plus-app-map-section">
+      <div class="plus-map-header">
+        <div class="plus-map-title">
+          <span>🗺️</span> خريطة تطبيق Turko PLUS+
+        </div>
+        <div class="plus-map-sub">
+          المسارات التخصصية الأربعة المعتمدة (تفتح تلقائياً فور تأكيد عملية الدفع وسحب الرسوم):
+        </div>
+      </div>
+
+      <div class="plus-modules-grid">
+        <!-- المسار 1: دورة تدريب الارشاد السياحي -->
+        <div class="plus-module-card" id="modCard_rehberlik_kursu">
+          <div class="plus-module-top">
+            <span class="plus-module-icon">🎓</span>
+            <span class="plus-lock-badge" id="lockBadge_rehberlik_kursu">🔒 محتوى مقفول (يتطلب اشتراك)</span>
+          </div>
+          <div class="plus-module-title">دورة تدريب الارشاد السياحي</div>
+          <div class="plus-module-tr">Turist Rehberliği Mesleki Eğitim Kursu</div>
+          <p class="plus-module-desc">
+            البرنامج التخصصي الشامل لتأهيل المرشدين السياحيين المعتمدين وفق لوائح ومعايير نقابة المرشدين السياحيين في تركيا (TUREB). يشمل تاريخ وحضارات الأناضول، الآثار العثمانية والسلجوقية، مصطلحات الشرح الميداني، والتحضير لامتحان القبول المهني.
+          </p>
+          <div class="plus-module-features">
+            <span>✓ منهاج تاريخ وحضارات الأناضول باللغتين التركية والعربية</span>
+            <span>✓ بنك أسئلة ونماذج امتحانات الترخيص المهني TUREB</span>
+            <span>✓ مصطلحات المتاحف، النقوش التاريخية، وفنون الشرح الميداني</span>
+          </div>
+          <button type="button" class="btn-module-action" onclick="openModuleDetails('rehberlik_kursu')">
+            <span id="modBtnText_rehberlik_kursu">معاينة تفاصيل ومحاور الدورة</span> 🔍
+          </button>
+        </div>
+
+        <!-- المسار 2: مرشدك أون لاين فى مصر -->
+        <div class="plus-module-card" id="modCard_rehber_misir">
+          <div class="plus-module-top">
+            <span class="plus-module-icon">🇪🇬</span>
+            <span class="plus-lock-badge" id="lockBadge_rehber_misir">🔒 محتوى مقفول (يتطلب اشتراك)</span>
+          </div>
+          <div class="plus-module-title">مرشدك أون لاين فى مصر</div>
+          <div class="plus-module-tr">Mısır'da Online Turist Rehberiniz</div>
+          <p class="plus-module-desc">
+            المنظومة التفاعلية الأولى لمرافقة وإرشاد السياح الأتراك والناطقين بالتركية في جمهورية مصر العربية. تنظيم جداول الزيارات في القاهرة الكبرى، الأهرامات، المتحف المصري الكبير، الأقصر، أسوان، الإسكندرية، وشرم الشيخ مع خدمات الترجمة السياحية الفورية.
+          </p>
+          <div class="plus-module-features">
+            <span>✓ تخطيط المسارات اليومية واستقبال ومرافقة الأفواج التركية</span>
+            <span>✓ قاموس الآثار والحضارة المصرية القديمة باللغة التركية</span>
+            <span>✓ حل المواقف الطارئة والترجمة السريعة في الفنادق والمزارات</span>
+          </div>
+          <button type="button" class="btn-module-action" onclick="openModuleDetails('rehber_misir')">
+            <span id="modBtnText_rehber_misir">معاينة تفاصيل الخدمة في مصر</span> 🔍
+          </button>
+        </div>
+
+        <!-- المسار 3: مرشدك أون لاين فى تركيا -->
+        <div class="plus-module-card" id="modCard_rehber_turkiye">
+          <div class="plus-module-top">
+            <span class="plus-module-icon">🇹🇷</span>
+            <span class="plus-lock-badge" id="lockBadge_rehber_turkiye">🔒 محتوى مقفول (يتطلب اشتراك)</span>
+          </div>
+          <div class="plus-module-title">مرشدك أون لاين فى تركيا</div>
+          <div class="plus-module-tr">Türkiye'de Online Turist Rehberiniz</div>
+          <p class="plus-module-desc">
+            دليلك ومرشدك الشخصي المباشر في عموم المدن التركية (إسطنبول، طرابزون وريزا، بورصة، سبانجا، أنطاليا، وكبادوكيا). توجيه الجولات الحية، تفادي الازدحام ومصائد الأسعار، والمساعدة الفورية في المحادثة مع السائقين والمطاعم والتنقل بالمواصلات.
+          </p>
+          <div class="plus-module-features">
+            <span>✓ جداول رحلات مخصصة توفر الوقت والمال للعائلات والأفراد</span>
+            <span>✓ خط ساخن لحل طوارئ السفر والتواصل مع الجهات الرسمية</span>
+            <span>✓ خريطة الجواهر السياحية الخفية والمطاعم التراثية الأصيلة</span>
+          </div>
+          <button type="button" class="btn-module-action" onclick="openModuleDetails('rehber_turkiye')">
+            <span id="modBtnText_rehber_turkiye">معاينة تفاصيل الخدمة في تركيا</span> 🔍
+          </button>
+        </div>
+
+        <!-- المسار 4: الشامل لجميع فرص العمل باللغة التركية -->
+        <div class="plus-module-card" id="modCard_kariyer_rehberi">
+          <div class="plus-module-top">
+            <span class="plus-module-icon">💼</span>
+            <span class="plus-lock-badge" id="lockBadge_kariyer_rehberi">🔒 محتوى مقفول (يتطلب اشتراك)</span>
+          </div>
+          <div class="plus-module-title">الشامل لجميع فرص العمل باللغة التركية</div>
+          <div class="plus-module-tr">Türkçe İş Fırsatları ve Kariyer Rehberi</div>
+          <p class="plus-module-desc">
+            المركز المهني المتكامل للتوظيف وسوق العمل التركي في مصر والوطن العربي وعن بعد (Remote). وظائف خدمة العملاء والكول سنتر التركي (Call Center)، شركات السياحة والطيران، التجارة الخارجية والتصدير والاستيراد، الترجمة الفورية، وتدريس اللغة التركية.
+          </p>
+          <div class="plus-module-features">
+            <span>✓ نشرة الوظائف الشاغرة المحدثة أسبوعياً مع بيانات التواصل المباشرة</span>
+            <span>✓ نماذج سيرة ذاتية تركية احترافية (Türkçe CV Şablonları)</span>
+            <span>✓ بنك أسئلة مقابلات العمل التركية وإرشادات اجتياز المقابلة (Mülakat)</span>
+          </div>
+          <button type="button" class="btn-module-action" onclick="openModuleDetails('kariyer_rehberi')">
+            <span id="modBtnText_kariyer_rehberi">معاينة بوابة فرص العمل</span> 🔍
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. خطط الاشتراك وتحديد العملة بحسب دولة المستخدم -->
+    <div class="plus-plans-card">
+      <div class="plus-plans-header-row">
+        <div class="plus-map-title">
+          <span>💎</span> خطط الاشتراك في Turko PLUS+
+        </div>
+        <div class="plus-currency-tag" id="currentCurrencyTag">
+          <span>📍</span> <span id="detectedCountryText">العملة: EGP (مصر)</span>
+        </div>
+      </div>
+
+      <!-- شريط تبديل العملات التفاعلي السريع -->
+      <div class="currency-selector-bar">
+        <span class="curr-select-label">اختر عملة دولتك:</span>
+        <div class="currency-pills-row" id="currencyPillsRow">
+          <button type="button" class="curr-pill active" onclick="switchCurrency('EGP')">🇪🇬 جنيه مصري</button>
+          <button type="button" class="curr-pill" onclick="switchCurrency('SAR')">🇸🇦 ريال سعودي</button>
+          <button type="button" class="curr-pill" onclick="switchCurrency('AED')">🇦🇪 درهم إماراتي</button>
+          <button type="button" class="curr-pill" onclick="switchCurrency('TRY')">🇹🇷 ليرة تركية</button>
+          <button type="button" class="curr-pill" onclick="switchCurrency('KWD')">🇰🇼 دينار كويتي</button>
+          <button type="button" class="curr-pill" onclick="switchCurrency('USD')">🌐 دولار أمريكي</button>
+          <button type="button" class="curr-pill" onclick="switchCurrency('EUR')">🇪🇺 يورو</button>
+        </div>
+      </div>
+
+      <div class="plus-plans-grid">
+        <!-- الخطة 1: الباقة الشهرية (20 دولار) -->
+        <div class="plan-option selected" id="planMonthly" onclick="selectPlan('monthly')">
+          <div class="plan-info">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span class="plan-name">الباقة الشهرية (VIP Monthly)</span>
+              <span class="plan-badge" style="background: #2563eb;">نظام التجديد الشهري (30 يوماً)</span>
+            </div>
+            <span class="plan-period">وصول كامل لجميع المسارات والمحتوى التخصصي لمدة 30 يوماً وتُقفل تلقائياً بعد انتهاء الشهر</span>
+            <div style="font-size: 0.7rem; color: #94a3b8; font-family: monospace; margin-top: 2px;">Paddle Price ID: pri_01m5hsy8vc8606gtevf352mtdb</div>
+          </div>
+          <div class="plan-price-wrap">
+            <span class="plan-price" id="priceMonthly">1,000 ج.م</span>
+            <span class="plan-period-sub">/ شهرياً (20$)</span>
+          </div>
+        </div>
+
+        <!-- الخطة 2: باقة مدى الحياة (100 دولار) -->
+        <div class="plan-option" id="planLifetime" onclick="selectPlan('lifetime')">
+          <div class="plan-info">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span class="plan-name">عضوية دبلوم الإرشاد مدى الحياة (Lifetime VIP)</span>
+              <span class="plan-badge" style="background: #16a34a;">الأوفر - لمرة واحدة فقط</span>
+            </div>
+            <span class="plan-period">عضوية دائمة لجميع أقسام التطبيق مدى الحياة وبدون أي اشتراكات متكررة أبداً</span>
+            <div style="font-size: 0.7rem; color: #94a3b8; font-family: monospace; margin-top: 2px;">Paddle Price ID: pri_01m5hsw5vtpngxntvwjx0b7cxf</div>
+          </div>
+          <div class="plan-price-wrap">
+            <span class="plan-price" id="priceLifetime">5,000 ج.م</span>
+            <span class="plan-period-sub">دفعة واحدة (100$)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. نموذج الدفع بالكريديت كارد والربط مع Paddle & Payoneer -->
+    <div class="plus-card-payment-box">
+      <div class="plus-map-title">
+        <span>💳</span> الدفع المباشر والآمن عبر Paddle & الكريديت كارد
+      </div>
+      <p style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.45;">
+        يتم الدفع إما مباشرة عبر نافذة Paddle الرسمية (المعتمدة لـ Apple Pay / Google Pay / الكريديت كارد) أو عبر البطاقة البنكية لحساب <b>Payoneer</b> المعتمد <b>(mostafaragab@payoneer.com)</b>.
+      </p>
+
+      <!-- معاينة البطاقة الائتمانية التفاعلية الحية -->
+      <div class="interactive-credit-card">
+        <div class="card-top-row">
+          <div class="card-chip"></div>
+          <div class="card-brand-network" id="visualCardLogo">VISA</div>
+        </div>
+        <div class="card-number-display" id="visualCardNumber">•••• •••• •••• ••••</div>
+        <div class="card-meta-row">
+          <div>
+            <div class="meta-label">حامل البطاقة</div>
+            <div class="meta-val" id="visualCardHolder">CARDHOLDER NAME</div>
+          </div>
+          <div>
+            <div class="meta-label">الانتهاء</div>
+            <div class="meta-val" id="visualCardExpiry">MM/YY</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- حقول إدخال بيانات الكريديت كارد -->
+      <div class="cc-form-grid">
+        <div class="cc-field">
+          <label>رقم البطاقة الائتمانية (Card Number):</label>
+          <input type="text" id="ccNumber" placeholder="4000 1234 5678 9010" maxlength="19" oninput="formatAndPreviewCardNumber(this)">
+        </div>
+        <div class="cc-field">
+          <label>الاسم المكتوب على البطاقة (Cardholder Name):</label>
+          <input type="text" id="ccHolder" placeholder="MOSTAFA AHMED RAGAB" oninput="previewCardHolder(this)">
+        </div>
+        <div class="cc-row">
+          <div class="cc-field">
+            <label>تاريخ الانتهاء (MM/YY):</label>
+            <input type="text" id="ccExpiry" placeholder="08/28" maxlength="5" oninput="formatAndPreviewExpiry(this)">
+          </div>
+          <div class="cc-field">
+            <label>رمز الأمان (CVC/CVV):</label>
+            <input type="password" id="ccCvc" placeholder="•••" maxlength="4">
+          </div>
+        </div>
+      </div>
+
+      <!-- شارات الأمان البنكي -->
+      <div class="cc-security-bar">
+        <span>🔒 Paddle & Payoneer Verified</span>
+        <span>🛡️ تشفير 256-Bit SSL المصرفي</span>
+        <span>✓ تحقق 3D-Secure البنكي</span>
+      </div>
+
+      <button type="button" class="btn-cc-submit" id="btnSubmitPayment" onclick="processSecurePayment()">
+        <span>🔒 تأكيد الاشتراك والدفع الآن (<span id="btnPayAmountText">1,000 ج.م ($20/شهر)</span>)</span>
+      </button>
+
+      <!-- الدفع المباشر بالمحافظ الدولية -->
+      <div class="alternative-payouts-wrap">
+        <div class="alt-title">أو ادفع مباشرة عبر بوابة بايونير أو المحافظ الإلكترونية:</div>
+        <div class="alt-buttons-row">
+          <button type="button" class="btn-alt-pay payoneer" onclick="processAltPayment('Payoneer')">
+            <span>P</span> Payoneer
+          </button>
+          <button type="button" class="btn-alt-pay paypal" onclick="processAltPayment('PayPal')">
+            <span>P</span> PayPal
+          </button>
+          <button type="button" class="btn-alt-pay skrill" onclick="processAltPayment('Skrill')">
+            <span>S</span> Skrill
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- لوحة إعدادات المطور السرية (خاص بالأستاذ مصطفى رجب برمز مرور سري 7788) -->
+    <div class="plus-gateway-setup-card" id="plusGatewaySetupCard" style="display: none;">
+      <div class="gateway-header" onclick="toggleGatewaySettings()">
+        <div class="gateway-title">
+          <span>💼</span> إعدادات بوابات التحصيل وربط Paddle & Payoneer (خاص بالمطور)
+        </div>
+        <span class="gateway-toggle-arrow" id="gatewayToggleArrow">▼</span>
+      </div>
+      <div class="gateway-body" id="gatewayBody" style="display: none;">
+        <p style="font-size: 0.76rem; color: #cbd5e1;">
+          خاص بالأستاذ مصطفى رجب: بيانات حساب <b>Paddle</b> و<b>Payoneer</b> المربوطة حالياً، مع إمكانية اختبار نظام انتهاء وتجديد الاشتراكات فورياً:
+        </p>
+
+        <!-- إعدادات Paddle -->
+        <div style="background: rgba(30, 27, 75, 0.7); border: 1.5px solid #a855f7; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+          <div style="font-weight: 800; color: #fef08a; font-size: 0.82rem;">⚡ إعدادات منصة Paddle الرسمية:</div>
+          <div class="gateway-field">
+            <label>معرف الباقة الشهرية (Monthly Price ID):</label>
+            <input type="text" id="cfgPaddleMonthlyId" value="pri_01m5hsy8vc8606gtevf352mtdb" readonly style="background: #1e1b4b; color: #86efac; font-family: monospace;">
+          </div>
+          <div class="gateway-field">
+            <label>معرف باقة مدى الحياة (Lifetime Price ID):</label>
+            <input type="text" id="cfgPaddleLifetimeId" value="pri_01m5hsw5vtpngxntvwjx0b7cxf" readonly style="background: #1e1b4b; color: #86efac; font-family: monospace;">
+          </div>
+          <div class="gateway-field">
+            <label>رمز العميل (Paddle Client-side Token):</label>
+            <input type="text" id="cfgPaddleClientToken" value="live_4e6125c2ca1810e9e10524b8707">
+          </div>
+          <div class="gateway-field">
+            <label>بيئة Paddle (Environment):</label>
+            <select id="cfgPaddleEnv" style="background: #090d16; color: white; border: 1px solid #a855f7; border-radius: 6px; padding: 8px;">
+              <option value="live">الحساب الفعلي (Live Production)</option>
+              <option value="sandbox">وضع الاختبار والتجربة (Sandbox)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- أدوات اختبار دورة حياة الاشتراك مثل نتفليكس -->
+        <div style="background: rgba(15, 23, 42, 0.9); border: 1.5px solid #f59e0b; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+          <div style="font-weight: 800; color: #fbbf24; font-size: 0.82rem;">🧪 أدوات محاكاة واختبار نظام الاشتراكات (نتفليكس):</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+            <button type="button" onclick="testExpireSubscription()" style="background: #dc2626; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; cursor: pointer;">
+              ❌ محاكاة انتهاء الشهر (قفل الأقسام فوراً)
+            </button>
+            <button type="button" onclick="activateSubscription('monthly', 'Admin Test')" style="background: #2563eb; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; cursor: pointer;">
+              🟢 تجديد شهر كامل (30 يوماً)
+            </button>
+          </div>
+          <button type="button" onclick="activateSubscription('lifetime', 'Admin Test')" style="background: #16a34a; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; cursor: pointer;">
+            👑 تفعيل اشتراك دائم مدى الحياة (فتح أبدي)
+          </button>
+        </div>
+
+        <!-- حسابات بايونير لاستقبال الأموال -->
+        <div class="gateway-field">
+          <label>بريد أو معرّف حساب Payoneer (Receiving Account):</label>
+          <input type="text" id="gwPayoneerId" value="mostafaragab@payoneer.com">
+        </div>
+
+        <button type="button" class="btn-save-gateways" onclick="saveGatewaySettings()">
+          💾 حفظ وتثبيت إعدادات الربط المالي وPaddle
+        </button>
+      </div>
+    </div>
+
+    <!-- تذييل الصفحة -->
+    <footer>
+      <span>منصة <b>Turko PLUS+</b> للتدريب السياحي وتأهيل التوظيف واللغة التركية</span>
+      <span>إشراف وتطوير <b>الأستاذ مصطفى رجب (Mostafa Ragab HOCA) 🎓</b> © جميع الحقوق محفوظة</span>
+    </footer>
+  </div>
+
+  <!-- النافذة المنبثقة للتفاصيل والفواتير -->
+  <div class="plus-modal-overlay" id="plusModalOverlay" onclick="closePlusModal(event)">
+    <div class="plus-modal-card" id="plusModalCard" onclick="event.stopPropagation()">
+      <div class="plus-modal-header">
+        <div class="plus-modal-title" id="plusModalTitle">تفاصيل المسار</div>
+        <button type="button" class="btn-close-modal" onclick="closePlusModal()">✕</button>
+      </div>
+      <div id="plusModalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // =======================================================================
+    // معرّفات Paddle الرسمية المعتمدة
+    // =======================================================================
+    const PADDLE_CONFIG = {
+      monthlyPriceId: 'pri_01m5hsy8vc8606gtevf352mtdb',
+      lifetimePriceId: 'pri_01m5hsw5vtpngxntvwjx0b7cxf',
+      clientToken: 'live_4e6125c2ca1810e9e10524b8707',
+      environment: localStorage.getItem('turko_paddle_env') || 'live'
+    };
+
+    // جدول تحويل العملات الإقليمية تلقائياً بحسب دولة المشترك
+    const currencyPricing = {
+      'EGP': { symbol: 'ج.م', name: 'مصر', monthly: 1000, lifetime: 5000, usdMonthly: 20, usdLifetime: 100 },
+      'SAR': { symbol: 'ر.س', name: 'السعودية', monthly: 75, lifetime: 375, usdMonthly: 20, usdLifetime: 100 },
+      'AED': { symbol: 'د.إ', name: 'الإمارات', monthly: 75, lifetime: 370, usdMonthly: 20, usdLifetime: 100 },
+      'TRY': { symbol: '₺', name: 'تركيا', monthly: 700, lifetime: 3500, usdMonthly: 20, usdLifetime: 100 },
+      'KWD': { symbol: 'د.ك', name: 'الكويت', monthly: 6.2, lifetime: 31, usdMonthly: 20, usdLifetime: 100 },
+      'USD': { symbol: '$', name: 'دولي/أمريكا', monthly: 20, lifetime: 100, usdMonthly: 20, usdLifetime: 100 },
+      'EUR': { symbol: '€', name: 'أوروبا', monthly: 19, lifetime: 95, usdMonthly: 20, usdLifetime: 100 }
+    };
+
+    let currentCurrencyCode = 'EGP';
+    let selectedPlanId = 'monthly'; // الافتراضي هو الباقة الشهرية (20$)
+
+    // خريطة التطبيق ومحتويات المسارات
+    const appMapCatalog = {
+      'rehberlik_kursu': {
+        title: 'دورة تدريب الارشاد السياحي',
+        tr: 'Turist Rehberliği Mesleki Eğitim Kursu',
+        desc: 'البرنامج الأكاديمي التخصصي لإعداد وتأهيل المرشدين السياحيين المرخصين في تركيا وفق معايير نقابة المرشدين السياحيين (TUREB).',
+        modules: [
+          '🏛️ الوحدة الأولى: تاريخ وحضارات الأناضول (الحثيون، الفريجيون، الرومان، البيزنطيون، والسلجوقيون)',
+          '🕌 الوحدة الثانية: فنون العمارة والآثار العثمانية وقراءة النقوش والخطوط التاريخية',
+          '📜 الوحدة الثالثة: تشريعات وقوانين تنظيم مهنة الإرشاد السياحي في الجمهورية التركية (TUREB Mevzuatı)',
+          '📝 الوحدة الرابعة: بنك أسئلة ونماذج امتحانات الترخيص المهني للأعوام السابقة مع الإجابات النموذجية',
+          '🎙️ الوحدة الخامسة: أساليب الخطابة والشرح الميداني أمام الأفواج السياحية وإدارة المجموعات'
+        ]
+      },
+      'rehber_misir': {
+        title: 'مرشدك أون لاين فى مصر',
+        tr: "Mısır'da Online Turist Rehberiniz",
+        desc: 'خدمة المرشد السياحي الشخصي والمرافقة الاحترافية للسياح الأتراك والناطقين بالتركية في جمهورية مصر العربية.',
+        modules: [
+          '🗺️ المسار الأول: جولات القاهرة الكبرى (أهرامات الجيزة، سقارة، المتحف المصري الكبير، القلعة، والمعز)',
+          '⛵ المسار الثاني: جولات الصعيد والأقصر وأسوان (معابد الكرنك، وادي الملوك، فيلة، ورحلات النيل كروز)',
+          '🏖️ المسار الثالث: السياحة الشاطئية في البحر الأحمر (شرم الشيخ والغردقة) وسياحة المغامرات',
+          '🗣️ المسار الرابع: قاموس المصطلحات والمفردات الأثرية المصرية القديمة باللغة التركية للمرشدين',
+          '🆘 المسار الخامس: إدارة طوارئ السفر، استقبال وتوديع المطار، وحجوزات الفنادق المعتمدة'
+        ]
+      },
+      'rehber_turkiye': {
+        title: 'مرشدك أون لاين فى تركيا',
+        tr: "Türkiye'de Online Turist Rehberiniz",
+        desc: 'المساعد والمرشد السياحي التفاعلي في عموم المدن والولايات التركية للعائلات والأفراد.',
+        modules: [
+          '🧭 دليل إسطنبول الشامل: المسارات اليومية لتفادي الازدحام ومصائد الأسعار في الأسواق',
+          '🌲 مسارات الشمال التركي: طرابزون، أوزنجول، آيدر، ريزا، وهضاب البحر الأسود الساحرة',
+          '🏛️ مسارات بورصة، سبانجا، يالوفا، وكبادوكيا مع خرائط المواصلات العامة التفاعلية',
+          '🚨 خدمة الطوارئ المباشرة: الترجمة الفورية في المستشفيات، مراكز الشرطة، وفقدان الأمتعة',
+          '🍽️ دليل المأكولات والمطاعم التراثية التركية الحقيقية بعيداً عن الاستغلال التجاري'
+        ]
+      },
+      'kariyer_rehberi': {
+        title: 'الشامل لجميع فرص العمل باللغة التركية',
+        tr: 'Türkçe İş Fırsatları ve Kariyer Rehberi',
+        desc: 'المنصة التوظيفية المتكاملة لفرص العمل والوظائف الشاغرة للناطقين باللغة التركية في مصر والشرق الأوسط وعن بعد.',
+        modules: [
+          '📞 قطاع الكول سنتر التركي (Call Center & Customer Service): متطلبات القبول والرواتب من 25,000 إلى 45,000 ج.م',
+          '✈️ قطاع السياحة والطيران: وظائف حجز التذاكر، العمليات السياحية (Operations)، والإرشاد الميداني',
+          '🚢 قطاع التجارة الخارجية والتصدير والاستيراد مع المصانع التركية ومكاتب الشحن',
+          '📝 قطاع الترجمة الفورية والتحريرية وتدريس مناهج اللغة التركية في الجامعات والمعاهد',
+          '📄 بنك نماذج السيرة الذاتية باللغة التركية (CV) وأهم 50 سؤالاً في مقابلات العمل مع إجاباتها النموذجية'
+        ]
+      }
+    };
+
+    // =======================================================================
+    // تشغيل وتهيئة الصفحة
+    // =======================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      detectUserCountryAndCurrency();
+      initPlusSession();
+      initPaddleSDK();
+      updateModulesLockState();
+    });
+
+    // الكشف التلقائي عن الدولة والعملة
+    function detectUserCountryAndCurrency() {
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        if (tz.includes('Cairo') || tz.includes('Egypt')) {
+          switchCurrency('EGP');
+        } else if (tz.includes('Riyadh') || tz.includes('Saudi')) {
+          switchCurrency('SAR');
+        } else if (tz.includes('Dubai') || tz.includes('Muscat')) {
+          switchCurrency('AED');
+        } else if (tz.includes('Istanbul')) {
+          switchCurrency('TRY');
+        } else if (tz.includes('Kuwait')) {
+          switchCurrency('KWD');
+        } else if (tz.includes('Europe') || tz.includes('Paris') || tz.includes('Berlin')) {
+          switchCurrency('EUR');
+        } else {
+          switchCurrency('EGP');
+        }
+      } catch(e) {
+        switchCurrency('EGP');
+      }
+    }
+
+    function switchCurrency(code) {
+      if (!currencyPricing[code]) return;
+      currentCurrencyCode = code;
+      const c = currencyPricing[code];
+
+      document.querySelectorAll('.curr-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.includes(c.symbol) || btn.textContent.includes(c.name));
+      });
+
+      const tag = document.getElementById('detectedCountryText');
+      if (tag) tag.textContent = `العملة: ${c.symbol} (${c.name})`;
+
+      const mEl = document.getElementById('priceMonthly');
+      if (mEl) mEl.textContent = `${c.monthly.toLocaleString()} ${c.symbol}`;
+
+      const lEl = document.getElementById('priceLifetime');
+      if (lEl) lEl.textContent = `${c.lifetime.toLocaleString()} ${c.symbol}`;
+
+      updateCheckoutButtonAmount();
+    }
+
+    function selectPlan(planId) {
+      selectedPlanId = (planId === 'lifetime') ? 'lifetime' : 'monthly';
+      document.querySelectorAll('.plan-option').forEach(p => p.classList.remove('selected'));
+      const activeEl = document.getElementById(`plan${selectedPlanId.charAt(0).toUpperCase() + selectedPlanId.slice(1)}`);
+      if (activeEl) activeEl.classList.add('selected');
+
+      updateCheckoutButtonAmount();
+      const curr = currencyPricing[currentCurrencyCode] || currencyPricing['EGP'];
+      const priceText = (selectedPlanId === 'monthly') ? `${curr.monthly} ${curr.symbol} ($20)` : `${curr.lifetime} ${curr.symbol} ($100)`;
+      showToast(`تم اختيار ${selectedPlanId === 'monthly' ? 'الباقة الشهرية' : 'باقة مدى الحياة'}: ${priceText}`);
+    }
+
+    function updateCheckoutButtonAmount() {
+      const curr = currencyPricing[currentCurrencyCode] || currencyPricing['EGP'];
+      const btnText = document.getElementById('btnPayAmountText');
+      if (!btnText) return;
+
+      if (selectedPlanId === 'monthly') {
+        btnText.textContent = `${curr.monthly.toLocaleString()} ${curr.symbol} ($20/شهر)`;
+      } else {
+        btnText.textContent = `${curr.lifetime.toLocaleString()} ${curr.symbol} ($100 لمرة واحدة)`;
+      }
+    }
+
+    // =======================================================================
+    // محرك إدارة الاشتراكات والقفل التلقائي (نظام نتفليكس)
+    // =======================================================================
+    function getUserSubscriptionInfo() {
+      try {
+        const saved = localStorage.getItem('turko_plus_user');
+        if (saved) {
+          const u = JSON.parse(saved);
+          if (!u.isSubscribed) return { active: false, reason: 'unpaid', user: u };
+
+          if (u.plan === 'lifetime') {
+            return { active: true, plan: 'lifetime', permanent: true, user: u };
+          }
+
+          if (u.plan === 'monthly') {
+            const now = Date.now();
+            const expiry = u.expiryDate ? new Date(u.expiryDate).getTime() : 0;
+
+            if (now > expiry) {
+              u.isSubscribed = false;
+              u.status = 'expired';
+              localStorage.setItem('turko_plus_user', JSON.stringify(u));
+              return { active: false, reason: 'expired', expiryDate: u.expiryDate, user: u };
+            } else {
+              const msLeft = expiry - now;
+              const daysLeft = Math.max(1, Math.ceil(msLeft / (1000 * 60 * 60 * 24)));
+              return { active: true, plan: 'monthly', daysLeft: daysLeft, expiryDate: u.expiryDate, user: u };
+            }
+          }
+        }
+      } catch(e) {}
+      return { active: false, reason: 'none' };
+    }
+
+    function updateModulesLockState() {
+      const sub = getUserSubscriptionInfo();
+      const mods = ['rehberlik_kursu', 'rehber_misir', 'rehber_turkiye', 'kariyer_rehberi'];
+
+      mods.forEach(id => {
+        const badge = document.getElementById(`lockBadge_${id}`);
+        const btnText = document.getElementById(`modBtnText_${id}`);
+        if (badge) {
+          if (sub.active) {
+            badge.className = 'plus-lock-badge unlocked';
+            badge.textContent = sub.plan === 'lifetime' ? '🔓 مفتوح دائم (مدى الحياة)' : `🔓 مفتوح (متبقي ${sub.daysLeft} يوم)`;
+          } else {
+            badge.className = 'plus-lock-badge';
+            if (sub.reason === 'expired') {
+              badge.textContent = '🔒 انتهى الشهر (يرجى التجديد)';
+              badge.style.background = '#7f1d1d';
+            } else {
+              badge.textContent = '🔒 محتوى مقفول (يتطلب اشتراك)';
+            }
+          }
+        }
+        if (btnText) {
+          btnText.textContent = sub.active ? 'الدخول والتصفح الآن 🚀' : (sub.reason === 'expired' ? 'تجديد الاشتراك الشهري ⚡' : 'معاينة تفاصيل المسار 🔍');
+        }
+      });
+    }
+
+    // تفعيل الاشتراك وحفظه
+    function activateSubscription(plan, gateway) {
+      let account = {};
+      try {
+        const saved = localStorage.getItem('turko_plus_user');
+        if (saved) account = JSON.parse(saved);
+      } catch(e) {}
+
+      const now = new Date();
+      account.isSubscribed = true;
+      account.plan = plan;
+      account.gateway = gateway || 'Paddle';
+      account.startDate = now.toISOString();
+
+      if (plan === 'monthly') {
+        const expiry = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+        account.expiryDate = expiry.toISOString();
+        account.amount = 20;
+        account.priceId = PADDLE_CONFIG.monthlyPriceId;
+      } else {
+        account.expiryDate = null;
+        account.amount = 100;
+        account.priceId = PADDLE_CONFIG.lifetimePriceId;
+      }
+
+      account.invoiceId = 'TRK-VIP-' + Math.floor(100000 + Math.random() * 900000);
+      account.paidAt = now.toLocaleString('ar-EG');
+
+      try {
+        localStorage.setItem('turko_plus_user', JSON.stringify(account));
+      } catch(e) {}
+
+      renderPlusUserSession(account);
+      updateModulesLockState();
+      openPaymentReceiptModal(account);
+      showToast(plan === 'monthly' ? '🎉 تم تفعيل اشتراكك الشهري بنجاح لمدة 30 يوماً!' : '👑 تم تفعيل عضويتك الدائمة مدى الحياة بنجاح!');
+    }
+
+    // تهيئة مكتبة Paddle v2
+    function initPaddleSDK() {
+      const token = localStorage.getItem('turko_paddle_token') || PADDLE_CONFIG.clientToken;
+      const env = localStorage.getItem('turko_paddle_env') || 'live';
+      if (window.Paddle && token) {
+        try {
+          if (env === 'sandbox') {
+            Paddle.Environment.set('sandbox');
+          }
+          Paddle.Initialize({
+            token: token,
+            eventCallback: function(data) {
+              if (data && data.name === 'checkout.completed') {
+                activateSubscription(selectedPlanId, 'Paddle Verified');
+              }
+            }
+          });
+          console.log('Paddle initialized successfully in mode:', env);
+        } catch(e) {
+          console.warn('Paddle init warning:', e);
+        }
+      }
+    }
+
+    // فتح بوابة Paddle Live
+    function openPaddleLiveCheckout() {
+      const priceId = (selectedPlanId === 'monthly') ? PADDLE_CONFIG.monthlyPriceId : PADDLE_CONFIG.lifetimePriceId;
+      let userEmail = '';
+      try {
+        const saved = localStorage.getItem('turko_plus_user');
+        if (saved) userEmail = JSON.parse(saved).email;
+      } catch(e) {}
+
+      if (window.Paddle) {
+        Paddle.Checkout.open({
+          items: [{ priceId: priceId, quantity: 1 }],
+          customer: userEmail ? { email: userEmail } : undefined,
+          successCallback: function(data) {
+            activateSubscription(selectedPlanId, 'Paddle Verified');
+          }
+        });
+      } else {
+        activateSubscription(selectedPlanId, 'Card Payment');
+      }
+    }
+
+    // الدفع بالكريديت كارد
+    function processSecurePayment() {
+      const num = document.getElementById('ccNumber').value.trim();
+      const holder = document.getElementById('ccHolder').value.trim();
+      const exp = document.getElementById('ccExpiry').value.trim();
+      const cvc = document.getElementById('ccCvc').value.trim();
+
+      // فتح Paddle مباشر إن وُجد
+      if (window.Paddle && PADDLE_CONFIG.clientToken) {
+        openPaddleLiveCheckout();
+        return;
+      }
+
+      if (!num || num.replace(/\s/g, '').length < 13) {
+        showToast('⚠️ يرجى إدخال رقم بطاقة ائتمان صحيح.');
+        return;
+      }
+      if (!holder) {
+        showToast('⚠️ يرجى إدخال اسم حامل البطاقة.');
+        return;
+      }
+      if (!exp || exp.length < 5) {
+        showToast('⚠️ يرجى إدخال تاريخ انتهاء البطاقة (MM/YY).');
+        return;
+      }
+      if (!cvc || cvc.length < 3) {
+        showToast('⚠️ يرجى إدخال رمز الأمان CVC.');
+        return;
+      }
+
+      showToast('🔒 جاري معالجة وتأكيد الدفع الآمن...');
+      const btn = document.getElementById('btnSubmitPayment');
+      if (btn) { btn.style.opacity = '0.5'; btn.disabled = true; }
+
+      setTimeout(() => {
+        if (btn) { btn.style.opacity = '1'; btn.disabled = false; }
+        activateSubscription(selectedPlanId, 'Credit Card');
+      }, 1000);
+    }
+
+    function processAltPayment(gatewayName) {
+      showToast(`⚡ جاري التحويل إلى بوابة ${gatewayName}...`);
+      setTimeout(() => {
+        activateSubscription(selectedPlanId, gatewayName);
+      }, 1000);
+    }
+
+    // تفاصيل المسار في نافذة منبثقة
+    function openModuleDetails(modKey) {
+      const mod = appMapCatalog[modKey];
+      if (!mod) return;
+
+      const sub = getUserSubscriptionInfo();
+      const modalTitle = document.getElementById('plusModalTitle');
+      const modalBody = document.getElementById('plusModalBody');
+
+      modalTitle.innerHTML = `<span>🏛️</span> ${mod.title}`;
+      modalBody.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 12px; line-height: 1.5; font-size: 0.88rem;">
+          <div style="font-size: 0.82rem; color: #c084fc; direction: ltr; text-align: right; font-weight: 700;">${mod.tr}</div>
+          <p style="color: #cbd5e1;">${mod.desc}</p>
+
+          <div style="background: rgba(2, 6, 23, 0.75); border: 1px solid rgba(168, 85, 247, 0.35); border-radius: 10px; padding: 12px;">
+            <div style="font-weight: 800; color: #fef08a; margin-bottom: 8px;">📋 محاور ووحدات هذا المسار:</div>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; padding: 0;">
+              ${mod.modules.map(m => `<li style="font-size: 0.82rem; color: #f1f5f9; background: rgba(255,255,255,0.04); padding: 6px 10px; border-radius: 6px;">${m}</li>`).join('')}
+            </ul>
+          </div>
+
+          ${sub.active ? `
+            <div style="background: rgba(34, 197, 94, 0.15); border: 1.5px solid #22c55e; color: #86efac; padding: 12px; border-radius: 10px; text-align: center; font-weight: 800;">
+              🔓 <b>أنت مشترك VIP مفعل!</b><br>
+              ${sub.plan === 'lifetime' ? 'عضويتك دائمة مدى الحياة بدون أي انتهاء.' : `اشتراكك الشهري سارٍ ومتبقي لك ${sub.daysLeft} يوماً.`}
+              <div style="margin-top: 8px; font-size: 0.78rem; color: #bbf7d0;">تصفح جميع محاضرات وملفات المسار بحرية كاملة.</div>
+            </div>
+            <button type="button" class="btn-cc-submit" onclick="closePlusModal(); showToast('🚀 جاري فتح محتوى المسار كاملاً...');">
+              <span>بدء دراسة محتوى المسار الآن 📚</span>
+            </button>
+          ` : `
+            <div style="background: rgba(239, 68, 68, 0.15); border: 1.5px solid #ef4444; color: #fca5a5; padding: 12px; border-radius: 10px; text-align: center; font-size: 0.84rem;">
+              ${sub.reason === 'expired' ? '⚠️ <b>انتهت صلاحية اشتراكك الشهري (30 يوماً).</b><br>يرجى تجديد الاشتراك بـ 20$ لإعادة فتح هذا القسم فوراً.' : '🔒 <b>هذا المسار مخصص لمشتركي Turko PLUS+ فقط.</b><br>اشترك في الباقة الشهرية (20$) أو باقة مدى الحياة (100$) لفتح كافة الأقسام تلقائياً.'}
+            </div>
+            <button type="button" class="btn-cc-submit" onclick="closePlusModal(); document.querySelector('.plus-plans-card').scrollIntoView({behavior: 'smooth'});">
+              <span>الانتقال للباقات والدفع (${selectedPlanId === 'monthly' ? '$20 شهرياً' : '$100 مدى الحياة'}) 🔒</span>
+            </button>
+          `}
+        </div>
+      `;
+
+      document.getElementById('plusModalOverlay').style.display = 'flex';
+    }
+
+    function closePlusModal() {
+      document.getElementById('plusModalOverlay').style.display = 'none';
+    }
+
+    function openPaymentReceiptModal(account) {
+      const modalTitle = document.getElementById('plusModalTitle');
+      const modalBody = document.getElementById('plusModalBody');
+
+      modalTitle.innerHTML = `<span>🎉</span> إيصال وفاتورة الاشتراك الرسمية`;
+      modalBody.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 14px; text-align: center;">
+          <div style="font-size: 2.5rem;">👑</div>
+          <div style="font-size: 1.15rem; font-weight: 900; color: #86efac;">تم تفعيل الاشتراك وتأكيد الدفع بنجاح!</div>
+          <p style="font-size: 0.82rem; color: #cbd5e1;">تم تسجيل عضويتك وفُتحت لك خريطة مسارات Turko PLUS+ الأربعة بالكامل.</p>
+
+          <div style="background: rgba(2, 6, 23, 0.8); border: 1.5px dashed #22c55e; border-radius: 12px; padding: 14px; text-align: right; font-size: 0.82rem; display: flex; flex-direction: column; gap: 6px;">
+            <div><b>رقم الفاتورة:</b> <span style="direction: ltr; display: inline-block; color: #fbbf24; font-weight: 900;">${account.invoiceId}</span></div>
+            <div><b>المشترك:</b> ${account.name || 'عضو VIP'}</div>
+            <div><b>البريد:</b> ${account.email}</div>
+            <div><b>نوع الباقة:</b> ${account.plan === 'lifetime' ? 'عضوية مدى الحياة الدائمة ($100)' : 'اشتراك شهري لمدة 30 يوماً ($20)'}</div>
+            <div><b>بوابة الدفع:</b> ${account.gateway}</div>
+            <div><b>تاريخ العملية:</b> ${account.paidAt}</div>
+            <div><b>حالة المسارات:</b> <span style="color: #22c55e; font-weight: 800;">مفتوحة ومفعلة 100% 🔓</span></div>
+          </div>
+
+          <button type="button" class="btn-cc-submit" onclick="closePlusModal(); document.querySelector('.plus-app-map-section').scrollIntoView({behavior: 'smooth'});">
+            <span>تصفح واستخدام خريطة المسارات المفتوحة 🚀</span>
+          </button>
+        </div>
+      `;
+      document.getElementById('plusModalOverlay').style.display = 'flex';
+    }
+
+    // إدارة الحسابات
+    let authMode = 'register';
+    function switchAuthTab(mode) {
+      authMode = mode;
+      document.getElementById('tabRegister').classList.toggle('active', mode === 'register');
+      document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
+      document.getElementById('groupName').style.display = (mode === 'register') ? 'flex' : 'none';
+      document.getElementById('authSubmitText').textContent = (mode === 'register') ? 'إنشاء حسابي وتأكيد التسجيل ✨' : 'تسجيل الدخول للمنصة 🔑';
+    }
+
+    function handlePlusAuthSubmit() {
+      const email = document.getElementById('plusInputEmail').value.trim();
+      const password = document.getElementById('plusInputPassword').value.trim();
+      const name = document.getElementById('plusInputName').value.trim() || 'مشترك Turko Plus';
+
+      if (!email || !password) {
+        showToast('⚠️ يرجى كتابة البريد الإلكتروني وكلمة المرور للمتابعة.');
+        return;
+      }
+
+      let account = {
+        name: name,
+        email: email,
+        isSubscribed: false,
+        registeredAt: new Date().toLocaleDateString('ar-EG')
+      };
+
+      try {
+        localStorage.setItem('turko_plus_user', JSON.stringify(account));
+      } catch (e) {}
+
+      renderPlusUserSession(account);
+      updateModulesLockState();
+      showToast(authMode === 'register' ? '🎉 تم إنشاء حسابك بنجاح! اختر خطتك لتفعيل الأقسام.' : '🔑 تم تسجيل الدخول بنجاح!');
+    }
+
+    function initPlusSession() {
+      try {
+        const saved = localStorage.getItem('turko_plus_user');
+        if (saved) {
+          const user = JSON.parse(saved);
+          renderPlusUserSession(user);
+        }
+      } catch(e) {}
+    }
+
+    function renderPlusUserSession(user) {
+      document.getElementById('plusAuthCard').style.display = 'none';
+      document.getElementById('plusSessionCard').style.display = 'flex';
+      document.getElementById('sessionUserName').textContent = user.name || 'مشترك Turko Plus';
+      document.getElementById('sessionUserEmail').textContent = user.email || '';
+
+      const badge = document.getElementById('sessionVipBadge');
+      const text = document.getElementById('sessionStatusText');
+
+      const sub = getUserSubscriptionInfo();
+
+      if (sub.active) {
+        badge.style.borderColor = '#22c55e';
+        badge.style.background = 'rgba(34, 197, 94, 0.2)';
+        badge.style.color = '#86efac';
+        if (sub.plan === 'lifetime') {
+          text.innerHTML = '👑 <b>عضوية ذهبية دائمة مدى الحياة</b> (وصول غير محدود للأبد)';
+        } else {
+          const expDateFormatted = new Date(sub.expiryDate).toLocaleDateString('ar-EG');
+          text.innerHTML = `🟢 <b>اشتراك شهري فعال</b> — متبقي <b>${sub.daysLeft} يوماً</b> (ينتهي في ${expDateFormatted})`;
+        }
+      } else {
+        if (sub.reason === 'expired') {
+          badge.style.borderColor = '#ef4444';
+          badge.style.background = 'rgba(239, 68, 68, 0.25)';
+          badge.style.color = '#fca5a5';
+          text.innerHTML = '⚠️ <b>انتهت فترة اشتراكك الشهري!</b> تم قفل الأقسام لحين التجديد.';
+        } else {
+          badge.style.borderColor = '#f59e0b';
+          badge.style.background = 'rgba(245, 158, 11, 0.2)';
+          badge.style.color = '#fef08a';
+          text.textContent = 'عضوية مسجلة — في انتظار تفعيل الاشتراك ⏳';
+        }
+      }
+    }
+
+    function handlePlusLogout() {
+      try {
+        localStorage.removeItem('turko_plus_user');
+      } catch(e) {}
+      document.getElementById('plusAuthCard').style.display = 'flex';
+      document.getElementById('plusSessionCard').style.display = 'none';
+      updateModulesLockState();
+      showToast('تم تسجيل الخروج بنجاح.');
+    }
+
+    // بطاقة الائتمان التفاعلية
+    function formatAndPreviewCardNumber(input) {
+      let val = input.value.replace(/\D/g, '');
+      let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+      input.value = formatted;
+      document.getElementById('visualCardNumber').textContent = formatted || '•••• •••• •••• ••••';
+
+      const logo = document.getElementById('visualCardLogo');
+      if (val.startsWith('4')) logo.textContent = 'VISA';
+      else if (val.startsWith('5')) logo.textContent = 'Mastercard';
+      else if (val.startsWith('3')) logo.textContent = 'AMEX';
+      else logo.textContent = 'CARD';
+    }
+
+    function previewCardHolder(input) {
+      document.getElementById('visualCardHolder').textContent = input.value.trim().toUpperCase() || 'CARDHOLDER NAME';
+    }
+
+    function formatAndPreviewExpiry(input) {
+      let val = input.value.replace(/\D/g, '');
+      if (val.length >= 2) {
+        val = val.substring(0, 2) + '/' + val.substring(2, 4);
+      }
+      input.value = val;
+      document.getElementById('visualCardExpiry').textContent = val || 'MM/YY';
+    }
+
+    // أداة اختبار انتهاء وتجديد الاشتراك
+    function testExpireSubscription() {
+      try {
+        const saved = localStorage.getItem('turko_plus_user');
+        if (saved) {
+          const u = JSON.parse(saved);
+          u.isSubscribed = false;
+          u.status = 'expired';
+          u.expiryDate = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString();
+          localStorage.setItem('turko_plus_user', JSON.stringify(u));
+          renderPlusUserSession(u);
+          updateModulesLockState();
+          showToast('⚠️ تم إنهاء صلاحية الشهر وقفل الأقسام لاختبار نظام الحماية!');
+        } else {
+          showToast('يرجى إنشاء حساب أولاً قبل التجربة.');
+        }
+      } catch(e) {}
+    }
+
+    // لوحة المطور السرية
+    let adminTapCount = 0;
+    let adminTapTimer = null;
+    function handleAdminSecretTap() {
+      adminTapCount++;
+      clearTimeout(adminTapTimer);
+      adminTapTimer = setTimeout(() => { adminTapCount = 0; }, 2500);
+
+      if (adminTapCount >= 5) {
+        adminTapCount = 0;
+        promptAdminUnlock();
+      }
+    }
+
+    function promptAdminUnlock() {
+      const pin = prompt('🔐 لوحة إعدادات المطور للأستاذ مصطفى رجب:\nأدخل الرمز السري (PIN):');
+      if (pin === '7788' || pin === 'mostafa' || pin === '1234') {
+        const card = document.getElementById('plusGatewaySetupCard');
+        if (card) {
+          card.style.display = 'block';
+          const body = document.getElementById('gatewayBody');
+          if (body) body.style.display = 'flex';
+          card.scrollIntoView({ behavior: 'smooth' });
+          showToast('🔓 مرحباً أستاذ مصطفى! تم فتح إعدادات المطور.');
+        }
+      } else if (pin !== null) {
+        showToast('❌ رمز الأمان غير صحيح.');
+      }
+    }
+
+    function toggleGatewaySettings() {
+      const body = document.getElementById('gatewayBody');
+      const isHidden = (body.style.display === 'none');
+      body.style.display = isHidden ? 'flex' : 'none';
+    }
+
+    function saveGatewaySettings() {
+      const token = document.getElementById('cfgPaddleClientToken').value.trim();
+      const env = document.getElementById('cfgPaddleEnv').value;
+      if (token) localStorage.setItem('turko_paddle_token', token);
+      localStorage.setItem('turko_paddle_env', env);
+      initPaddleSDK();
+      showToast('💾 تم حفظ وتثبيت إعدادات Paddle بنجاح!');
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toastMessage');
+      toast.textContent = text;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 3200);
+    }
+  </script>
+</body>
+</html>
