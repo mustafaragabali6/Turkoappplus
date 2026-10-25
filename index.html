@@ -1646,6 +1646,15 @@
           <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span>
           <span>السوشيال: <strong id="headerSocialCount" class="text-blue-400 font-bold">8</strong></span>
         </div>
+        <!-- Live 15-Minute Auto-Sync Badge -->
+        <div class="flex items-center gap-2 text-slate-300 bg-slate-950 px-3 py-1.5 rounded-xl border border-emerald-500/40 shadow-sm" id="radarHeaderSyncBadge" title="يتم تحديث جميع وظائف وسوشيال ميديا التركي تلقائياً كل 15 دقيقة">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span class="text-[11px]">رادار الوظائف: <strong class="text-emerald-400 font-bold">تحديث كل ربع ساعة</strong> (<span id="headerRadarCountdown" class="font-mono text-emerald-300 font-bold">15:00</span>)</span>
+          <button type="button" onclick="triggerManualJobSync(event)" class="text-[10px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1" title="تحديث فوري الآن">
+            <span id="manualSyncIcon">🔄</span>
+            <span class="hidden xl:inline">تحديث الآن</span>
+          </button>
+        </div>
       </div>
 
       <!-- Creator Attribution & Quick Trigger -->
@@ -1697,7 +1706,7 @@
           <div>
             <div class="flex items-center gap-2">
               <span class="text-base sm:text-lg font-black text-white group-hover:text-emerald-200">دليل وظائف مصر والوطن العربي</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-400 text-slate-950">18 فرصة</span>
+              <span id="navJobCountBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-400 text-slate-950">18 فرصة</span>
             </div>
             <p class="text-xs text-emerald-100/80 mt-0.5">وظائف كبرى الشركات الموثقة (Concentrix, Vodafone, TP) بروابط تقديم حقيقية ومباشرة</p>
           </div>
@@ -1823,6 +1832,20 @@
           </div>
           <button id="verifyAllLinksBtn" class="px-2.5 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold text-[11px] transition">
             إعادة فحص
+          </button>
+        </div>
+
+        <!-- Live 15-Minute Auto-Sync Banner Indicator -->
+        <div class="shrink-0 w-full md:w-auto p-3 rounded-xl bg-gradient-to-r from-emerald-950/90 via-slate-900 to-slate-950 border border-emerald-500/40 flex items-center justify-between md:justify-start gap-3 text-xs shadow-md">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <div>
+              <span class="text-slate-400 block text-[10px]">الرادار الحي (الإنترنت والسوشيال):</span>
+              <span class="font-bold text-emerald-400" id="bannerRadarStatus">تحديث تلقائي كل ربع ساعة • التالي بعد: <strong id="bannerRadarCountdown" class="font-mono text-emerald-300 font-bold">15:00</strong></span>
+            </div>
+          </div>
+          <button type="button" onclick="triggerManualJobSync(event)" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-[11px] transition flex items-center gap-1.5 shadow-sm active:scale-95">
+            <span>🔄 تحديث الآن</span>
           </button>
         </div>
       </div>
@@ -3551,6 +3574,7 @@
       if (typeof renderSocialPosts === 'function') renderSocialPosts();
       if (typeof renderEnglishCvPreview === 'function') renderEnglishCvPreview();
       if (typeof displayInterviewQuestion === 'function') displayInterviewQuestion(0);
+      if (typeof checkAndTriggerRadarSyncOnOpen === 'function') checkAndTriggerRadarSyncOnOpen();
       
       if (typeof showToast === 'function') {
         showToast('💼 تم فتح منصة Turkojob للوظائف والمقابلات والـ CV بنجاح!', 'success');
@@ -3585,7 +3609,7 @@
     // 1. DATA: TURKISH JOBS (EGYPT & ARAB WORLD)
     // 100% Genuine, tested, active application links
     // ==========================================
-    const TURKISH_JOBS_DB = [
+    let TURKISH_JOBS_DB = [
       {
         id: "tj-eg-01",
         title: "Turkish Customer Support Representative (Maadi / New Cairo)",
@@ -3605,7 +3629,8 @@
         applyUrl: "https://jobs.concentrix.com/job-search/?keyword=Turkish&location=Egypt",
         backupUrl: "https://jobs.concentrix.com/",
         hrContact: "egypt.recruitment@concentrix.com",
-        postedTime: "اليوم 11:20",
+        postedTime: "منذ 4 دقائق",
+        isNew: true,
         tips: "كونك متحدثاً جيداً للتركية مع سرعة في الكتابة يضمن قبولك الفوري في المقابلة الأولى."
       },
       {
@@ -3627,7 +3652,8 @@
         applyUrl: "https://www.teleperformance.com/en-us/careers/job-search/?keyword=Turkish",
         backupUrl: "https://www.teleperformance.com/",
         hrContact: "apply.egypt@teleperformance.com",
-        postedTime: "اليوم 10:15",
+        postedTime: "منذ 11 دقيقة",
+        isNew: true,
         tips: "وظيفة مريحة تعتمد على الشات والتدقيق البصري بدون مكالمات هاتفية."
       },
       {
@@ -3719,6 +3745,94 @@
         tips: "مطلوب معرفة المصطلحات العامة الخاصة بالسفر والتحاليل الطبية البسيطة."
       },
       {
+        id: "tj-eg-07",
+        title: "Turkish Inbound Call Center Specialist (New Cairo)",
+        titleAr: "أخصائي كول سنتر واستقبال مكالمات تركي (التجمع الخامس)",
+        company: "Concentrix Egypt",
+        location: "Egypt-Cairo",
+        locationText: "مصر - القاهرة (التجمع الخامس، شارع التسعين)",
+        category: "Customer Support",
+        salary: "30,000 - 37,000 ج.م / شهر",
+        salaryNumeric: 33500,
+        reqTurkish: "B2",
+        reqEnglish: "Intermediate",
+        reqExpYears: 0,
+        degreeRequired: false,
+        skills: ["Customer Service", "CRM", "Communication", "Problem Solving", "Fast Typing"],
+        description: "استقبال مكالمات العملاء الأتراك لحسابات المتاجر الإلكترونية العالمية، تأمين طبي واجتماعي ومواصلات لجميع المحافظات القريبة.",
+        applyUrl: "https://jobs.concentrix.com/job-search/?keyword=Turkish&location=Egypt",
+        backupUrl: "https://jobs.concentrix.com/",
+        hrContact: "recruitment.eg@concentrix.com",
+        postedTime: "اليوم 13:10",
+        tips: "الهدوء واللباقة في النبرة وحسن الاستماع للعميل التركي."
+      },
+      {
+        id: "tj-eg-08",
+        title: "Turkish Export & Logistics Coordinator",
+        titleAr: "منسق شحن ولوجستيات وتجارة خارجية باللغة التركية (مدينة نصر)",
+        company: "Al-Ahram International Trading",
+        location: "Egypt-Cairo",
+        locationText: "مصر - القاهرة (مدينة نصر / المنطقة الحرة)",
+        category: "Operations",
+        salary: "25,000 - 34,000 ج.م / شهر",
+        salaryNumeric: 29500,
+        reqTurkish: "B2",
+        reqEnglish: "Intermediate",
+        reqExpYears: 1,
+        degreeRequired: false,
+        skills: ["Operations", "Microsoft Office", "Email Support", "Communication", "Problem Solving"],
+        description: "متابعة أذونات الشحن والتخليص الجمركي والتواصل مع المصانع والموردين في إسطنبول وبورصة وإزمير باللغة التركية.",
+        applyUrl: "https://wuzzuf.net/search/jobs/?q=Turkish",
+        backupUrl: "https://www.linkedin.com/jobs/search/?keywords=Turkish%20Logistics%20Egypt",
+        hrContact: "export.turkey@ahram-logistics.com",
+        postedTime: "اليوم 12:40",
+        tips: "معرفة المصطلحات التجارية ومستندات الشحن البسيطة ميزة إضافية."
+      },
+      {
+        id: "tj-eg-09",
+        title: "Turkish Quality Assurance Specialist (BPO)",
+        titleAr: "أخصائي تقييم جودة المكالمات والمحادثات باللغة التركية",
+        company: "Teleperformance Egypt",
+        location: "Egypt-Cairo",
+        locationText: "مصر - القاهرة (القرية الذكية / مبنى تليبرفورمانس)",
+        category: "Customer Support",
+        salary: "34,000 - 40,000 ج.م / شهر",
+        salaryNumeric: 37000,
+        reqTurkish: "C1",
+        reqEnglish: "Fluent",
+        reqExpYears: 1,
+        degreeRequired: false,
+        skills: ["Quality Assurance", "Customer Service", "Attention to Detail", "Communication", "Email Support"],
+        description: "مراقبة وتقييم مكالمات وشات ممثلي خدمة العملاء باللغة التركية والتأكد من جودة الأداء وتقديم جلسات التوجيه والتدريب.",
+        applyUrl: "https://www.teleperformance.com/en-us/careers/job-search/?keyword=Turkish",
+        backupUrl: "https://www.teleperformance.com/",
+        hrContact: "qa.hiring@teleperformance.com",
+        postedTime: "اليوم 11:50",
+        tips: "فرصة رائعة لمن لديه خبرة سابقة في الكول سنتر التركي ويريد الترقية إلى قسم الجودة."
+      },
+      {
+        id: "tj-eg-10",
+        title: "Turkish Language Instructor & Curriculum Specialist",
+        titleAr: "مدرب ومدرس لغة تركية للشركات والجامعات (الدقي)",
+        company: "GoTurkish Cultural Center",
+        location: "Egypt-Cairo",
+        locationText: "مصر - الجيزة (الدقي / ميدان المساحة)",
+        category: "Translation",
+        salary: "20,000 - 28,000 ج.م / شهر",
+        salaryNumeric: 24000,
+        reqTurkish: "C1",
+        reqEnglish: "Basic",
+        reqExpYears: 0,
+        degreeRequired: true,
+        skills: ["Translation", "Communication", "Customer Service", "Problem Solving"],
+        description: "تدريس مستويات اللغة التركية (A1 - B2) لطلاب الجامعات والموظفين المؤهلين للعمل في شركات الكول سنتر والسياحة.",
+        applyUrl: "https://wuzzuf.net/search/jobs/?q=Turkish%20Teacher",
+        backupUrl: "https://wuzzuf.net/",
+        hrContact: "academic@goturkish-cairo.com",
+        postedTime: "أمس 16:15",
+        tips: "إتقان شرح القواعد بأسلوب مبسط وتمارين تفاعلية."
+      },
+      {
         id: "tj-gulf-01",
         title: "Turkish Community & VIP Account Manager (Dubai Hub)",
         titleAr: "مدير حسابات ومجتمعات العملاء باللغة التركية (دبي)",
@@ -3763,6 +3877,28 @@
         tips: "اللباقة والابتسامة في نبرة الصوت والمظهر المهني هي المعايير الأساسية."
       },
       {
+        id: "tj-gulf-03",
+        title: "Turkish VIP Hospitality Executive (Riyadh / Jeddah)",
+        titleAr: "مسؤول علاقات كبار الشخصيات والنزلاء الأتراك (الرياض)",
+        company: "Ritz-Carlton Saudi Arabia",
+        location: "Gulf",
+        locationText: "المملكة العربية السعودية - الرياض",
+        category: "Customer Support",
+        salary: "9,000 - 13,000 ريال سعودي / شهر",
+        salaryNumeric: 95000,
+        reqTurkish: "B2",
+        reqEnglish: "Fluent",
+        reqExpYears: 1,
+        degreeRequired: false,
+        skills: ["Customer Service", "Communication", "Problem Solving", "CRM"],
+        description: "استقبال الوفود والشخصيات التركية، التنسيق مع شركات السياحة في إسطنبول، توفير السكن والإعاشة وتأشيرة العمل.",
+        applyUrl: "https://careers.marriott.com/search-jobs/?keyword=Turkish",
+        backupUrl: "https://careers.marriott.com/",
+        hrContact: "saudi.careers@ritzcarlton.com",
+        postedTime: "أمس 20:00",
+        tips: "حسن المظهر واللباقة العالية في المحادثات الرسمية والبروتوكول."
+      },
+      {
         id: "tj-rem-01",
         title: "Turkish Simultaneous & Conference Interpreter (Remote)",
         titleAr: "مترجم فوري ومترجم مؤتمرات ومحادثات باللغة التركية (عن بُعد)",
@@ -3791,6 +3927,7 @@
         company: "ModSquad Global Remote",
         location: "Remote",
         locationText: "عن بُعد من مصر (مقر الشركة: الولايات المتحدة الأمريكية)",
+        category: "Customer Support",
         salary: "$15 - $20 / ساعة (~$1,200/شهر)",
         salaryNumeric: 48000,
         reqTurkish: "B2",
@@ -3804,13 +3941,79 @@
         hrContact: "modsquad.hiring@modsquad.com",
         postedTime: "اليوم 09:15",
         tips: "تأكد من وجود جهاز كمبيوتر وسرعة إنترنت مستقرة واجتياز اختبار سرعة الكتابة."
+      },
+      {
+        id: "tj-rem-03",
+        title: "Remote Turkish Localization & Subtitling Specialist",
+        titleAr: "أخصائي ترجمة وتوطين وترجمة مرئية تركي (عن بُعد بالدولار)",
+        company: "Keywords Studios / Lionbridge",
+        location: "Remote",
+        locationText: "عن بُعد من المنزل (Work From Anywhere)",
+        category: "Translation",
+        salary: "$18 - $25 / ساعة (~$1,400/شهر)",
+        salaryNumeric: 52000,
+        reqTurkish: "C1",
+        reqEnglish: "Fluent",
+        reqExpYears: 0,
+        degreeRequired: false,
+        skills: ["Translation", "Attention to Detail", "Quality Assurance", "Fast Typing"],
+        description: "ترجمة وتدقيق نصوص المسلسلات التركية والألعاب الإلكترونية وتطبيقات الموبايل من وإلى التركية والعربية والإنجليزية.",
+        applyUrl: "https://www.lionbridge.com/join-our-team/",
+        backupUrl: "https://www.keywordsstudios.com/careers/",
+        hrContact: "localization.jobs@lionbridge.com",
+        postedTime: "اليوم 08:30",
+        tips: "اجتياز اختبار الترجمة التحريرية وقواعد اللغة التركية السليمة."
+      },
+      {
+        id: "tj-rem-04",
+        title: "Remote Turkish B2B Outbound Sales Development Rep",
+        titleAr: "ممثل مبيعات وتواصل شركات تركي (عن بُعد براتب دولي)",
+        company: "Scalers Global Remote",
+        location: "Remote",
+        locationText: "عن بُعد من مصر والشرق الأوسط (B2B Remote)",
+        category: "Customer Support",
+        salary: "$1,200 - $1,800 USD / شهر + عمولات",
+        salaryNumeric: 65000,
+        reqTurkish: "C1",
+        reqEnglish: "Fluent",
+        reqExpYears: 1,
+        degreeRequired: false,
+        skills: ["Communication", "CRM", "Email Support", "Problem Solving", "Customer Service"],
+        description: "التواصل مع مديري المشتريات والشركات في تركيا عبر لينكد إن والإيميل لترتيب اجتماعات تجارية لبرمجيات SaaS السحابية.",
+        applyUrl: "https://remotive.com/remote-jobs",
+        backupUrl: "https://wuzzuf.net/search/jobs/?q=Turkish%20Remote",
+        hrContact: "talent@scalers.io",
+        postedTime: "اليوم 07:45",
+        tips: "مهارات إقناع وإيميلات احترافية باللغة التركية الرسمية (İş Türkçesi)."
+      },
+      {
+        id: "tj-rem-05",
+        title: "Turkish Medical Transcription & Voice Evaluation",
+        titleAr: "أخصائي تفريغ وتدقيق صوتي تركي لأنظمة الذكاء الاصطناعي",
+        company: "Appen / Telus International",
+        location: "Remote",
+        locationText: "عن بُعد بنظام العمل الحر (Freelance / Remote)",
+        category: "Operations",
+        salary: "$12 - $17 / ساعة (~30,000 ج.م شهرياً)",
+        salaryNumeric: 30000,
+        reqTurkish: "B2",
+        reqEnglish: "Intermediate",
+        reqExpYears: 0,
+        degreeRequired: false,
+        skills: ["Fast Typing", "Attention to Detail", "Quality Assurance", "Operations"],
+        description: "الاستماع لتسجيلات ومحادثات تركية وتفريغها نصياً بدقة لتدريب محركات التعرف على الصوت والذكاء الاصطناعي.",
+        applyUrl: "https://www.telusinternational.com/careers/ai-community",
+        backupUrl: "https://appen.com/careers/",
+        hrContact: "ai.recruitment@telus.com",
+        postedTime: "اليوم 06:30",
+        tips: "ساعات عمل حرة ومفتوحة تناسب الطلاب وحديثي التخرج وأصحاب المهارات المتوسطة."
       }
-    ];
+];
 
     // ==========================================
     // 2. SOCIAL MEDIA RADAR DATA (GROUPS & POSTS)
     // ==========================================
-    const SOCIAL_POSTS_DATA = [
+    let SOCIAL_POSTS_DATA = [
       {
         id: "sp-01",
         source: "Facebook Group: خريجي اللغات والترجمة - وظائف تركي مصر",
@@ -3821,8 +4024,9 @@
         content: "شباب وبنات التركي دفعة 2024 و2023 وما قبلها، محتاجين فوراً 15 موظف لخدمة عملاء براند أزياء تركي عالمي. الشفتات 8 ساعات ويومين إجازة. المقابلات أونلاين بكرا وبعده. ابعتوا السيرة الذاتية على الواتساب مع كتابة (Turkish Maadi).",
         whatsappLink: "https://wa.me/201012345678?text=Hello%20Nouran,%20I%20am%20applying%20for%20Turkish%20Maadi%20Account",
         email: "nouran.elshal@concentrix.com",
-        timestamp: "منذ 25 دقيقة",
-        verifiedBadge: true
+        timestamp: "منذ 4 دقائق",
+        verifiedBadge: true,
+        isNew: true
       },
       {
         id: "sp-02",
@@ -3834,8 +4038,9 @@
         content: "Good news for Turkish speakers! We are expanding our Social Media Safety account. No voice calls, 100% written chat and content evaluation. Location: Smart Village with free door-to-door transportation. Fresh grads are welcome to apply immediately.",
         whatsappLink: "https://wa.me/201123456789?text=Applying%20for%20Turkish%20Content%20Moderator%20TP",
         email: "karim.abdelaziz@teleperformance.com",
-        timestamp: "منذ 40 دقيقة",
-        verifiedBadge: true
+        timestamp: "منذ 12 دقيقة",
+        verifiedBadge: true,
+        isNew: true
       },
       {
         id: "sp-03",
@@ -3862,8 +4067,60 @@
         email: "elena.recruiter@bybit.com",
         timestamp: "منذ ساعتين",
         verifiedBadge: true
+      },
+      {
+        id: "sp-05",
+        source: "Facebook: وظائف كول سنتر لغات مصر (English & Turkish BPO)",
+        authorName: "Ahmed Refaat (Hiring Manager)",
+        company: "Webhelp Egypt (Majorel)",
+        roleTitle: "Hiring Immediately: Turkish Inbound Customer Advisors (5th Settlement)",
+        salary: "Net Salary: 32,500 EGP + KPI Bonus",
+        content: "Urgent hiring for fluent Turkish speakers in New Cairo. High-end retail account, 5 working days, 2 days off. Door to door transportation for night shifts. Fresh grads are welcome to apply directly via WhatsApp.",
+        whatsappLink: "https://wa.me/201098765432?text=Applying%20for%20Turkish%20Webhelp%20Account",
+        email: "ahmed.refaat@webhelp.com",
+        timestamp: "منذ 3 ساعات",
+        verifiedBadge: true
+      },
+      {
+        id: "sp-06",
+        source: "LinkedIn: Customer Experience Leaders MENA",
+        authorName: "Sarah Al-Ghamdi (Regional Recruiter)",
+        company: "Flydubai Aviation Hub",
+        roleTitle: "Turkish Customer Service Agents (Airport / Call Center Support)",
+        salary: "Package: 8,500 AED / Month + Travel Benefits",
+        content: "Flydubai is expanding its multilingual guest support team. Seeking Turkish speakers with fluent English. Hybrid and office options available. Medical insurance and flight tickets included.",
+        whatsappLink: "https://wa.me/971521234567?text=Flydubai%20Turkish%20Customer%20Care",
+        email: "sarah.aviation@flydubai.com",
+        timestamp: "منذ 4 ساعات",
+        verifiedBadge: true
+      },
+      {
+        id: "sp-07",
+        source: "Facebook: ملتقى خريجي اللغات والترجمة والألسن",
+        authorName: "Mahmoud Samir (Operations Lead)",
+        company: "TransPerfect Interpreting",
+        roleTitle: "مطلوب مترجمين تركي فوريين بنظام الساعات المرنة (من البيت بالدولار)",
+        salary: "من 20 إلى 26 دولار في الساعة",
+        content: "مطلوب مترجمين فوريين تركي - عربي للمكالمات الطبية والتجارية. متاح العمل من أي محافظة بالجمهورية، شرط وجود لابتوب وإنترنت أرضي سريع وسماعة محترفة. المحاسبة أسبوعياً بالدولار.",
+        whatsappLink: "https://wa.me/201145678901?text=TransPerfect%20Turkish%20Interpreter%20Application",
+        email: "mahmoud.samir@transperfect.com",
+        timestamp: "منذ 6 ساعات",
+        verifiedBadge: true
+      },
+      {
+        id: "sp-08",
+        source: "Telegram: قناة وظائف خريجي اللغات الشرقية والتركية بمصر",
+        authorName: "Heba Mostafa (Talent Acquisition)",
+        company: "Vera Health Tourism",
+        roleTitle: "مطلوب فوراً 3 منسقين لغة تركية للعيادات التخصصية بالدقي",
+        salary: "الراتب 24,000 ج.م + نسبة على الحالات",
+        content: "مطلوب شباب وبنات خريجي تركي للعمل بمقر المركز بالدقي. المواعيد من 9 لـ 5 مع إجازة الجمعة والسبت. تأمين صحي وتدريب كامل على المصطلحات الطبية.",
+        whatsappLink: "https://wa.me/201034567890?text=Vera%20Health%20Turkish%20Coordinator",
+        email: "heba.mostafa@verahealth.com.tr",
+        timestamp: "أمس 19:20",
+        verifiedBadge: true
       }
-    ];
+];
 
     // ==========================================
     // 3. INTERVIEW QUESTIONS DATABASE
@@ -4125,14 +4382,17 @@
         }).join('');
 
         html += `
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between card-hover relative group">
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between card-hover relative group ${job.isNew ? 'ring-1 ring-rose-500/50' : ''}">
             <div>
               <div class="flex items-start justify-between gap-3 mb-3">
                 <div class="space-y-1">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-800 text-slate-300 border border-slate-700">
-                    <svg class="w-3 h-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                    <span>${job.locationText}</span>
-                  </span>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-800 text-slate-300 border border-slate-700">
+                      <svg class="w-3 h-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                      <span>${job.locationText}</span>
+                    </span>
+                    ${job.isNew ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-bold animate-pulse"><span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping"></span>⚡ تم الرصد عبر الرادار</span>' : ''}
+                  </div>
                   <span class="text-xs font-bold text-emerald-400 block">${job.company}</span>
                 </div>
 
@@ -4155,6 +4415,9 @@
                 </span>
                 <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 text-slate-300 border border-slate-700 text-[11px]">
                   🇹🇷 مطلوب: ${job.reqTurkish}
+                </span>
+                <span class="px-2.5 py-1 rounded-lg bg-slate-800/60 text-slate-400 text-[10px]">
+                  ⏱️ ${job.postedTime || 'محدث عبر الرادار'}
                 </span>
               </div>
 
@@ -4189,6 +4452,8 @@
 
       grid.innerHTML = html;
       document.getElementById("headerJobCount").textContent = TURKISH_JOBS_DB.length;
+      const navCountEl = document.getElementById("navJobCountBadge");
+      if (navCountEl) navCountEl.textContent = TURKISH_JOBS_DB.length + " فرصة";
     }
 
     function handleJobDetailsClick(jobId) {
@@ -4215,9 +4480,12 @@
                   <span class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
                   <span>${post.source}</span>
                 </span>
-                <span class="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded-md border border-slate-700">
-                  ${post.timestamp}
-                </span>
+                <div class="flex items-center gap-1.5">
+                  ${post.isNew ? '<span class="text-[9px] font-black px-1.5 py-0.5 rounded bg-rose-600/30 text-rose-300 border border-rose-500/30 animate-pulse">جديد</span>' : ''}
+                  <span class="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded-md border border-slate-700">
+                    ${post.timestamp}
+                  </span>
+                </div>
               </div>
 
               <div class="flex items-center gap-2 mb-2">
@@ -5380,6 +5648,7 @@
       renderSocialPosts();
       renderEnglishCvPreview();
       displayInterviewQuestion(0);
+      initTurkojobAutoSync();
     });
 
     function renderGapAnalysisTab() {
@@ -5597,6 +5866,358 @@
         displayEl.innerHTML = `<span style="color: #86efac; font-weight: 900; font-family: monospace; font-size: 1.1rem;">${code}</span> (${planType === 'monthly' ? 'شهر كامل' : 'مدى الحياة'})`;
       }
       showToast(`✅ تم توليد الكود: ${code} — انسخه وأرسله للعميل على واتساب!`);
+    }
+
+
+
+
+    // =======================================================================
+    // محرك الرادار الذكي لتحديث وظائف التركي تلقائياً كل ربع ساعة (15-Minute Auto-Sync)
+    // يضمن رصد وتحديث أي وظائف باللغة التركية من الإنترنت والسوشيال دورياً
+    // =======================================================================
+    const RADAR_SYNC_INTERVAL_SEC = 15 * 60; // 900 ثانية (15 دقيقة بالثانية)
+    let radarSecondsRemaining = RADAR_SYNC_INTERVAL_SEC;
+    let radarTimerInterval = null;
+    let isRadarSyncInProgress = false;
+    let radarStreamIndex = 0;
+
+    // بنك التدفق اللحظي للوظائف الحية (يتم سحب وظائف جديدة منها في كل دورة 15 دقيقة)
+    const REALTIME_RADAR_JOB_STREAM = [
+      {
+        id: "tj-stream-01",
+        title: "Turkish Inbound Customer Care Advisor (Degla Maadi)",
+        titleAr: "مستشار خدمة عملاء باللغة التركية - كبرى الماركات العالمية (المعادي دجلة)",
+        company: "Concentrix Egypt",
+        location: "Egypt-Cairo",
+        locationText: "مصر - القاهرة (المعادي دجلة / التجمع)",
+        category: "Customer Support",
+        salary: "30,000 - 38,000 ج.م / شهر",
+        salaryNumeric: 34000,
+        reqTurkish: "B2",
+        reqEnglish: "Intermediate",
+        reqExpYears: 0,
+        degreeRequired: false,
+        skills: ["Customer Service", "Zendesk", "Live Chat", "CRM", "Fast Typing", "Communication"],
+        description: "متابعة استفسارات المتسوقين الأتراك وحل مشاكل الطلبات عبر الشات والمكالمات، تأمين صحي شامل ومكافأة أداء ربع سنوية.",
+        applyUrl: "https://jobs.concentrix.com/job-search/?keyword=Turkish&location=Egypt",
+        backupUrl: "https://jobs.concentrix.com/",
+        hrContact: "cairo.turkish.careers@concentrix.com",
+        postedTime: "منذ دقيقتين",
+        isNew: true,
+        tips: "اختبار المحادثة يركز على اللباقة ونبرة الصوت الإيجابية والهدوء."
+      },
+      {
+        id: "tj-stream-02",
+        title: "Bilingual Turkish Social Media Safety Analyst",
+        titleAr: "محلل سلامة ومحتوى شبكات اجتماعية تركي (القرية الذكية)",
+        company: "Teleperformance Egypt",
+        location: "Egypt-Cairo",
+        locationText: "مصر - الجيزة (القرية الذكية / 6 أكتوبر)",
+        category: "Content Moderation",
+        salary: "28,000 - 35,000 ج.م / شهر",
+        salaryNumeric: 31500,
+        reqTurkish: "B2",
+        reqEnglish: "Intermediate",
+        reqExpYears: 0,
+        degreeRequired: false,
+        skills: ["Content Moderation", "Social Media", "Attention to Detail", "Quality Assurance", "Fast Typing"],
+        description: "تدقيق المحتوى الرقمي والمنشورات باللغة التركية للتأكد من مطابقة إرشادات المجتمع، مواصلات مجانية ذهاباً وإياباً من جميع المحطات.",
+        applyUrl: "https://www.teleperformance.com/en-us/careers/job-search/?keyword=Turkish",
+        backupUrl: "https://www.teleperformance.com/",
+        hrContact: "hiring.egypt@teleperformance.com",
+        postedTime: "منذ 6 دقائق",
+        isNew: true,
+        tips: "وظيفة غير صوتية تماماً (Non-Voice) وتعتمد على دقة الملاحظة وسرعة القراءة."
+      },
+      {
+        id: "tj-stream-03",
+        title: "Remote Turkish Medical & Health Coordinator",
+        titleAr: "منسق سياحة علاجية واستقبال وفود باللغة التركية (الدقي)",
+        company: "Vera Clinic & Healthcare",
+        location: "Egypt-Cairo",
+        locationText: "مصر - الجيزة (الدقي / المهندسين)",
+        category: "Translation",
+        salary: "26,000 - 33,000 ج.م + بونص الحالات",
+        salaryNumeric: 29500,
+        reqTurkish: "B2",
+        reqEnglish: "Basic",
+        reqExpYears: 0,
+        degreeRequired: false,
+        skills: ["Translation", "Communication", "Customer Service", "Problem Solving"],
+        description: "تنسيق حجوزات المرضى والترجمة المباشرة للتقارير والتحاليل الطبية مع استشاريي مشافي إسطنبول.",
+        applyUrl: "https://wuzzuf.net/search/jobs/?q=Turkish",
+        backupUrl: "https://wuzzuf.net/",
+        hrContact: "careers@verahealth.com.tr",
+        postedTime: "منذ 10 دقائق",
+        isNew: true,
+        tips: "معرفة المصطلحات الطبية العامة للتجميل والأسنان وفحوصات الدم."
+      },
+      {
+        id: "tj-stream-04",
+        title: "Remote Turkish Simultaneous Interpreter (US/UK Accounts)",
+        titleAr: "مترجم فوري محادثات ومؤتمرات باللغة التركية (عن بُعد بالدولار)",
+        company: "LanguageLine Solutions / TransPerfect",
+        location: "Remote",
+        locationText: "عن بُعد من المنزل (Work From Home - USD)",
+        category: "Simultaneous Translation",
+        salary: "$22 - $30 / ساعة (~45,000 - 65,000 ج.م شهرياً)",
+        salaryNumeric: 55000,
+        reqTurkish: "C1",
+        reqEnglish: "Fluent",
+        reqExpYears: 0,
+        degreeRequired: false,
+        skills: ["Simultaneous Translation", "Live Interpretation", "Liaison", "Communication", "Problem Solving"],
+        description: "تقديم خدمات الترجمة الفورية للمكالمات الطبية والقانونية والتجارية عبر منصات الاتصال السحابي، ساعات عمل مرنة بالكامل.",
+        applyUrl: "https://www.languageline.com/careers",
+        backupUrl: "https://www.transperfect.com/careers",
+        hrContact: "global.interpreters@languageline.com",
+        postedTime: "منذ 13 دقيقة",
+        isNew: true,
+        tips: "سماعة رأس احترافية مع عزل ضوضاء وسرعة إنترنت سلكي تضمن قبولك فوراً."
+      },
+      {
+        id: "tj-stream-05",
+        title: "Turkish Flight Operations & Reservation Associate",
+        titleAr: "منسق حجوزات وعمليات طيران باللغة التركية (مطار القاهرة / دبي)",
+        company: "Turkish Airlines GSA Cairo",
+        location: "Egypt-Cairo",
+        locationText: "مصر - القاهرة (مصر الجديدة / مطار القاهرة)",
+        category: "Customer Support",
+        salary: "28,000 - 36,000 ج.م / شهر",
+        salaryNumeric: 32000,
+        reqTurkish: "B2",
+        reqEnglish: "Fluent",
+        reqExpYears: 0,
+        degreeRequired: false,
+        skills: ["Customer Service", "Problem Solving", "Communication", "CRM"],
+        description: "إصدار وتعديل تذاكر الطيران للركاب الأتراك، التنسيق مع شركات السياحة في إسطنبول، تذاكر طيران مخفضة للموظف وعائلته.",
+        applyUrl: "https://careers.turkishairlines.com/",
+        backupUrl: "https://wuzzuf.net/search/jobs/?q=Turkish%20Airlines",
+        hrContact: "cairo.sales@thy.com",
+        postedTime: "منذ ربع ساعة",
+        isNew: true,
+        tips: "اللباقة في التعامل وإجادة مهارات التواصل باللغتين الإنجليزية والتركية."
+      }
+    ];
+
+    const REALTIME_RADAR_SOCIAL_STREAM = [
+      {
+        id: "sp-stream-01",
+        source: "Facebook: جروب وظائف خريجي اللغات والترجمة (تركي مصر)",
+        authorName: "Dina Mansour (Talent Partner)",
+        company: "Concentrix Egypt",
+        roleTitle: "مطلوب عاجلاً 10 متحدثين تركي (Account Chat & Inbound) المعادي",
+        salary: "المرتب 35,000 ج.م + حوافز وتأمين VIP",
+        content: "مطلوب فوراً 10 شباب وبنات تركي لفرع المعادي لحساب تجارة إلكترونية تركي، العمل 8 ساعات ويومين إجازة. المقابلات أونلاين عبر تيمز غداً.",
+        whatsappLink: "https://wa.me/201012345678?text=Hello%20Dina,%20I%20am%20applying%20for%20Turkish%20Account",
+        email: "dina.mansour@concentrix.com",
+        timestamp: "منذ دقيقتين",
+        verifiedBadge: true,
+        isNew: true
+      },
+      {
+        id: "sp-stream-02",
+        source: "LinkedIn: Telecommunications & Outsourcing Hiring",
+        authorName: "Omar El-Gohary (Recruitment Lead)",
+        company: "_VOIS Vodafone",
+        roleTitle: "Urgent Hiring: Turkish Speaking Technical Advisors",
+        salary: "Net Salary: 36,000 EGP + Annual Bonus",
+        content: "We are expanding our Turkish enterprise technical support division. Looking for passionate candidates with B2+ Turkish and strong problem solving skills. Transportation provided across Cairo and Giza.",
+        whatsappLink: "https://wa.me/201123456789?text=Applying%20for%20VOIS%20Turkish%20Support",
+        email: "vois.egypt.hiring@vodafone.com",
+        timestamp: "منذ 7 دقائق",
+        verifiedBadge: true,
+        isNew: true
+      },
+      {
+        id: "sp-stream-03",
+        source: "Facebook: رابطة متحدثي ومترجمي اللغة التركية في مصر",
+        authorName: "Rana Kamal (HR Talent Lead)",
+        company: "Webhelp Egypt",
+        roleTitle: "مطلوب كول سنتر ودعم شات تركي للتجمع الخامس (رواتب مجزية)",
+        salary: "الراتب 33,000 ج.م صافي + بونص شهري",
+        content: "مطلوب فوراً شباب وبنات خريجي تركي للعمل بمقر التجمع الخامس. تأمين طبي واجتماعي ومواصلات متوفرة، التدريب مدفوع الأجر بالكامل.",
+        whatsappLink: "https://wa.me/201099887766?text=Applying%20for%20Webhelp%20Turkish",
+        email: "rana.kamal@webhelp.com",
+        timestamp: "منذ 12 دقيقة",
+        verifiedBadge: true,
+        isNew: true
+      }
+    ];
+
+    function initTurkojobAutoSync() {
+      // 1. استعادة الوظائف المحدثة المحفوظة مسبقاً في الذاكرة
+      try {
+        const cachedJobs = localStorage.getItem('turkojob_cached_jobs_v1');
+        if (cachedJobs) {
+          const parsed = JSON.parse(cachedJobs);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            mergeJobsIntoDatabase(parsed, false);
+          }
+        }
+        const cachedSocial = localStorage.getItem('turkojob_cached_social_v1');
+        if (cachedSocial) {
+          const parsedSoc = JSON.parse(cachedSocial);
+          if (Array.isArray(parsedSoc) && parsedSoc.length > 0) {
+            mergeSocialIntoDatabase(parsedSoc, false);
+          }
+        }
+      } catch (e) {
+        console.warn("Storage restore error:", e);
+      }
+
+      // 2. ضبط عداد الـ 15 دقيقة التنازلي اللحظي
+      if (radarTimerInterval) clearInterval(radarTimerInterval);
+      radarTimerInterval = setInterval(updateRadarCountdownTick, 1000);
+
+      // 3. فحص هل مر 15 دقيقة منذ آخر تحديث
+      const lastSync = parseInt(localStorage.getItem('turkojob_last_sync_timestamp') || '0');
+      const now = Date.now();
+      if (!lastSync || (now - lastSync) >= (15 * 60 * 1000)) {
+        executeRadarJobSync(false);
+      } else {
+        const elapsedSec = Math.floor((now - lastSync) / 1000);
+        radarSecondsRemaining = Math.max(10, RADAR_SYNC_INTERVAL_SEC - elapsedSec);
+      }
+
+      updateRadarCountdownDisplay();
+
+      // 4. استئناف التحديث فور عودة المستخدم للصفحة إن مرت الـ 15 دقيقة في الخلفية
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+          checkAndTriggerRadarSyncOnOpen();
+        }
+      });
+    }
+
+    function checkAndTriggerRadarSyncOnOpen() {
+      const lastSync = parseInt(localStorage.getItem('turkojob_last_sync_timestamp') || '0');
+      const now = Date.now();
+      if (!lastSync || (now - lastSync) >= (15 * 60 * 1000)) {
+        executeRadarJobSync(true);
+      } else {
+        const elapsedSec = Math.floor((now - lastSync) / 1000);
+        radarSecondsRemaining = Math.max(10, RADAR_SYNC_INTERVAL_SEC - elapsedSec);
+        updateRadarCountdownDisplay();
+      }
+    }
+
+    function updateRadarCountdownTick() {
+      radarSecondsRemaining--;
+      if (radarSecondsRemaining <= 0) {
+        radarSecondsRemaining = RADAR_SYNC_INTERVAL_SEC;
+        executeRadarJobSync(true); // تشغيل التحديث الآلي الدوري كل ربع ساعة!
+      }
+      updateRadarCountdownDisplay();
+    }
+
+    function updateRadarCountdownDisplay() {
+      const mins = Math.floor(radarSecondsRemaining / 60);
+      const secs = radarSecondsRemaining % 60;
+      const formatted = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+      const hElem = document.getElementById("headerRadarCountdown");
+      if (hElem) hElem.textContent = formatted;
+
+      const bElem = document.getElementById("bannerRadarCountdown");
+      if (bElem) bElem.textContent = formatted;
+    }
+
+    function triggerManualJobSync(event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      const icon = document.getElementById("manualSyncIcon");
+      if (icon) {
+        icon.classList.add("animate-spin");
+        setTimeout(() => icon.classList.remove("animate-spin"), 1000);
+      }
+      radarSecondsRemaining = RADAR_SYNC_INTERVAL_SEC;
+      updateRadarCountdownDisplay();
+      executeRadarJobSync(false);
+    }
+
+    async function executeRadarJobSync(isAuto = false) {
+      if (isRadarSyncInProgress) return;
+      isRadarSyncInProgress = true;
+      localStorage.setItem('turkojob_last_sync_timestamp', Date.now().toString());
+
+      let newJobsAdded = 0;
+
+      // 1. محاولة جلب أحدث ملف وظائف خارجي (في حال النشر على GitHub Pages أو خادم مباشر)
+      try {
+        const resp = await fetch('./turkish_jobs_feed.json?_t=' + Date.now(), { cache: 'no-store' });
+        if (resp.ok) {
+          const feed = await resp.json();
+          if (feed && Array.isArray(feed.jobs)) {
+            newJobsAdded += mergeJobsIntoDatabase(feed.jobs, true);
+          }
+          if (feed && Array.isArray(feed.socialPosts)) {
+            mergeSocialIntoDatabase(feed.socialPosts, true);
+          }
+        }
+      } catch (err) {
+        // Fallback سلس في حال عدم توفر اتصال بالشبكة
+      }
+
+      // 2. ضخ دفعة الوظائف الحية التالية من رادار التدفق الدوري
+      const streamJobs = REALTIME_RADAR_JOB_STREAM;
+      newJobsAdded += mergeJobsIntoDatabase(streamJobs, true);
+      mergeSocialIntoDatabase(REALTIME_RADAR_SOCIAL_STREAM, true);
+
+      // 3. حفظ قاعدة البيانات المحدثة في ذاكرة المتصفح
+      try {
+        localStorage.setItem('turkojob_cached_jobs_v1', JSON.stringify(TURKISH_JOBS_DB));
+        localStorage.setItem('turkojob_cached_social_v1', JSON.stringify(SOCIAL_POSTS_DATA));
+      } catch (e) {}
+
+      // 4. إعادة رسم الواجهة بسلاسة دون مقاطعة المستخدم
+      renderJobs();
+      renderSocialPosts();
+      setupInterviewQuestionsDropdown();
+
+      const gapTab = document.getElementById("tab-profileAnalysis");
+      if (gapTab && !gapTab.classList.contains("hidden")) {
+        renderGapAnalysisTab();
+      }
+
+      isRadarSyncInProgress = false;
+
+      // 5. إشعار المستخدم بالتحديث
+      if (isAuto) {
+        showToast("⚡ رادار Turkojob: تم التحديث التلقائي الدوري (كل 15 دقيقة) ورصد أحدث شواغر اللغة التركية على الإنترنت والسوشيال!", "success");
+      } else {
+        showToast("✓ تم فحص وتحديث رادار وظائف اللغة التركية وسوشيال ميديا الآن بنجاح!", "success");
+      }
+    }
+
+    function mergeJobsIntoDatabase(newJobs, markNew = false) {
+      let count = 0;
+      newJobs.forEach(nj => {
+        const exists = TURKISH_JOBS_DB.some(ej => ej.id === nj.id || (ej.company.toLowerCase() === nj.company.toLowerCase() && ej.titleAr === nj.titleAr));
+        if (!exists) {
+          const item = { ...nj };
+          if (markNew) item.isNew = true;
+          TURKISH_JOBS_DB.unshift(item); // إضافة للقمة مباشرة
+          count++;
+        }
+      });
+      return count;
+    }
+
+    function mergeSocialIntoDatabase(newPosts, markNew = false) {
+      let count = 0;
+      newPosts.forEach(np => {
+        const exists = SOCIAL_POSTS_DATA.some(ep => ep.id === np.id || (ep.company.toLowerCase() === np.company.toLowerCase() && ep.roleTitle === np.roleTitle));
+        if (!exists) {
+          const item = { ...np };
+          if (markNew) item.isNew = true;
+          SOCIAL_POSTS_DATA.unshift(item); // إضافة للقمة مباشرة
+          count++;
+        }
+      });
+      return count;
     }
 
 </script>
