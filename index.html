@@ -1270,27 +1270,7 @@
       </div>
 
       <div class="plus-modules-grid">
-        <!-- المسار 1: دورة اعداد المرشدين السياحيين -->
-        <div class="plus-module-card" id="modCard_rehberlik_kursu" onclick="openModuleDetails('rehberlik_kursu')" style="cursor: pointer;">
-          <div class="plus-module-top">
-            <span class="plus-module-icon">🎓</span>
-            <span class="plus-lock-badge" id="lockBadge_rehberlik_kursu">🔒 محتوى مقفول (يتطلب اشتراك)</span>
-          </div>
-          <div class="plus-module-title">دورة اعداد المرشدين السياحيين</div>
-          <div class="plus-module-tr">Turist Rehberliği Hazırlık Kursu</div>
-          <p class="plus-module-desc">
-            البرنامج التخصصي الشامل لتأهيل المرشدين السياحيين المعتمدين لإجتياز أختبار الأرشاد السياحي فى جميع المجالات الأسلامى واليونانى والرومانى و فرعونى.
-          </p>
-          <div class="plus-module-features">
-            <span>✓ مناهج تاريخ مصر الفرعونى والاسلامى والرومانى واليونانى ملخص بالعربى والتركى</span>
-            <span>✓ مصطلحات المتاحف والنقوش التاريخية وفنون الشرح الميدانى</span>
-          </div>
-          <button type="button" class="btn-module-action" onclick="openModuleDetails('rehberlik_kursu')">
-            <span id="modBtnText_rehberlik_kursu">معاينة تفاصيل ومحاور الدورة</span> 🔍
-          </button>
-        </div>
-
-        <!-- المسار 2: Turkojob لجميع فرص العمل باللغة التركية (تم تقديمه قبل المرشد أونلاين) -->
+        <!-- المسار 1: Turkojob لجميع فرص العمل باللغة التركية -->
         <div class="plus-module-card" id="modCard_kariyer_rehberi" onclick="handleKariyerCardClick(event)" style="cursor: pointer;">
           <div class="plus-module-top">
             <span class="plus-module-icon">💼</span>
@@ -1308,6 +1288,26 @@
           </div>
           <button type="button" class="btn-module-action" onclick="handleKariyerCardClick(event)">
             <span id="modBtnText_kariyer_rehberi">معاينة بوابة فرص العمل</span> 🔍
+          </button>
+        </div>
+
+        <!-- المسار 2: دورة اعداد المرشدين السياحيين -->
+        <div class="plus-module-card" id="modCard_rehberlik_kursu" onclick="openModuleDetails('rehberlik_kursu')" style="cursor: pointer;">
+          <div class="plus-module-top">
+            <span class="plus-module-icon">🎓</span>
+            <span class="plus-lock-badge" id="lockBadge_rehberlik_kursu">🔒 محتوى مقفول (يتطلب اشتراك)</span>
+          </div>
+          <div class="plus-module-title">دورة اعداد المرشدين السياحيين</div>
+          <div class="plus-module-tr">Turist Rehberliği Hazırlık Kursu</div>
+          <p class="plus-module-desc">
+            البرنامج التخصصي الشامل لتأهيل المرشدين السياحيين المعتمدين لإجتياز أختبار الأرشاد السياحي فى جميع المجالات الأسلامى واليونانى والرومانى و فرعونى.
+          </p>
+          <div class="plus-module-features">
+            <span>✓ مناهج تاريخ مصر الفرعونى والاسلامى والرومانى واليونانى ملخص بالعربى والتركى</span>
+            <span>✓ مصطلحات المتاحف والنقوش التاريخية وفنون الشرح الميدانى</span>
+          </div>
+          <button type="button" class="btn-module-action" onclick="openModuleDetails('rehberlik_kursu')">
+            <span id="modBtnText_rehberlik_kursu">معاينة تفاصيل ومحاور الدورة</span> 🔍
           </button>
         </div>
 
@@ -1381,7 +1381,7 @@
             <span class="plan-period">وصول كامل لجميع المسارات والمحتوى التخصصي لمدة 30 يوماً</span>
           </div>
           <div class="plan-price-wrap">
-            <span class="plan-price" id="priceMonthly">1,000 ج.م</span>
+            <span class="plan-price" id="priceMonthly">500 ج.م</span>
             <span class="plan-period-sub" id="priceSubMonthly">/ شهرياً</span>
           </div>
         </div>
@@ -1461,7 +1461,7 @@
       </div>
 
       <button type="button" class="btn-cc-submit" id="btnSubmitPayment" onclick="processSecurePayment()">
-        <span>🔒 تأكيد الاشتراك والدفع الآن (<span id="btnPayAmountText">1,000 ج.م</span>)</span>
+        <span>🔒 تأكيد الاشتراك والدفع الآن (<span id="btnPayAmountText">500 ج.م</span>)</span>
       </button>
 
       <!-- الدفع المباشر عبر المحفظة الإلكترونية (فودافون كاش) وتفعيل الكود -->
@@ -1477,13 +1477,24 @@
               <span style="font-size: 0.82rem; color: #fecaca; font-weight: 700;">رقم التحويل المباشر:</span>
             </div>
             <div style="display: flex; align-items: center; gap: 6px;">
-              <span id="vodaCashPhone" style="font-size: 1.15rem; font-weight: 900; color: #ffffff; letter-spacing: 1px; font-family: monospace; direction: ltr;">01099151652</span>
-              <button type="button" onclick="copyVodafoneNumber()" style="background: #dc2626; color: white; border: none; padding: 5px 10px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; cursor: pointer;">نسخ 📋</button>
+              <!-- الرقم مغطى لحمايته ويظهر فوراً عند النقر على زر النسخ -->
+              <span id="vodaCashPhone" style="font-size: 1.05rem; font-weight: 900; color: #fca5a5; letter-spacing: 2px; font-family: monospace; direction: ltr; background: rgba(0,0,0,0.45); padding: 5px 10px; border-radius: 6px; border: 1px dashed rgba(239, 68, 68, 0.45);">010••••1652</span>
+              <button type="button" id="btnCopyVoda" onclick="copyVodafoneNumber()" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.76rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 6px rgba(220, 38, 38, 0.4);">
+                <span>📋</span> <span id="btnCopyVodaText">إظهار ونسخ الرقم</span>
+              </button>
             </div>
           </div>
 
+          <!-- تواصل واتس لتأكيد الإيصال (الرقم مخفي ومربوط بالزر للتحويل التلقائي) -->
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); padding: 8px 12px; border-radius: 8px; font-size: 0.78rem;">
+            <span style="color: #6ee7b7; font-weight: 700;">💬 لتأكيد الإيصال واستلام كود التفعيل الفوري:</span>
+            <a href="https://wa.me/201099151652?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0%20%D9%85%D8%B5%D8%B7%D9%81%D9%89%D8%8C%20%D8%AD%D9%88%D9%84%D8%AA%20%D9%82%D9%8A%D9%85%D8%A9%20%D8%A7%D9%84%D8%A7%D8%B4%D8%AA%D8%B1%D8%A7%D9%83%20%D8%B9%D8%A8%D8%B1%20%D9%81%D9%88%D8%AF%D8%A7%D9%81%D9%88%D9%86%20%D9%83%D8%A7%D8%B4%20%D9%88%D9%85%D8%B9%D9%8A%20%D8%A7%D9%84%D8%A5%D9%8A%D8%B5%D8%A7%D9%84" target="_blank" rel="noopener noreferrer" style="color: #ffffff; font-weight: 800; text-decoration: none; background: #059669; padding: 6px 14px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(5, 150, 105, 0.4);">
+              <span>💬 فتح محادثة واتساب مباشرة ↗</span>
+            </a>
+          </div>
+
           <p style="font-size: 0.75rem; color: #e2e8f0; line-height: 1.5;">
-            1. حوّل قيمة الباقة لرقم فودافون كاش أعلاه (<b>1,000 ج.م</b> للشهر أو <b>5,000 ج.م</b> لمدى الحياة).<br>
+            1. حوّل قيمة الباقة لرقم فودافون كاش أعلاه (<b>500 ج.م</b> للشهر أو <b>5,000 ج.م</b> لمدى الحياة).<br>
             2. تواصل لتأكيد الإيصال واستلام <b>كود التفعيل الفوري (Password)</b>.<br>
             3. أدخل كود التفعيل في الخانة التالية واضغط "تفعيل فوري" لفتح حسابك مباشرة:
           </p>
@@ -1536,20 +1547,28 @@
           </div>
         </div>
 
-                <!-- أداة توليد أكواد فودافون كاش للعملاء -->
+                <!-- أداة توليد أكواد فودافون كاش المتغيرة للعملاء -->
         <div style="background: rgba(220, 38, 38, 0.15); border: 1.5px solid #ef4444; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
-          <div style="font-weight: 800; color: #fca5a5; font-size: 0.82rem;">📱 مولد أكواد فودافون كاش للعملاء (Password Generator):</div>
-          <p style="font-size: 0.72rem; color: #cbd5e1;">اضغط لتوليد كود سري فريد تعطيه للعميل بعد استلام الفودافون كاش على 01099151652:</p>
+          <div style="font-weight: 800; color: #fca5a5; font-size: 0.82rem;">📱 مولد أكواد التفعيل المتغيرة للعملاء (Password Generator):</div>
+          <p style="font-size: 0.72rem; color: #cbd5e1;">توليد أكواد سرية فريدة متغيرة مع كل عملية دفع لإرسالها للعميل عبر واتس:</p>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
             <button type="button" onclick="generateNewVodaCode('monthly')" style="background: #2563eb; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; cursor: pointer;">
-              + توليد كود شهري (1000 ج.م)
+              + كود شهري جديد (500 ج.م)
             </button>
             <button type="button" onclick="generateNewVodaCode('lifetime')" style="background: #16a34a; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; cursor: pointer;">
-              + توليد كود مدى الحياة (5000 ج.م)
+              + كود دائم جديد (5000 ج.م)
             </button>
           </div>
-          <div id="adminGeneratedCodeDisplay" style="background: #020617; padding: 8px; border-radius: 6px; text-align: center; border: 1px dashed #ef4444; font-size: 0.8rem; color: #94a3b8;">
-            اضغط على أحد الزرين لتوليد كود
+          <div style="display: flex; gap: 6px; margin-top: 4px;">
+            <button type="button" onclick="generateBatchCodes('monthly', 5)" style="flex: 1; background: #4338ca; color: white; border: none; padding: 6px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; cursor: pointer;">
+              📋 توليد 5 أكواد شهرية دفعة واحدة
+            </button>
+            <button type="button" onclick="generateBatchCodes('lifetime', 5)" style="flex: 1; background: #047857; color: white; border: none; padding: 6px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; cursor: pointer;">
+              💎 توليد 5 أكواد مدى الحياة
+            </button>
+          </div>
+          <div id="adminGeneratedCodeDisplay" style="background: #020617; padding: 10px; border-radius: 6px; text-align: center; border: 1px dashed #ef4444; font-size: 0.8rem; color: #94a3b8; max-height: 140px; overflow-y: auto;">
+            اضغط لتوليد كود فوري متغير وإرساله للعميل
           </div>
         </div>
 
@@ -2874,6 +2893,25 @@
         <span>تغطية شاملة: وظائف شركات مصر (المعادي، التجمع، أكتوبر) والخليج العربي مع مطابقة السير الذاتية بالإنجليزية</span>
       </div>
 
+      <div class="mt-4 pt-4 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-3">
+        <div class="flex items-center gap-2">
+          <span class="text-emerald-400">📍</span>
+          <span><strong>المقر والعنوان في جمهورية مصر العربية:</strong> محافظة الجيزة، مصر (Giza Governorate, Egypt)</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span>📧 البريد الإلكتروني: <strong>mostafaragabali6@gmail.com</strong></span>
+        </div>
+      </div>
+
+      <!-- سطر التواصل المباشر عبر واتس في أسفل الموقع تماماً (الرقم مخفي ومربوط تلقائياً) -->
+      <div class="mt-3 pt-3 border-t border-slate-900/60 flex flex-col sm:flex-row items-center justify-center gap-3 text-center text-xs">
+        <a href="https://wa.me/201099151652?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0%20%D9%85%D8%B5%D8%B7%D9%81%D9%89%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D8%B4%D8%AA%D8%B1%D8%A7%D9%83%20Turko%20PLUS%2B" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition shadow-md shadow-emerald-950/40 cursor-pointer">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          <span>تواصل معنا مباشرة عبر واتساب (WhatsApp)</span>
+          <span class="text-[11px] bg-emerald-800 text-white px-2.5 py-0.5 rounded-full font-bold">محادثة فورية ↗</span>
+        </a>
+      </div>
+
     </div>
   </footer>
 
@@ -2904,17 +2942,17 @@
 
     // جدول تحويل العملات الإقليمية تلقائياً بحسب دولة المشترك
     const currencyPricing = {
-      'EGP': { symbol: 'ج.م', name: 'مصر', monthly: 1000, lifetime: 5000, usdMonthly: 20, usdLifetime: 100 },
-      'SAR': { symbol: 'ر.س', name: 'السعودية', monthly: 75, lifetime: 375, usdMonthly: 20, usdLifetime: 100 },
-      'AED': { symbol: 'د.إ', name: 'الإمارات', monthly: 75, lifetime: 370, usdMonthly: 20, usdLifetime: 100 },
-      'TRY': { symbol: '₺', name: 'تركيا', monthly: 700, lifetime: 3500, usdMonthly: 20, usdLifetime: 100 },
-      'KWD': { symbol: 'د.ك', name: 'الكويت', monthly: 6.2, lifetime: 31, usdMonthly: 20, usdLifetime: 100 },
-      'USD': { symbol: '$', name: 'دولي/أمريكا', monthly: 20, lifetime: 100, usdMonthly: 20, usdLifetime: 100 },
-      'EUR': { symbol: '€', name: 'أوروبا', monthly: 19, lifetime: 95, usdMonthly: 20, usdLifetime: 100 }
+      'EGP': { symbol: 'ج.م', name: 'مصر', monthly: 500, lifetime: 5000, usdMonthly: 10, usdLifetime: 100 },
+      'SAR': { symbol: 'ر.س', name: 'السعودية', monthly: 38, lifetime: 375, usdMonthly: 10, usdLifetime: 100 },
+      'AED': { symbol: 'د.إ', name: 'الإمارات', monthly: 37, lifetime: 370, usdMonthly: 10, usdLifetime: 100 },
+      'TRY': { symbol: '₺', name: 'تركيا', monthly: 350, lifetime: 3500, usdMonthly: 10, usdLifetime: 100 },
+      'KWD': { symbol: 'د.ك', name: 'الكويت', monthly: 3.1, lifetime: 31, usdMonthly: 10, usdLifetime: 100 },
+      'USD': { symbol: '$', name: 'دولي/أمريكا', monthly: 10, lifetime: 100, usdMonthly: 10, usdLifetime: 100 },
+      'EUR': { symbol: '€', name: 'أوروبا', monthly: 9.5, lifetime: 95, usdMonthly: 10, usdLifetime: 100 }
     };
 
     let currentCurrencyCode = 'EGP';
-    let selectedPlanId = 'monthly'; // الافتراضي هو الباقة الشهرية (20$)
+    let selectedPlanId = 'monthly'; // الافتراضي هو الباقة الشهرية (10$)
 
     // خريطة التطبيق ومحتويات المسارات
     const appMapCatalog = {
@@ -3072,7 +3110,7 @@
 
     function updateModulesLockState() {
       const sub = getUserSubscriptionInfo();
-      const mods = ['rehberlik_kursu', 'rehber_misir', 'rehber_turkiye', 'kariyer_rehberi'];
+      const mods = ['kariyer_rehberi', 'rehberlik_kursu', 'rehber_misir', 'rehber_turkiye'];
 
       mods.forEach(id => {
         const badge = document.getElementById(`lockBadge_${id}`);
@@ -3262,7 +3300,7 @@
               ${sub.reason === 'expired' ? '⚠️ <b>انتهت صلاحية اشتراكك الشهري (30 يوماً).</b><br>يرجى تجديد الاشتراك بـ 20$ لإعادة فتح هذا القسم فوراً.' : '🔒 <b>هذا المسار مخصص لمشتركي Turko PLUS+ فقط.</b><br>اشترك في الباقة الشهرية (20$) أو باقة مدى الحياة (100$) لفتح كافة الأقسام تلقائياً.'}
             </div>
             <button type="button" class="btn-cc-submit" onclick="closePlusModal(); document.querySelector('.plus-plans-card').scrollIntoView({behavior: 'smooth'});">
-              <span>الانتقال للباقات والدفع (${selectedPlanId === 'monthly' ? '$20 شهرياً' : '$100 مدى الحياة'}) 🔒</span>
+              <span>الانتقال للباقات والدفع (${selectedPlanId === 'monthly' ? '$10 شهرياً' : '$100 مدى الحياة'}) 🔒</span>
             </button>
           `}
         </div>
@@ -5775,20 +5813,36 @@
 
 
     // =======================================================================
-    // منظومة فودافون كاش وأكواد التفعيل الفورية
+    // منظومة فودافون كاش وكشف الرقم والأكواد المتغيرة
     // =======================================================================
     function copyVodafoneNumber() {
       const num = "01099151652";
+      const phoneEl = document.getElementById("vodaCashPhone");
+      const btnText = document.getElementById("btnCopyVodaText");
+      
+      // كشف الرقم فوراً تحت زر النسخ
+      if (phoneEl) {
+        phoneEl.textContent = num;
+        phoneEl.style.color = "#86efac";
+        phoneEl.style.letterSpacing = "1.5px";
+        phoneEl.style.borderColor = "#10b981";
+      }
+      if (btnText) {
+        btnText.textContent = "تم النسخ بنجاح ✓";
+      }
+
       navigator.clipboard.writeText(num).then(() => {
-        showToast("✅ تم نسخ رقم فودافون كاش: 01099151652 بنجاح!");
+        showToast("✅ تم كشف ونسخ رقم فودافون كاش: 01099151652 بنجاح!");
       }).catch(() => {
-        showToast("رقم فودافون كاش: 01099151652");
+        showToast("رقم تحويل فودافون كاش: 01099151652");
       });
     }
 
     // الأكواد المعتمدة للتفعيل الفوري
     const DEFAULT_ACTIVATION_CODES = {
       // أكواد الباقة الشهرية (30 يوماً)
+      "VF-M500": "monthly",
+      "VF-M400": "monthly",
       "VF-M1000": "monthly",
       "TURKO30": "monthly",
       "VF-MONTH": "monthly",
@@ -5796,6 +5850,7 @@
       "HOCA-30": "monthly",
 
       // أكواد باقة مدى الحياة (دائمة للأبد)
+      "VF-L2000": "lifetime",
       "VF-L5000": "lifetime",
       "TURKO-LIFE": "lifetime",
       "GOLDEN-HOCA": "lifetime",
@@ -5816,6 +5871,18 @@
         return;
       }
 
+      // فحص الأكواد المستهلكة سابقاً لمنع إعادة الاستخدام
+      let usedCodes = {};
+      try {
+        const savedUsed = localStorage.getItem('turko_used_codes');
+        if (savedUsed) usedCodes = JSON.parse(savedUsed);
+      } catch(e) {}
+
+      if (usedCodes[rawCode]) {
+        showToast("⚠️ تم استخدام كود التفعيل هذا من قبل! تواصل مع الأستاذ مصطفى عبر واتس للتأكيد.", "warning");
+        return;
+      }
+
       // جلب الأكواد المولدة حديثاً من ذاكرة المشرف
       let dynamicCodes = {};
       try {
@@ -5825,32 +5892,45 @@
 
       let matchedPlan = DEFAULT_ACTIVATION_CODES[rawCode] || dynamicCodes[rawCode];
 
-      // إذا الكود يبدأ بـ VF-M أو M فهو شهري، وإذا يبدأ بـ VF-L أو L فهو مدى الحياة
+      // فحص البادئات المتغيرة الشهرية والمدى الحياة
       if (!matchedPlan) {
-        if (rawCode.startsWith('VF-M-') || rawCode.startsWith('M-')) {
+        const monthlyPrefixes = ['TRK-M-', 'HOCA-M-', 'VIP-M-', 'VF-M-', 'PASS-M-', 'M-'];
+        const lifetimePrefixes = ['TRK-L-', 'HOCA-L-', 'VIP-L-', 'VF-L-', 'PASS-L-', 'L-'];
+
+        if (monthlyPrefixes.some(p => rawCode.startsWith(p))) {
           matchedPlan = 'monthly';
-        } else if (rawCode.startsWith('VF-L-') || rawCode.startsWith('L-')) {
+        } else if (lifetimePrefixes.some(p => rawCode.startsWith(p))) {
           matchedPlan = 'lifetime';
         }
       }
 
       if (matchedPlan) {
-        showToast("⚡ جاري التحقق من كود التفعيل...");
+        showToast("⚡ جاري التحقق من كود التفعيل وتأكيد الاشتراك...");
         setTimeout(() => {
+          // حرق الكود وتسجيل استخدامه إذا لم يكن كود المشرف العام
+          if (rawCode !== "7788") {
+            usedCodes[rawCode] = new Date().toISOString();
+            localStorage.setItem('turko_used_codes', JSON.stringify(usedCodes));
+          }
+
           activateSubscription(matchedPlan, 'Vodafone Cash (فودافون كاش)');
           input.value = "";
           showToast(`🎉 مبروك! تم تفعيل اشتراكك بنجاح بكود فودافون كاش المعتمد!`, 'success');
-        }, 600);
+        }, 500);
       } else {
-        showToast("❌ كود التفعيل غير صحيح أو تم استخدامه من قبل. تواصل مع الدعم لتأكيد التحويل.", "warning");
+        showToast("❌ كود التفعيل غير صحيح أو غير مفعل. تواصل عبر زر واتساب لتأكيد الإيصال واستلام كود جديد.", "warning");
       }
     }
 
-    // أداة للمشرف لتوليد كود وإعطائه للعميل
+    // توليد كود سري فريد متغير مع كل عملية دفع
     function generateNewVodaCode(planType) {
-      const rand = Math.floor(1000 + Math.random() * 9000);
-      const prefix = planType === 'monthly' ? 'VF-M-' : 'VF-L-';
-      const code = prefix + rand;
+      const prefixesMonthly = ['TRK-M-', 'HOCA-M-', 'VIP-M-', 'VF-M-'];
+      const prefixesLifetime = ['TRK-L-', 'HOCA-L-', 'VIP-L-', 'VF-L-'];
+      
+      const pList = planType === 'monthly' ? prefixesMonthly : prefixesLifetime;
+      const prefix = pList[Math.floor(Math.random() * pList.length)];
+      const randNum = Math.floor(10000 + Math.random() * 90000);
+      const code = prefix + randNum;
 
       let dynamicCodes = {};
       try {
@@ -5863,9 +5943,70 @@
 
       const displayEl = document.getElementById('adminGeneratedCodeDisplay');
       if (displayEl) {
-        displayEl.innerHTML = `<span style="color: #86efac; font-weight: 900; font-family: monospace; font-size: 1.1rem;">${code}</span> (${planType === 'monthly' ? 'شهر كامل' : 'مدى الحياة'})`;
+        displayEl.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: center;">
+            <div style="font-size: 1.15rem; font-weight: 900; color: #86efac; font-family: monospace; letter-spacing: 1px; background: rgba(34, 197, 94, 0.15); padding: 4px 12px; border-radius: 6px; border: 1px solid #16a34a;">
+              ${code}
+            </div>
+            <div style="font-size: 0.72rem; color: #e2e8f0;">
+              باقة: <b>${planType === 'monthly' ? 'اشتراك شهري (500 ج.م)' : 'مدى الحياة VIP (5000 ج.م)'}</b>
+            </div>
+            <div style="display: flex; gap: 6px; width: 100%;">
+              <button type="button" onclick="copySpecificCode('${code}')" style="flex: 1; background: #2563eb; color: white; border: none; padding: 6px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; cursor: pointer;">
+                نسخ الكود 📋
+              </button>
+              <a href="https://wa.me/?text=${encodeURIComponent('أهلاً بك في منصة Turko PLUS+! هذا كود تفعيل اشتراكك الفوري: ' + code + '\nضع الكود في خانة التفعيل لتفتح لك كافة المسارات مباشرة!')}" target="_blank" style="flex: 1; background: #059669; color: white; text-decoration: none; padding: 6px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; text-align: center; display: inline-block;">
+                إرسال لواتس 💬
+              </a>
+            </div>
+          </div>
+        `;
       }
-      showToast(`✅ تم توليد الكود: ${code} — انسخه وأرسله للعميل على واتساب!`);
+      showToast(`✅ تم توليد كود جديد فريد: ${code}`);
+    }
+
+    // توليد دفعة من الأكواد دفعة واحدة للاحتفاظ بها
+    function generateBatchCodes(planType, count) {
+      let dynamicCodes = {};
+      try {
+        const saved = localStorage.getItem('turko_generated_codes');
+        if (saved) dynamicCodes = JSON.parse(saved);
+      } catch(e) {}
+
+      const generatedList = [];
+      const prefixes = planType === 'monthly' ? ['TRK-M-', 'HOCA-M-', 'VIP-M-'] : ['TRK-L-', 'HOCA-L-', 'VIP-L-'];
+
+      for (let i = 0; i < count; i++) {
+        const pref = prefixes[Math.floor(Math.random() * prefixes.length)];
+        const num = Math.floor(10000 + Math.random() * 90000);
+        const code = pref + num;
+        dynamicCodes[code] = planType;
+        generatedList.push(code);
+      }
+
+      localStorage.setItem('turko_generated_codes', JSON.stringify(dynamicCodes));
+
+      const displayEl = document.getElementById('adminGeneratedCodeDisplay');
+      if (displayEl) {
+        displayEl.innerHTML = `
+          <div style="text-align: right; font-size: 0.74rem; color: #cbd5e1; display: flex; flex-direction: column; gap: 4px;">
+            <div style="font-weight: 800; color: #fef08a;">تم توليد ${count} أكواد (${planType === 'monthly' ? 'شهري' : 'مدى الحياة'}):</div>
+            ${generatedList.map(c => `
+              <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 4px;">
+                <span style="font-family: monospace; color: #86efac; font-weight: 800;">${c}</span>
+                <button type="button" onclick="copySpecificCode('${c}')" style="background: #2563eb; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 0.68rem; cursor: pointer;">نسخ</button>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+      showToast(`✅ تم توليد وتخزين ${count} أكواد سرية جديدة بنجاح!`);
+    }
+
+    function copySpecificCode(code) {
+      navigator.clipboard.writeText(code).then(() => {
+        showToast(`✅ تم نسخ الكود: ${code} بنجاح!`);
+      });
     }
 
 
