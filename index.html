@@ -1083,6 +1083,7 @@
     }
   
     /* ======================================================== */
+    /* ======================================================== */
     /* مشغل المحتوى الرقمي المعتمد لدورة إعداد المرشدين السياحيين */
     /* ======================================================== */
     .course-modal-overlay {
@@ -1104,7 +1105,7 @@
       border: 1.5px solid rgba(168, 85, 247, 0.45);
       border-radius: 20px;
       width: 100%;
-      max-width: 960px;
+      max-width: 980px;
       max-height: 92vh;
       overflow-y: auto;
       display: flex;
@@ -1149,6 +1150,172 @@
       background: #ef4444;
       color: #ffffff;
     }
+
+    /* أقسام الدورة الرئيسية (Sections Menu) */
+    .course-sections-view {
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .course-sections-intro {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .course-sections-intro h3 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+    .course-sections-intro p {
+      font-size: 0.82rem;
+      color: #94a3b8;
+    }
+    .course-sections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .course-section-card {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1.5px solid rgba(168, 85, 247, 0.35);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .course-section-card:hover {
+      transform: translateY(-3px);
+      border-color: #a855f7;
+      box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+    }
+    .course-section-card.active-sec {
+      border-color: #22c55e;
+      background: linear-gradient(135deg, rgba(20, 83, 45, 0.4) 0%, rgba(15, 23, 42, 0.98) 100%);
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.25);
+    }
+    .course-section-card.upcoming-sec {
+      opacity: 0.85;
+      border-style: dashed;
+      border-color: rgba(245, 158, 11, 0.45);
+    }
+    .course-section-card.upcoming-sec:hover {
+      border-color: #f59e0b;
+      opacity: 1;
+    }
+    .cs-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cs-icon {
+      font-size: 1.8rem;
+    }
+    .cs-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
+    .cs-badge.live {
+      background: rgba(34, 197, 94, 0.2);
+      border: 1px solid #22c55e;
+      color: #86efac;
+    }
+    .cs-badge.soon {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid #f59e0b;
+      color: #fef08a;
+    }
+    .cs-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-top: 4px;
+    }
+    .cs-desc {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+    .btn-cs-action {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-cs-action.green {
+      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
+    }
+    .btn-cs-action.soon {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid #f59e0b;
+      color: #fef08a;
+    }
+
+    /* شريط الرجوع للأقسام داخل محتوى القسم */
+    .course-content-view {
+      display: none;
+      flex-direction: column;
+    }
+    .course-content-view.active {
+      display: flex;
+    }
+    .course-breadcrumb-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: #020617;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .btn-back-to-sections {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: #e9d5ff;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-back-to-sections:hover {
+      background: #7c3aed;
+      color: #ffffff;
+    }
+    .current-section-label {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #86efac;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .cp-tabs-bar {
       display: flex;
       background: #090d16;
@@ -1315,6 +1482,7 @@
     .cp-audio-play-btn:hover {
       transform: scale(1.05);
     }
+  
 
   </style>
 
@@ -3164,86 +3332,198 @@
     </div>
   </div>
 
-  <!-- ======================================================== -->
+<!-- ======================================================== -->
   <!-- نافذة مشغل المحتوى الرقمي المعتمد لدورة إعداد المرشدين السياحيين -->
   <!-- ======================================================== -->
   <div id="courseModal" class="course-modal-overlay">
     <div class="course-modal-content">
       <div class="course-modal-header">
-        <h2><span>🧭</span> دورة إعداد المرشدين السياحيين — المحتوى الرقمي المعتمد</h2>
+        <h2><span>🧭</span> دورة إعداد المرشدين السياحيين — الأقسام والمحتوى الرقمي</h2>
         <button type="button" class="close-course-modal-btn" onclick="closeCourseHub()">✕</button>
       </div>
 
-      <div class="cp-tabs-bar">
-        <button id="btnTabSlides" class="cp-tab-btn active" onclick="switchCourseTab('slides')">
-          <span>📊</span> السلايدات التفاعلية
-        </button>
-        <button id="btnTabAudio" class="cp-tab-btn" onclick="switchCourseTab('audio')">
-          <span>🎧</span> الشروحات الصوتية
-        </button>
-        <button id="btnTabVideo" class="cp-tab-btn" onclick="switchCourseTab('video')">
-          <span>🎬</span> المحاضرات المرئية
-        </button>
-      </div>
+      <!-- واجهة الأقسام الستة الرئيسية للدورة -->
+      <div id="courseSectionsMenu" class="course-sections-view">
+        <div class="course-sections-intro">
+          <h3>اختر القسم المطلوب لدراسة محتواه ومحاضراته:</h3>
+          <p>تم تقسيم برنامج إعداد المرشدين السياحيين إلى 6 مسارات تخصصية شاملة للتأهيل لاختبارات النقابة ووزارة السياحة.</p>
+        </div>
 
-      <!-- تبويب السلايدات التفاعلية -->
-      <div id="tabContentSlides" class="cp-body-tab active">
-        <div class="cp-selector-row">
-          <span style="font-size: 0.85rem; color: #94a3b8;">اختر المحاضرة:</span>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button id="btnSlide1" class="cp-btn-pill active" onclick="loadSlide(1)">1. العصر اليوناني والروماني</button>
-            <button id="btnSlide2" class="cp-btn-pill" onclick="loadSlide(2)">2. الهوية بين الفراعنة واليونان</button>
-            <button id="btnSlide3" class="cp-btn-pill" onclick="loadSlide(3)">3. المعالم التاريخية والنقوش</button>
-          </div>
-        </div>
-        <div class="cp-frame-wrap">
-          <div class="cp-watermark">Mustafa Ragab HOCA • Turko PLUS+</div>
-          <iframe id="slidesFrame" src="https://docs.google.com/presentation/d/1fXJh2XmWHH8f25JvKzSlqoRzSMF5Cbno/embed?start=false&loop=false&delayms=3000" allowfullscreen="true"></iframe>
-          <div class="cp-brand-shield">Turko PLUS+</div>
-        </div>
-      </div>
-
-      <!-- تبويب الصوتيات المشفرة -->
-      <div id="tabContentAudio" class="cp-body-tab">
-        <div class="cp-selector-row">
-          <span style="font-size: 0.85rem; color: #94a3b8;">التسجيلات والشروحات الميدانية:</span>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button id="btnAud1" class="cp-btn-pill active" onclick="loadAudio(1)">الدرس الأول (1)</button>
-            <button id="btnAud2" class="cp-btn-pill" onclick="loadAudio(2)">الدرس الثاني (2)</button>
-            <button id="btnAud3" class="cp-btn-pill" onclick="loadAudio(3)">الهوية بين الفراعنة واليونان</button>
-          </div>
-        </div>
-        <div class="cp-audio-card">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <div>
-              <div id="audioTitle" style="font-weight: 800; font-size: 1.05rem; color: #fff;">الدرس الأول: مقدمة المصطلحات والشرح الميداني</div>
-              <div style="font-size: 0.8rem; color: #818cf8; margin-top: 4px;">بث حصري مشفر — Mustafa Ragab HOCA</div>
+        <div class="course-sections-grid">
+          <!-- القسم الأول: تاريخ يوناني وروماني (متاح ونشط الآن) -->
+          <div class="course-section-card active-sec" onclick="openCourseSection('greek_roman')">
+            <div class="cs-header">
+              <span class="cs-icon">🏛️</span>
+              <span class="cs-badge live">✓ متاح الآن للمشتركين</span>
             </div>
-            <button id="audioMasterBtn" class="cp-audio-play-btn" onclick="toggleAudioPlay()">▶</button>
+            <div>
+              <div class="cs-title">1. تاريخ يوناني وروماني</div>
+              <p class="cs-desc">العصر اليوناني والروماني في مصر، الهوية بين الفراعنة واليونان، المعالم والنقوش، والشروحات الصوتية والمرئية.</p>
+            </div>
+            <button type="button" class="btn-cs-action green" onclick="openCourseSection('greek_roman')">
+              <span>فتح محتوى القسم (سلايدات + صوتيات + فيديوهات) 🚀</span>
+            </button>
           </div>
-          <div style="display: flex; align-items: center; gap: 12px; margin-top: 10px;">
-            <span id="audioCurrentTime" style="font-size: 0.75rem; color: #94a3b8; width: 38px;">00:00</span>
-            <input type="range" id="audioProgress" min="0" max="100" value="0" style="flex: 1; accent-color: #a855f7; cursor: pointer;" oninput="seekAudio(this.value)">
-            <span id="audioTotalDuration" style="font-size: 0.75rem; color: #94a3b8; width: 38px;">--:--</span>
+
+          <!-- القسم الثاني: تاريخ إسلامي -->
+          <div class="course-section-card upcoming-sec" onclick="openUpcomingSection('تاريخ إسلامي')">
+            <div class="cs-header">
+              <span class="cs-icon">🕌</span>
+              <span class="cs-badge soon">⏳ قريباً</span>
+            </div>
+            <div>
+              <div class="cs-title">2. تاريخ إسلامي</div>
+              <p class="cs-desc">العهود الإسلامية، العمارة الفاطمية والمملوكية، المساجد التاريخية وقلعة صلاح الدين، والمصطلحات التوثيقية.</p>
+            </div>
+            <button type="button" class="btn-cs-action soon" onclick="openUpcomingSection('تاريخ إسلامي')">
+              <span>جاري إعداد وتدقيق المحتوى ⏳</span>
+            </button>
           </div>
-          <audio id="courseAudioEngine" preload="metadata" ontimeupdate="onAudioTimeUpdate()" onloadedmetadata="onAudioLoaded()" onended="onAudioEnded()"></audio>
+
+          <!-- القسم الثالث: تاريخ مصري قديم -->
+          <div class="course-section-card upcoming-sec" onclick="openUpcomingSection('تاريخ مصري قديم')">
+            <div class="cs-header">
+              <span class="cs-icon">🏺</span>
+              <span class="cs-badge soon">⏳ قريباً</span>
+            </div>
+            <div>
+              <div class="cs-title">3. تاريخ مصري قديم</div>
+              <p class="cs-desc">عصر بناة الأهرام، الدولة الحديثة، ملوك وأسر مصر القديمة، المعابد الجنائزية، وأصول علم المصريات.</p>
+            </div>
+            <button type="button" class="btn-cs-action soon" onclick="openUpcomingSection('تاريخ مصري قديم')">
+              <span>جاري إعداد وتدقيق المحتوى ⏳</span>
+            </button>
+          </div>
+
+          <!-- القسم الرابع: تاريخ حديث ومعاصر -->
+          <div class="course-section-card upcoming-sec" onclick="openUpcomingSection('تاريخ حديث ومعاصر')">
+            <div class="cs-header">
+              <span class="cs-icon">📜</span>
+              <span class="cs-badge soon">⏳ قريباً</span>
+            </div>
+            <div>
+              <div class="cs-title">4. تاريخ حديث ومعاصر</div>
+              <p class="cs-desc">عصر محمد علي باشا وتأسيس مصر الحديثة، قناة السويس، القصور التاريخية، وتاريخ مصر المعاصر.</p>
+            </div>
+            <button type="button" class="btn-cs-action soon" onclick="openUpcomingSection('تاريخ حديث ومعاصر')">
+              <span>جاري إعداد وتدقيق المحتوى ⏳</span>
+            </button>
+          </div>
+
+          <!-- القسم الخامس: معلومات عامة -->
+          <div class="course-section-card upcoming-sec" onclick="openUpcomingSection('معلومات عامة')">
+            <div class="cs-header">
+              <span class="cs-icon">💡</span>
+              <span class="cs-badge soon">⏳ قريباً</span>
+            </div>
+            <div>
+              <div class="cs-title">5. معلومات عامة</div>
+              <p class="cs-desc">الجغرافيا السياحية، المتاحف الكبرى، قوانين الإرشاد السياحي وآداب المهنة، وفنون التعامل مع الأفواج.</p>
+            </div>
+            <button type="button" class="btn-cs-action soon" onclick="openUpcomingSection('معلومات عامة')">
+              <span>جاري إعداد وتدقيق المحتوى ⏳</span>
+            </button>
+          </div>
+
+          <!-- القسم السادس: اللغة التركية -->
+          <div class="course-section-card upcoming-sec" onclick="openUpcomingSection('اللغة التركية')">
+            <div class="cs-header">
+              <span class="cs-icon">🇹🇷</span>
+              <span class="cs-badge soon">⏳ قريباً</span>
+            </div>
+            <div>
+              <div class="cs-title">6. اللغة التركية</div>
+              <p class="cs-desc">مصطلحات الإرشاد السياحي باللغة التركية، قوالب الشرح الميداني للسياح الأتراك، وتدريبات النطق والمحادثة المباشرة.</p>
+            </div>
+            <button type="button" class="btn-cs-action soon" onclick="openUpcomingSection('اللغة التركية')">
+              <span>جاري إعداد وتدقيق المحتوى ⏳</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- تبويب المحاضرات المرئية -->
-      <div id="tabContentVideo" class="cp-body-tab">
-        <div class="cp-selector-row">
-          <span style="font-size: 0.85rem; color: #94a3b8;">اختر المحاضرة المرئية:</span>
-          <div style="display: flex; gap: 8px;">
-            <button id="btnVid1" class="cp-btn-pill active" onclick="loadVideo(1)">المحاضرة الأولى التطبيقية</button>
-            <button id="btnVid2" class="cp-btn-pill" onclick="loadVideo(2)">المحاضرة الثانية الميدانية</button>
+      <!-- واجهة محتوى القسم الأول: تاريخ يوناني وروماني -->
+      <div id="courseGreekRomanView" class="course-content-view">
+        <div class="course-breadcrumb-bar">
+          <button type="button" class="btn-back-to-sections" onclick="backToCourseSections()">
+            <span>←</span> العودة إلى قائمة أقسام الدورة
+          </button>
+          <div class="current-section-label">
+            <span>🏛️</span> <span>القسم الأول: تاريخ يوناني وروماني</span>
           </div>
         </div>
-        <div class="cp-frame-wrap">
-          <div class="cp-watermark">Mustafa Ragab HOCA • Turko PLUS+</div>
-          <div class="cp-yt-top-shield"></div>
-          <iframe id="videoPlayerFrame" src="https://www.youtube.com/embed/lSKOVtTI6l8?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-          <div class="cp-yt-bottom-right-shield"></div>
+
+        <div class="cp-tabs-bar">
+          <button id="btnTabSlides" class="cp-tab-btn active" onclick="switchCourseTab('slides')">
+            <span>📊</span> السلايدات التفاعلية
+          </button>
+          <button id="btnTabAudio" class="cp-tab-btn" onclick="switchCourseTab('audio')">
+            <span>🎧</span> الشروحات الصوتية
+          </button>
+          <button id="btnTabVideo" class="cp-tab-btn" onclick="switchCourseTab('video')">
+            <span>🎬</span> المحاضرات المرئية
+          </button>
+        </div>
+
+        <!-- تبويب السلايدات التفاعلية -->
+        <div id="tabContentSlides" class="cp-body-tab active">
+          <div class="cp-selector-row">
+            <span style="font-size: 0.85rem; color: #94a3b8;">اختر المحاضرة:</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button id="btnSlide1" class="cp-btn-pill active" onclick="loadSlide(1)">1. العصر اليوناني والروماني</button>
+              <button id="btnSlide2" class="cp-btn-pill" onclick="loadSlide(2)">2. الهوية بين الفراعنة واليونان</button>
+              <button id="btnSlide3" class="cp-btn-pill" onclick="loadSlide(3)">3. المعالم التاريخية والنقوش</button>
+            </div>
+          </div>
+          <div class="cp-frame-wrap">
+            <div class="cp-watermark">Mustafa Ragab HOCA • Turko PLUS+</div>
+            <iframe id="slidesFrame" src="https://docs.google.com/presentation/d/1fXJh2XmWHH8f25JvKzSlqoRzSMF5Cbno/embed?start=false&loop=false&delayms=3000" allowfullscreen="true"></iframe>
+            <div class="cp-brand-shield">Turko PLUS+</div>
+          </div>
+        </div>
+
+        <!-- تبويب الصوتيات المشفرة -->
+        <div id="tabContentAudio" class="cp-body-tab">
+          <div class="cp-selector-row">
+            <span style="font-size: 0.85rem; color: #94a3b8;">التسجيلات والشروحات الميدانية:</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button id="btnAud1" class="cp-btn-pill active" onclick="loadAudio(1)">الدرس الأول (1)</button>
+              <button id="btnAud2" class="cp-btn-pill" onclick="loadAudio(2)">الدرس الثاني (2)</button>
+              <button id="btnAud3" class="cp-btn-pill" onclick="loadAudio(3)">الهوية بين الفراعنة واليونان</button>
+            </div>
+          </div>
+          <div class="cp-audio-card">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <div id="audioTitle" style="font-weight: 800; font-size: 1.05rem; color: #fff;">الدرس الأول: مقدمة المصطلحات والشرح الميداني</div>
+                <div style="font-size: 0.8rem; color: #818cf8; margin-top: 4px;">بث حصري مشفر — Mustafa Ragab HOCA</div>
+              </div>
+              <button id="audioMasterBtn" class="cp-audio-play-btn" onclick="toggleAudioPlay()">▶</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-top: 10px;">
+              <span id="audioCurrentTime" style="font-size: 0.75rem; color: #94a3b8; width: 38px;">00:00</span>
+              <input type="range" id="audioProgress" min="0" max="100" value="0" style="flex: 1; accent-color: #a855f7; cursor: pointer;" oninput="seekAudio(this.value)">
+              <span id="audioTotalDuration" style="font-size: 0.75rem; color: #94a3b8; width: 38px;">--:--</span>
+            </div>
+            <audio id="courseAudioEngine" preload="metadata" ontimeupdate="onAudioTimeUpdate()" onloadedmetadata="onAudioLoaded()" onended="onAudioEnded()"></audio>
+          </div>
+        </div>
+
+        <!-- تبويب المحاضرات المرئية -->
+        <div id="tabContentVideo" class="cp-body-tab">
+          <div class="cp-selector-row">
+            <span style="font-size: 0.85rem; color: #94a3b8;">اختر المحاضرة المرئية:</span>
+            <div style="display: flex; gap: 8px;">
+              <button id="btnVid1" class="cp-btn-pill active" onclick="loadVideo(1)">المحاضرة الأولى التطبيقية</button>
+              <button id="btnVid2" class="cp-btn-pill" onclick="loadVideo(2)">المحاضرة الثانية الميدانية</button>
+            </div>
+          </div>
+          <div class="cp-frame-wrap">
+            <div class="cp-watermark">Mustafa Ragab HOCA • Turko PLUS+</div>
+            <div class="cp-yt-top-shield"></div>
+            <iframe id="videoPlayerFrame" src="https://www.youtube.com/embed/lSKOVtTI6l8?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <div class="cp-yt-bottom-right-shield"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -3885,7 +4165,8 @@
 
     
     // =======================================================================
-    // مشغل دورة إعداد المرشدين السياحيين (سلايدات، صوتيات، فيديوهات)
+    // =======================================================================
+    // مشغل دورة إعداد المرشدين السياحيين (إدارة الأقسام الستة والمحتوى الرقمي)
     // =======================================================================
     const slidesData = {
       1: "https://docs.google.com/presentation/d/1fXJh2XmWHH8f25JvKzSlqoRzSMF5Cbno/embed?start=false&loop=false&delayms=3000",
@@ -3929,7 +4210,9 @@
       const modal = document.getElementById('courseModal');
       if (modal) {
         modal.classList.add('active');
-        showToast('🧭 مرحباً بك في مسار دورة إعداد المرشدين السياحيين!', 'success');
+        // دائمًا نبدأ بعرض قائمة الأقسام الستة
+        backToCourseSections();
+        showToast('🧭 مرحباً بك في دورة إعداد المرشدين السياحيين! اختر القسم المطلوب.', 'success');
       }
     }
 
@@ -3942,6 +4225,35 @@
         const btn = document.getElementById('audioMasterBtn');
         if (btn) btn.innerText = '▶';
       }
+    }
+
+    // الانتقال للقسم المحدد
+    function openCourseSection(sectionKey) {
+      if (sectionKey === 'greek_roman') {
+        const menu = document.getElementById('courseSectionsMenu');
+        const view = document.getElementById('courseGreekRomanView');
+        if (menu) menu.style.display = 'none';
+        if (view) view.classList.add('active');
+        switchCourseTab('slides');
+        showToast('🏛️ تم فتح القسم الأول: تاريخ يوناني وروماني', 'info');
+      }
+    }
+
+    function backToCourseSections() {
+      const menu = document.getElementById('courseSectionsMenu');
+      const view = document.getElementById('courseGreekRomanView');
+      if (menu) menu.style.display = 'flex';
+      if (view) view.classList.remove('active');
+      const audio = document.getElementById('courseAudioEngine');
+      if (audio) {
+        audio.pause();
+        const btn = document.getElementById('audioMasterBtn');
+        if (btn) btn.innerText = '▶';
+      }
+    }
+
+    function openUpcomingSection(sectionTitle) {
+      showToast(`⏳ قسم (${sectionTitle}): جاري إعداد وتدقيق المحتوى وسوف يُتاح قريباً لمشتركي VIP!`, 'warning');
     }
 
     function switchCourseTab(tab) {
@@ -6287,7 +6599,7 @@
         content: `
           <div style="line-height: 1.6; font-size: 0.84rem; color: #cbd5e1; space-y: 3;">
             <p><strong>1. 14-Day Money-Back Guarantee:</strong> We stand behind the quality of our educational and career programs. If you are not completely satisfied with your Turko PLUS+ subscription, you may request a 100% full refund within 14 days of your initial purchase.</p>
-            <p><strong>2. How to Request a Refund:</strong> Simply contact support at <a href="mailto:mostafaragab@payoneer.com" style="color: #fbbf24;">mostafaragab@payoneer.com</a> or through our official WhatsApp / Facebook support channel with your invoice number, and your refund will be processed within 3 to 5 business days via Paddle.</p>
+            <p><strong>2. How to Request a Refund:</strong> Simply contact support through our official WhatsApp / Facebook support channel with your invoice number, and your refund will be processed within 3 to 5 business days via Paddle.</p>
             <p><strong>3. Subscription Cancellation:</strong> Monthly subscribers can cancel their ongoing subscription at any time prior to the next billing cycle with zero penalties.</p>
           </div>
         `
