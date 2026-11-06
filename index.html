@@ -3365,18 +3365,18 @@
             </button>
           </div>
 
-          <!-- القسم الثاني: تاريخ إسلامي -->
-          <div class="course-section-card upcoming-sec" onclick="openUpcomingSection('تاريخ إسلامي')">
+          <!-- القسم الثاني: تاريخ إسلامي (متاح الآن ونشط للمشتركين) -->
+          <div class="course-section-card active-sec" onclick="openCourseSection('islamic')">
             <div class="cs-header">
               <span class="cs-icon">🕌</span>
-              <span class="cs-badge soon">⏳ قريباً</span>
+              <span class="cs-badge live">✓ متاح الآن للمشتركين</span>
             </div>
             <div>
               <div class="cs-title">2. تاريخ إسلامي</div>
-              <p class="cs-desc">العهود الإسلامية، العمارة الفاطمية والمملوكية، المساجد التاريخية وقلعة صلاح الدين، والمصطلحات التوثيقية.</p>
+              <p class="cs-desc">العهود الإسلامية، العمارة الفاطمية والمملوكية، المساجد التاريخية وقلعة صلاح الدين، والشروحات الصوتية والمرئية.</p>
             </div>
-            <button type="button" class="btn-cs-action soon" onclick="openUpcomingSection('تاريخ إسلامي')">
-              <span>جاري إعداد وتدقيق المحتوى ⏳</span>
+            <button type="button" class="btn-cs-action green" onclick="openCourseSection('islamic')">
+              <span>فتح محتوى القسم (سلايدات + صوتيات + فيديوهات) 🚀</span>
             </button>
           </div>
 
@@ -4165,34 +4165,50 @@
 
     
     // =======================================================================
+    // =========================// =======================================================================
+    // مشغل دورة إعداد المرشدين السياحيين (إدارة الأقسام الستة والمحتوى الرقمي المعتمد)
     // =======================================================================
-    // مشغل دورة إعداد المرشدين السياحيين (إدارة الأقسام الستة والمحتوى الرقمي)
-    // =======================================================================
-    const slidesData = {
-      1: "https://docs.google.com/presentation/d/1fXJh2XmWHH8f25JvKzSlqoRzSMF5Cbno/embed?start=false&loop=false&delayms=3000",
-      2: "https://docs.google.com/presentation/d/1lpuhN5xxTQNqKwQmzkRWu2BGTUpM8rwB/embed?start=false&loop=false&delayms=3000",
-      3: "https://docs.google.com/presentation/d/1Ot9egFYAOgWbmrsx8i8KBsTdur1Avgkr/embed?start=false&loop=false&delayms=3000"
-    };
-
-    const audioData = {
-      1: {
-        title: "الدرس الأول: مقدمة المصطلحات والشرح الميداني",
-        src: "https://archive.org/download/20261106_20261106_1420/1.m4a"
+    const courseSectionsDB = {
+      greek_roman: {
+        title: "القسم الأول: تاريخ يوناني وروماني",
+        icon: "🏛️",
+        slides: {
+          1: { title: "1. العصر اليوناني والروماني", src: "https://docs.google.com/presentation/d/1fXJh2XmWHH8f25JvKzSlqoRzSMF5Cbno/embed?start=false&loop=false&delayms=3000" },
+          2: { title: "2. الهوية بين الفراعنة واليونان", src: "https://docs.google.com/presentation/d/1lpuhN5xxTQNqKwQmzkRWu2BGTUpM8rwB/embed?start=false&loop=false&delayms=3000" },
+          3: { title: "3. المعالم التاريخية والنقوش", src: "https://docs.google.com/presentation/d/1Ot9egFYAOgWbmrsx8i8KBsTdur1Avgkr/embed?start=false&loop=false&delayms=3000" }
+        },
+        audio: {
+          1: { title: "الدرس الأول: مقدمة المصطلحات والشرح الميداني", src: "https://archive.org/download/20261106_20261106_1420/1.m4a" },
+          2: { title: "الدرس الثاني: التحضير المتقدم والتفاصيل التوثيقية", src: "https://archive.org/download/20261106_20261106_1420/2.m4a" },
+          3: { title: "الدرس الثالث: الهوية بين الفراعنة واليونان", src: "https://archive.org/download/20261106_20261106_1420/%D8%A7%D9%84%D9%87%D9%88%D9%8A%D8%A9_%D8%A8%D9%8A%D9%86_%D8%A7%D9%84%D9%81%D8%B1%D8%A7%D8%B9%D9%86%D8%A9_%D9%88%D8%A7%D9%84%D9%8A%D9%88%D9%86%D8%A7%D9%86.m4a" }
+        },
+        video: {
+          1: { title: "المحاضرة الأولى التطبيقية", src: "https://www.youtube.com/embed/lSKOVtTI6l8?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" },
+          2: { title: "المحاضرة الثانية الميدانية", src: "https://www.youtube.com/embed/3LPRqPM0jzw?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" }
+        }
       },
-      2: {
-        title: "الدرس الثاني: التحضير المتقدم والتفاصيل التوثيقية",
-        src: "https://archive.org/download/20261106_20261106_1420/2.m4a"
-      },
-      3: {
-        title: "الدرس الثالث: الهوية بين الفراعنة واليونان",
-        src: "https://archive.org/download/20261106_20261106_1420/%D8%A7%D9%84%D9%87%D9%88%D9%8A%D8%A9_%D8%A8%D9%8A%D9%86_%D8%A7%D9%84%D9%81%D8%B1%D8%A7%D8%B9%D9%86%D8%A9_%D9%88%D8%A7%D9%84%D9%8A%D9%88%D9%86%D8%A7%D9%86.m4a"
+      islamic: {
+        title: "القسم الثاني: تاريخ إسلامي",
+        icon: "🕌",
+        slides: {
+          1: { title: "1. العهود الإسلامية والآثار", src: "https://docs.google.com/presentation/d/1cdOrNzGvO7DOeTIG0XshIulNv4ei3mzc/embed?start=false&loop=false&delayms=3000" },
+          2: { title: "2. العمارة والمعالم التاريخية", src: "https://docs.google.com/presentation/d/1VbuI32gfNeZWVgdd1dLwmZ0JkLZ3oQCJ/embed?start=false&loop=false&delayms=3000" },
+          3: { title: "3. الشرح والمصطلحات التوثيقية", src: "https://docs.google.com/presentation/d/1U_iuWVd0qetoTLHMsDanjDvXF3CeyZQk/embed?start=false&loop=false&delayms=3000" }
+        },
+        audio: {
+          1: { title: "الدرس الأول: مدخل التاريخ والعمارة الإسلامية", src: "https://archive.org/download/islamic2_202611/islamic1.m4a" },
+          2: { title: "الدرس الثاني: المعالم والمساجد والآثار الإسلامية", src: "https://archive.org/download/islamic2_202611/islamic2.m4a" },
+          3: { title: "الدرس الثالث: الشرح الميداني والتفاصيل التوثيقية", src: "https://archive.org/download/islamic2_202611/islamic3.m4a" }
+        },
+        video: {
+          1: { title: "المحاضرة المرئية الأولى", src: "https://www.youtube.com/embed/82p9vQXKJMI?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" },
+          2: { title: "المحاضرة المرئية الثانية", src: "https://www.youtube.com/embed/SNXah2Lm2ns?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" },
+          3: { title: "المحاضرة المرئية الثالثة", src: "https://www.youtube.com/embed/DASprBPAdxs?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" }
+        }
       }
     };
 
-    const videoData = {
-      1: "https://www.youtube.com/embed/lSKOVtTI6l8?rel=0&modestbranding=1&playsinline=1&enablejsapi=1",
-      2: "https://www.youtube.com/embed/3LPRqPM0jzw?rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
-    };
+    let activeSectionKey = 'greek_roman';
 
     function handleRehberlikCardClick(event) {
       if (event) {
@@ -4227,16 +4243,51 @@
       }
     }
 
-    // الانتقال للقسم المحدد
+    // الانتقال للقسم المحدد ديناميكياً
     function openCourseSection(sectionKey) {
-      if (sectionKey === 'greek_roman') {
-        const menu = document.getElementById('courseSectionsMenu');
-        const view = document.getElementById('courseGreekRomanView');
-        if (menu) menu.style.display = 'none';
-        if (view) view.classList.add('active');
-        switchCourseTab('slides');
-        showToast('🏛️ تم فتح القسم الأول: تاريخ يوناني وروماني', 'info');
+      if (!courseSectionsDB[sectionKey]) return;
+      activeSectionKey = sectionKey;
+      const secData = courseSectionsDB[sectionKey];
+
+      const menu = document.getElementById('courseSectionsMenu');
+      const view = document.getElementById('courseGreekRomanView');
+      if (menu) menu.style.display = 'none';
+      if (view) view.classList.add('active');
+
+      // تحديث شريط المسار والوسم
+      const label = document.querySelector('.current-section-label');
+      if (label) {
+        label.innerHTML = `<span>${secData.icon}</span> <span>${secData.title}</span>`;
       }
+
+      // بناء أزرار السلايدات ديناميكياً
+      const slidesPillWrap = document.querySelector('#tabContentSlides .cp-selector-row div');
+      if (slidesPillWrap) {
+        slidesPillWrap.innerHTML = Object.keys(secData.slides).map((k, i) => 
+          `<button id="btnSlide${k}" class="cp-btn-pill ${i===0?'active':''}" onclick="loadSlide(${k})">${secData.slides[k].title}</button>`
+        ).join('');
+      }
+
+      // بناء أزرار الصوتيات ديناميكياً
+      const audioPillWrap = document.querySelector('#tabContentAudio .cp-selector-row div');
+      if (audioPillWrap) {
+        audioPillWrap.innerHTML = Object.keys(secData.audio).map((k, i) => 
+          `<button id="btnAud${k}" class="cp-btn-pill ${i===0?'active':''}" onclick="loadAudio(${k})">${secData.audio[k].title}</button>`
+        ).join('');
+      }
+
+      // بناء أزرار الفيديوهات ديناميكياً
+      const vidPillWrap = document.querySelector('#tabContentVideo .cp-selector-row div');
+      if (vidPillWrap) {
+        vidPillWrap.innerHTML = Object.keys(secData.video).map((k, i) => 
+          `<button id="btnVid${k}" class="cp-btn-pill ${i===0?'active':''}" onclick="loadVideo(${k})">${secData.video[k].title}</button>`
+        ).join('');
+      }
+
+      switchCourseTab('slides');
+      loadSlide(1);
+      loadVideo(1);
+      showToast(`تم فتح ${secData.title} بنجاح!`, 'info');
     }
 
     function backToCourseSections() {
@@ -4274,39 +4325,44 @@
     }
 
     function loadSlide(num) {
-      [1, 2, 3].forEach(n => {
+      const secData = courseSectionsDB[activeSectionKey];
+      if (!secData || !secData.slides[num]) return;
+      Object.keys(secData.slides).forEach(n => {
         const btn = document.getElementById('btnSlide' + n);
         if (btn) btn.classList.remove('active');
       });
       const targetBtn = document.getElementById('btnSlide' + num);
       if (targetBtn) targetBtn.classList.add('active');
       const frame = document.getElementById('slidesFrame');
-      if (frame && slidesData[num]) frame.src = slidesData[num];
+      if (frame) frame.src = secData.slides[num].src;
     }
 
     function loadVideo(num) {
-      [1, 2].forEach(n => {
+      const secData = courseSectionsDB[activeSectionKey];
+      if (!secData || !secData.video[num]) return;
+      Object.keys(secData.video).forEach(n => {
         const btn = document.getElementById('btnVid' + n);
         if (btn) btn.classList.remove('active');
       });
       const targetBtn = document.getElementById('btnVid' + num);
       if (targetBtn) targetBtn.classList.add('active');
       const frame = document.getElementById('videoPlayerFrame');
-      if (frame && videoData[num]) frame.src = videoData[num];
+      if (frame) frame.src = secData.video[num].src;
     }
 
     let currentCourseAudioIdx = 1;
     function loadAudio(num, autoPlay = true) {
+      const secData = courseSectionsDB[activeSectionKey];
+      if (!secData || !secData.audio[num]) return;
       currentCourseAudioIdx = num;
-      [1, 2, 3].forEach(n => {
+      Object.keys(secData.audio).forEach(n => {
         const btn = document.getElementById('btnAud' + n);
         if (btn) btn.classList.remove('active');
       });
       const targetBtn = document.getElementById('btnAud' + num);
       if (targetBtn) targetBtn.classList.add('active');
 
-      const item = audioData[num];
-      if (!item) return;
+      const item = secData.audio[num];
       const titleEl = document.getElementById('audioTitle');
       if (titleEl) titleEl.innerText = item.title;
 
@@ -4375,6 +4431,9 @@
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
       return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    ') + m + ':' + (s < 10 ? '0' : '') + s;
     }
 
     function handleKariyerCardClick(event) {
