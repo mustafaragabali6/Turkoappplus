@@ -1390,6 +1390,7 @@
       border-radius: 12px;
       overflow: hidden;
       border: 1.5px solid rgba(168, 85, 247, 0.35);
+      transition: all 0.25s ease;
     }
     .cp-frame-wrap iframe {
       position: absolute;
@@ -1398,6 +1399,132 @@
       width: 100%;
       height: 100%;
       border: none;
+    }
+    /* تكبير حجم السلايد تلقائياً على شاشات الموبايل ليكون واضحاً ومقروءاً */
+    @media (max-width: 768px) {
+      .course-modal-overlay {
+        padding: 6px;
+      }
+      .course-modal-content {
+        max-height: 96vh;
+        border-radius: 14px;
+      }
+      .cp-body-tab {
+        padding: 12px 10px;
+      }
+      #slidesFrameWrap {
+        padding-top: 78%;
+        min-height: 320px;
+      }
+    }
+    /* شريط أدوات تكبير السلايدات وملء الشاشة */
+    .cp-fullscreen-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.18) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+    .btn-slides-fullscreen {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: #ffffff;
+      border: 1px solid #c084fc;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 3px 12px rgba(124, 58, 237, 0.4);
+      transition: all 0.2s;
+    }
+    .btn-slides-fullscreen:hover {
+      background: #6d28d9;
+      transform: translateY(-1px);
+    }
+    .btn-slides-rotate {
+      background: rgba(245, 158, 11, 0.18);
+      color: #fef08a;
+      border: 1px solid #f59e0b;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .btn-slides-rotate:hover {
+      background: #d97706;
+      color: #0f172a;
+    }
+    /* أزرار عائمة فوق السلايد للتكبير أو الإغلاق السريع */
+    .cp-floating-fs-bar {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cp-floating-fs-btn {
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(6px);
+      color: #f8fafc;
+      border: 1.5px solid #a855f7;
+      border-radius: 8px;
+      padding: 6px 11px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      transition: all 0.2s;
+    }
+    .cp-floating-fs-btn:hover {
+      background: #7c3aed;
+      color: #ffffff;
+    }
+    .cp-floating-fs-btn.exit-btn {
+      background: #dc2626;
+      border-color: #f87171;
+      color: #ffffff;
+    }
+    /* وضع ملء الشاشة الكامل (يعمل على كل الموبايلات والآيفون والأندرويد والكمبيوتر) */
+    .cp-frame-wrap.slides-fullscreen-mode {
+      position: fixed !important;
+      inset: 0 !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      padding-top: 0 !important;
+      z-index: 9999999 !important;
+      border-radius: 0 !important;
+      border: none !important;
+      background: #000000 !important;
+    }
+    /* وضع التدوير الأفقي 90 درجة للموبايل عندما يكون الهاتف عمودياً */
+    .cp-frame-wrap.slides-fullscreen-mode.slides-landscape-rotated {
+      width: 100vh !important;
+      width: 100dvh !important;
+      height: 100vw !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) rotate(90deg) !important;
     }
     .cp-watermark {
       position: absolute;
@@ -1439,20 +1566,35 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 50px;
+      height: 65px;
       background: transparent;
-      z-index: 6;
+      z-index: 25;
       cursor: default;
+      pointer-events: auto;
+      user-select: none;
     }
     .cp-yt-bottom-right-shield {
       position: absolute;
       bottom: 0;
       right: 0;
-      width: 120px;
-      height: 50px;
-      background: transparent;
-      z-index: 6;
+      width: 135px;
+      height: 48px;
+      background: rgba(0, 0, 0, 0.01);
+      z-index: 25;
       cursor: default;
+      pointer-events: auto;
+      user-select: none;
+    }
+    .cp-yt-bottom-left-shield {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 90px;
+      height: 48px;
+      background: transparent;
+      z-index: 25;
+      cursor: default;
+      pointer-events: auto;
     }
     .cp-audio-card {
       background: linear-gradient(135deg, #13122b 0%, #0b0f19 100%);
@@ -1950,10 +2092,14 @@
           </div>
         </div>
 
-                <!-- أداة توليد أكواد فودافون كاش المتغيرة للعملاء -->
+                <!-- أداة توليد أكواد فودافون كاش المشفرة والمربوطة بإيميل العميل -->
         <div style="background: rgba(220, 38, 38, 0.15); border: 1.5px solid #ef4444; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
-          <div style="font-weight: 800; color: #fca5a5; font-size: 0.82rem;">📱 مولد أكواد التفعيل المتغيرة للعملاء (Password Generator):</div>
-          <p style="font-size: 0.72rem; color: #cbd5e1;">توليد أكواد سرية فريدة متغيرة مع كل عملية دفع لإرسالها للعميل عبر واتس:</p>
+          <div style="font-weight: 800; color: #fca5a5; font-size: 0.82rem;">📱 مولد أكواد التفعيل المشفرة والمربوطة بإيميل المشترك (لمرة واحدة فقط):</div>
+          <p style="font-size: 0.72rem; color: #cbd5e1;">أدخل إيميل المشترك لتوليد كود مشفر يعمل على حسابه فقط لمرة واحدة ويحفظ اشتراكه طوال المدة دون الحاجة لإعادة كتابته:</p>
+          <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 2px;">
+            <label style="font-size: 0.74rem; color: #fef08a; font-weight: 800;">📧 إيميل المشترك (لربط الكود بحسابه حصرياً ومنع مشاركته مع الغير):</label>
+            <input type="email" id="adminClientEmailInput" placeholder="client-email@gmail.com" dir="ltr" style="background: #020617; border: 1.5px solid #f59e0b; border-radius: 6px; padding: 8px 10px; font-size: 0.82rem; color: #ffffff; outline: none;">
+          </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
             <button type="button" onclick="generateNewVodaCode('monthly')" style="background: #2563eb; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; cursor: pointer;">
               + كود شهري جديد (500 ج.م)
@@ -3475,9 +3621,32 @@
               <button id="btnSlide3" class="cp-btn-pill" onclick="loadSlide(3)">3. المعالم التاريخية والنقوش</button>
             </div>
           </div>
-          <div class="cp-frame-wrap">
+
+          <!-- شريط تكبير السلايد وملء الشاشة للموبايل والكمبيوتر -->
+          <div class="cp-fullscreen-toolbar">
+            <span style="font-size: 0.78rem; color: #e2e8f0; font-weight: 700;">📱 لعرض السلايد بحجم كبير وواضح على الموبايل:</span>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-slides-fullscreen" onclick="toggleSlidesFullscreen(false)">
+                <span>⛶</span> <span>تكبير بملء الشاشة (Full Screen)</span>
+              </button>
+              <button type="button" class="btn-slides-rotate" onclick="toggleSlidesFullscreen(true)">
+                <span>🔄</span> <span>ملء الشاشة بالعرض للموبايل</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="slidesFrameWrap" class="cp-frame-wrap" oncontextmenu="return false;">
             <div class="cp-watermark">Mustafa Ragab HOCA • Turko PLUS+</div>
-            <iframe id="slidesFrame" src="https://docs.google.com/presentation/d/1fXJh2XmWHH8f25JvKzSlqoRzSMF5Cbno/embed?start=false&loop=false&delayms=3000" allowfullscreen="true"></iframe>
+            <!-- أزرار التحكم العائمة في وضع ملء الشاشة والوضع العادي -->
+            <div class="cp-floating-fs-bar">
+              <button type="button" id="btnFloatingRotateSlide" class="cp-floating-fs-btn" onclick="rotateSlidesInFullscreen()" style="display: none;" title="تدوير السلايد بالعرض">
+                <span>🔄</span> <span>تدوير بالعرض</span>
+              </button>
+              <button type="button" id="btnFloatingToggleFs" class="cp-floating-fs-btn" onclick="toggleSlidesFullscreen(false)" title="تكبير أو تصغير الشاشة">
+                <span id="floatingFsIcon">⛶</span> <span id="floatingFsText">ملء الشاشة</span>
+              </button>
+            </div>
+            <iframe id="slidesFrame" src="https://docs.google.com/presentation/d/1fXJh2XmWHH8f25JvKzSlqoRzSMF5Cbno/embed?start=false&loop=false&delayms=3000" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
             <div class="cp-brand-shield">Turko PLUS+</div>
           </div>
         </div>
@@ -3518,11 +3687,13 @@
               <button id="btnVid2" class="cp-btn-pill" onclick="loadVideo(2)">المحاضرة الثانية الميدانية</button>
             </div>
           </div>
-          <div class="cp-frame-wrap">
+          <div class="cp-frame-wrap" oncontextmenu="return false;">
             <div class="cp-watermark">Mustafa Ragab HOCA • Turko PLUS+</div>
-            <div class="cp-yt-top-shield"></div>
-            <iframe id="videoPlayerFrame" src="https://www.youtube.com/embed/lSKOVtTI6l8?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            <div class="cp-yt-bottom-right-shield"></div>
+            <!-- دروع الحماية المتقدمة لمنع فتح الرابط الأصلي على يوتيوب -->
+            <div class="cp-yt-top-shield" title="Mustafa Ragab HOCA — بث تعليمي محمي"></div>
+            <iframe id="videoPlayerFrame" src="https://www.youtube.com/embed/lSKOVtTI6l8?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&iv_load_policy=3&iv_load_policy=3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <div class="cp-yt-bottom-right-shield" title="مشغل منصة Turko PLUS+"></div>
+            <div class="cp-yt-bottom-left-shield"></div>
           </div>
         </div>
       </div>
@@ -4183,8 +4354,8 @@
           3: { title: "الدرس الثالث: الهوية بين الفراعنة واليونان", src: "https://archive.org/download/20261106_20261106_1420/%D8%A7%D9%84%D9%87%D9%88%D9%8A%D8%A9_%D8%A8%D9%8A%D9%86_%D8%A7%D9%84%D9%81%D8%B1%D8%A7%D8%B9%D9%86%D8%A9_%D9%88%D8%A7%D9%84%D9%8A%D9%88%D9%86%D8%A7%D9%86.m4a" }
         },
         video: {
-          1: { title: "المحاضرة الأولى التطبيقية", src: "https://www.youtube.com/embed/lSKOVtTI6l8?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" },
-          2: { title: "المحاضرة الثانية الميدانية", src: "https://www.youtube.com/embed/3LPRqPM0jzw?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" }
+          1: { title: "المحاضرة الأولى التطبيقية", src: "https://www.youtube.com/embed/lSKOVtTI6l8?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&iv_load_policy=3" },
+          2: { title: "المحاضرة الثانية الميدانية", src: "https://www.youtube.com/embed/3LPRqPM0jzw?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&iv_load_policy=3" }
         }
       },
       islamic: {
@@ -4201,9 +4372,9 @@
           3: { title: "الدرس الثالث: الشرح الميداني والتفاصيل التوثيقية", src: "https://archive.org/download/islamic2_202611/islamic3.m4a" }
         },
         video: {
-          1: { title: "المحاضرة المرئية الأولى", src: "https://www.youtube.com/embed/82p9vQXKJMI?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" },
-          2: { title: "المحاضرة المرئية الثانية", src: "https://www.youtube.com/embed/SNXah2Lm2ns?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" },
-          3: { title: "المحاضرة المرئية الثالثة", src: "https://www.youtube.com/embed/DASprBPAdxs?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" }
+          1: { title: "المحاضرة المرئية الأولى", src: "https://www.youtube.com/embed/82p9vQXKJMI?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&iv_load_policy=3" },
+          2: { title: "المحاضرة المرئية الثانية", src: "https://www.youtube.com/embed/SNXah2Lm2ns?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&iv_load_policy=3" },
+          3: { title: "المحاضرة المرئية الثالثة", src: "https://www.youtube.com/embed/DASprBPAdxs?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&iv_load_policy=3" }
         }
       }
     };
@@ -7230,6 +7401,444 @@
       });
       return count;
     }
+
+
+    // =======================================================================
+    // ترقية شاملة:
+    // 1) تكبير السلايدات بملء الشاشة والتدوير الأفقي للموبايل (iOS / Android / PC)
+    // 2) ربط كود التفعيل بإيميل المشترك بالتشفير (لمرة واحدة فقط) وحفظ الاشتراك طوال المدة
+    // =======================================================================
+    let isSlidesFullscreen = false;
+    let isSlidesLandscapeRotated = false;
+
+    function toggleSlidesFullscreen(startRotated = false) {
+      const wrap = document.getElementById('slidesFrameWrap') || document.querySelector('#tabContentSlides .cp-frame-wrap');
+      if (!wrap) return;
+
+      const btnToggle = document.getElementById('btnFloatingToggleFs');
+      const btnRotate = document.getElementById('btnFloatingRotateSlide');
+      const iconEl = document.getElementById('floatingFsIcon');
+      const textEl = document.getElementById('floatingFsText');
+
+      if (!isSlidesFullscreen) {
+        isSlidesFullscreen = true;
+        isSlidesLandscapeRotated = Boolean(startRotated);
+        wrap.classList.add('slides-fullscreen-mode');
+        if (isSlidesLandscapeRotated) {
+          wrap.classList.add('slides-landscape-rotated');
+        } else {
+          wrap.classList.remove('slides-landscape-rotated');
+        }
+
+        if (!isSlidesLandscapeRotated && wrap.requestFullscreen) {
+          wrap.requestFullscreen().catch(() => {});
+        }
+
+        if (btnToggle) btnToggle.classList.add('exit-btn');
+        if (iconEl) iconEl.textContent = '✕';
+        if (textEl) textEl.textContent = 'إنهاء ملء الشاشة';
+        if (btnRotate) btnRotate.style.display = 'inline-flex';
+        document.body.style.overflow = 'hidden';
+        showToast(isSlidesLandscapeRotated ? '🔄 تم فتح السلايد بملء الشاشة بالعرض!' : '⛶ تم تكبير السلايد بملء الشاشة!');
+      } else {
+        exitSlidesFullscreen();
+      }
+    }
+
+    function rotateSlidesInFullscreen() {
+      const wrap = document.getElementById('slidesFrameWrap') || document.querySelector('#tabContentSlides .cp-frame-wrap');
+      if (!wrap) return;
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+      isSlidesLandscapeRotated = !isSlidesLandscapeRotated;
+      wrap.classList.toggle('slides-landscape-rotated', isSlidesLandscapeRotated);
+      showToast(isSlidesLandscapeRotated ? '🔄 تم تدوير السلايد بالعرض لملء شاشة الموبايل!' : '📱 تم إرجاع السلايد للوضع الطبيعي.');
+    }
+
+    function exitSlidesFullscreen() {
+      const wrap = document.getElementById('slidesFrameWrap') || document.querySelector('#tabContentSlides .cp-frame-wrap');
+      const btnToggle = document.getElementById('btnFloatingToggleFs');
+      const btnRotate = document.getElementById('btnFloatingRotateSlide');
+      const iconEl = document.getElementById('floatingFsIcon');
+      const textEl = document.getElementById('floatingFsText');
+
+      isSlidesFullscreen = false;
+      isSlidesLandscapeRotated = false;
+      if (wrap) {
+        wrap.classList.remove('slides-fullscreen-mode', 'slides-landscape-rotated');
+      }
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+      if (btnToggle) btnToggle.classList.remove('exit-btn');
+      if (iconEl) iconEl.textContent = '⛶';
+      if (textEl) textEl.textContent = 'ملء الشاشة';
+      if (btnRotate) btnRotate.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isSlidesFullscreen) {
+        exitSlidesFullscreen();
+      }
+    });
+
+    const HOCA_SECRET_SALT = "TURKO_PLUS_MUSTAFA_HOCA_2026_SECURE_KEY_9988";
+
+    function getAccountsDB() {
+      try {
+        const db = localStorage.getItem('turko_accounts_db');
+        return db ? JSON.parse(db) : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveAccountToDB(account) {
+      if (!account || !account.email) return;
+      try {
+        const db = getAccountsDB();
+        const key = account.email.trim().toLowerCase();
+        db[key] = account;
+        localStorage.setItem('turko_accounts_db', JSON.stringify(db));
+        localStorage.setItem('turko_plus_user', JSON.stringify(account));
+      } catch (e) {}
+    }
+
+    function computeHocaCodeSignature(email, planCode, timeHex, nonce) {
+      const cleanEmail = (email || '').trim().toLowerCase();
+      const raw = `${HOCA_SECRET_SALT}|${cleanEmail}|${planCode}|${timeHex}|${nonce}`;
+      let h1 = 0xdeadbeef ^ raw.length;
+      let h2 = 0x41c6ce57 ^ raw.length;
+      for (let i = 0; i < raw.length; i++) {
+        const ch = raw.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+      }
+      h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+      h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+      const combined = (4294967296 * (2097151 & h2) + (h1 >>> 0));
+      return combined.toString(36).toUpperCase().padStart(7, '0').slice(-7);
+    }
+
+    getUserSubscriptionInfo = function() {
+      try {
+        const saved = localStorage.getItem('turko_plus_user');
+        if (saved) {
+          let u = JSON.parse(saved);
+          if (u.email) {
+            const db = getAccountsDB();
+            const storedAcc = db[u.email.trim().toLowerCase()];
+            if (storedAcc && storedAcc.isSubscribed && !u.isSubscribed) {
+              u = storedAcc;
+              localStorage.setItem('turko_plus_user', JSON.stringify(u));
+            }
+          }
+
+          if (!u.isSubscribed) return { active: false, reason: 'unpaid', user: u };
+
+          if (u.plan === 'lifetime') {
+            return { active: true, plan: 'lifetime', permanent: true, user: u };
+          }
+
+          if (u.plan === 'monthly') {
+            const now = Date.now();
+            const expiry = u.expiryDate ? new Date(u.expiryDate).getTime() : 0;
+
+            if (now > expiry) {
+              u.isSubscribed = false;
+              u.status = 'expired';
+              saveAccountToDB(u);
+              return { active: false, reason: 'expired', expiryDate: u.expiryDate, user: u };
+            } else {
+              const msLeft = expiry - now;
+              const daysLeft = Math.max(1, Math.ceil(msLeft / (1000 * 60 * 60 * 24)));
+              return { active: true, plan: 'monthly', daysLeft: daysLeft, expiryDate: u.expiryDate, user: u };
+            }
+          }
+        }
+      } catch (e) {}
+      return { active: false, reason: 'none' };
+    };
+
+    activateSubscription = function(plan, gateway, usedCodeStr = null) {
+      let account = {};
+      try {
+        const saved = localStorage.getItem('turko_plus_user');
+        if (saved) account = JSON.parse(saved);
+      } catch (e) {}
+
+      if (!account.email) {
+        if (gateway === 'Admin Test') {
+          account = { name: 'Mustafa Ragab HOCA', email: 'admin@turkoplus.com', registeredAt: new Date().toLocaleDateString('ar-EG') };
+        } else {
+          showToast('⚠️ يرجى تسجيل الدخول أو إنشاء حساب بإيميلك أولاً قبل التفعيل!', 'warning');
+          return;
+        }
+      }
+
+      const now = new Date();
+      account.isSubscribed = true;
+      account.status = 'active';
+      account.plan = plan;
+      account.gateway = gateway || 'Vodafone Cash';
+      account.startDate = now.toISOString();
+      if (usedCodeStr) account.activatedCode = usedCodeStr;
+
+      if (plan === 'monthly') {
+        const expiry = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+        account.expiryDate = expiry.toISOString();
+        account.amount = 500;
+        account.priceId = PADDLE_CONFIG.monthlyPriceId;
+      } else {
+        account.expiryDate = null;
+        account.amount = 5000;
+        account.priceId = PADDLE_CONFIG.lifetimePriceId;
+      }
+
+      account.invoiceId = 'TRK-VIP-' + Math.floor(100000 + Math.random() * 900000);
+      account.paidAt = now.toLocaleString('ar-EG');
+
+      saveAccountToDB(account);
+      renderPlusUserSession(account);
+      updateModulesLockState();
+      updateVodafoneBoxState();
+      openPaymentReceiptModal(account);
+      showToast(plan === 'monthly'
+        ? '🎉 تم ربط وتفعيل اشتراكك الشهري بحسابك لمدة 30 يوماً! لن تحتاج لإدخال الكود مرة أخرى.'
+        : '👑 تم ربط وتفعيل عضويتك الدائمة مدى الحياة بحسابك للأبد!');
+    };
+
+    handlePlusAuthSubmit = function() {
+      const email = document.getElementById('plusInputEmail').value.trim().toLowerCase();
+      const password = document.getElementById('plusInputPassword').value.trim();
+      const nameInput = document.getElementById('plusInputName').value.trim();
+
+      if (!email || !password) {
+        showToast('⚠️ يرجى كتابة البريد الإلكتروني وكلمة المرور للمتابعة.');
+        return;
+      }
+
+      const db = getAccountsDB();
+      const existingAccount = db[email];
+
+      if (authMode === 'login') {
+        if (!existingAccount) {
+          showToast('⚠️ هذا البريد غير مسجل بعد. يرجى اختيار "إنشاء حساب VIP جديد" أولاً.', 'warning');
+          switchAuthTab('register');
+          return;
+        }
+        if (existingAccount.password && existingAccount.password !== password) {
+          showToast('❌ كلمة المرور غير صحيحة لهذا الحساب.', 'warning');
+          return;
+        }
+        localStorage.setItem('turko_plus_user', JSON.stringify(existingAccount));
+        renderPlusUserSession(existingAccount);
+        updateModulesLockState();
+        updateVodafoneBoxState();
+        showToast('🔑 تم تسجيل الدخول واسترجاع حالة اشتراكك بنجاح!');
+        return;
+      }
+
+      if (existingAccount) {
+        if (existingAccount.password && existingAccount.password !== password) {
+          showToast('⚠️ هذا الإيميل مسجل مسبقاً! يرجى تسجيل الدخول بكلمة المرور الصحيحة.', 'warning');
+          switchAuthTab('login');
+          return;
+        }
+        existingAccount.name = nameInput || existingAccount.name || 'مشترك Turko Plus';
+        saveAccountToDB(existingAccount);
+        renderPlusUserSession(existingAccount);
+        updateModulesLockState();
+        updateVodafoneBoxState();
+        showToast('🎉 مرحباً بعودتك! تم فتح حسابك المسجل بنجاح.');
+        return;
+      }
+
+      let newAccount = {
+        name: nameInput || 'مشترك Turko Plus',
+        email: email,
+        password: password,
+        isSubscribed: false,
+        registeredAt: new Date().toLocaleDateString('ar-EG')
+      };
+
+      saveAccountToDB(newAccount);
+      renderPlusUserSession(newAccount);
+      updateModulesLockState();
+      updateVodafoneBoxState();
+      showToast('🎉 تم إنشاء حسابك بنجاح! يمكنك الآن تفعيل باقتك لمرة واحدة فقط.');
+    };
+
+    handlePlusLogout = function() {
+      try {
+        localStorage.removeItem('turko_plus_user');
+      } catch (e) {}
+      document.getElementById('plusAuthCard').style.display = 'flex';
+      document.getElementById('plusSessionCard').style.display = 'none';
+      updateModulesLockState();
+      updateVodafoneBoxState();
+      showToast('تم تسجيل الخروج. عند دخولك بنفس الإيميل سيعود اشتراكك تلقائياً دون كود.');
+    };
+
+    function updateVodafoneBoxState() {
+      const codeInput = document.getElementById('vodafoneActivationCode');
+      if (!codeInput) return;
+      const inputRow = codeInput.parentElement;
+      const sub = getUserSubscriptionInfo();
+
+      let statusBanner = document.getElementById('vodaActiveBoundBanner');
+      if (!statusBanner && inputRow) {
+        statusBanner = document.createElement('div');
+        statusBanner.id = 'vodaActiveBoundBanner';
+        statusBanner.style.cssText = 'display:none; background:rgba(34,197,94,0.18); border:1.5px solid #22c55e; color:#86efac; padding:10px 12px; border-radius:8px; font-size:0.8rem; font-weight:800; text-align:center; margin-top:4px;';
+        inputRow.parentNode.insertBefore(statusBanner, inputRow.nextSibling);
+      }
+
+      if (sub.active) {
+        if (inputRow) inputRow.style.display = 'none';
+        if (statusBanner) {
+          statusBanner.style.display = 'block';
+          statusBanner.innerHTML = sub.plan === 'lifetime'
+            ? '✅ عضويتك الدائمة (مدى الحياة) مفعلة ومربوطة بحسابك للأبد — لا تحتاج لإدخال أي كود.'
+            : `✅ اشتراكك الشهري مفعل ومربوط بحسابك (متبقي ${sub.daysLeft} يوماً) — لا تحتاج لإدخال الكود مرة أخرى.`;
+        }
+      } else {
+        if (inputRow) inputRow.style.display = 'flex';
+        if (statusBanner) statusBanner.style.display = 'none';
+      }
+    }
+
+    activateWithVodafoneCode = function() {
+      const input = document.getElementById('vodafoneActivationCode');
+      if (!input) return;
+      const rawCode = input.value.trim().toUpperCase();
+
+      if (!rawCode) {
+        showToast("⚠️ يرجى كتابة كود التفعيل أولاً.");
+        return;
+      }
+
+      let currentUser = null;
+      try {
+        const saved = localStorage.getItem('turko_plus_user');
+        if (saved) currentUser = JSON.parse(saved);
+      } catch (e) {}
+
+      if (!currentUser || !currentUser.email) {
+        showToast("⚠️ يجب إنشاء حساب أو تسجيل الدخول بإيميلك أولاً (أعلى الصفحة) لربط الكود بحسابك!", "warning");
+        const authCard = document.getElementById('plusAuthCard');
+        if (authCard) authCard.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      const currentSub = getUserSubscriptionInfo();
+      if (currentSub.active) {
+        showToast("✅ حسابك مفعل بالفعل! لا تحتاج إلى إدخال الكود مرة أخرى.", "info");
+        updateVodafoneBoxState();
+        return;
+      }
+
+      let usedCodes = {};
+      try {
+        const savedUsed = localStorage.getItem('turko_used_codes');
+        if (savedUsed) usedCodes = JSON.parse(savedUsed);
+      } catch (e) {}
+
+      if (usedCodes[rawCode]) {
+        showToast("❌ هذا الكود تم تفعيله واستهلاكه مسبقاً! الكود يُستخدم لمرة واحدة فقط.", "warning");
+        return;
+      }
+
+      const parts = rawCode.split('-');
+      if (parts.length !== 5 || parts[0] !== 'TKP' || (parts[1] !== 'M' && parts[1] !== 'L')) {
+        showToast("❌ صيغة كود التفعيل غير صحيحة. يرجى طلب كود مشفر مربوط بإيميلك من الإدارة.", "warning");
+        return;
+      }
+
+      const [, planCode, timeHex, nonce, providedSig] = parts;
+      const expectedSig = computeHocaCodeSignature(currentUser.email, planCode, timeHex, nonce);
+
+      if (providedSig !== expectedSig) {
+        showToast(`❌ كود التفعيل هذا غير مخصص للإيميل (${currentUser.email})! لا يمكن مشاركة الكود مع حساب آخر.`, "warning");
+        return;
+      }
+
+      const issuedHour = parseInt(timeHex, 36);
+      const currentHour = Math.floor(Date.now() / (1000 * 60 * 60));
+      if (isNaN(issuedHour) || (currentHour - issuedHour) > 24 || (issuedHour - currentHour) > 2) {
+        showToast("⏰ انتهت صلاحية تفعيل هذا الكود. تواصل مع الإدارة لإصدار كود جديد.", "warning");
+        return;
+      }
+
+      const matchedPlan = (planCode === 'L') ? 'lifetime' : 'monthly';
+
+      showToast("⚡ جاري التحقق من البصمة المشفرة للكود وربط الاشتراك بحسابك...");
+      setTimeout(() => {
+        usedCodes[rawCode] = {
+          email: currentUser.email,
+          plan: matchedPlan,
+          usedAt: new Date().toISOString()
+        };
+        localStorage.setItem('turko_used_codes', JSON.stringify(usedCodes));
+
+        activateSubscription(matchedPlan, 'Vodafone Cash (كود مشفر مربوط بالإيميل)', rawCode);
+        input.value = "";
+      }, 450);
+    };
+
+    generateNewVodaCode = function(planType) {
+      let emailInput = document.getElementById('adminClientEmailInput');
+      let clientEmail = emailInput ? emailInput.value.trim().toLowerCase() : '';
+
+      if (!clientEmail || !clientEmail.includes('@')) {
+        clientEmail = prompt('📧 أدخل البريد الإلكتروني (Email) الخاص بالمشترك لربط الكود بحسابه حصرياً:');
+        if (!clientEmail || !clientEmail.includes('@')) {
+          showToast('⚠️ يجب إدخال إيميل المشترك لتوليد كود مشفر مربوط بحسابه!', 'warning');
+          return;
+        }
+        clientEmail = clientEmail.trim().toLowerCase();
+        if (emailInput) emailInput.value = clientEmail;
+      }
+
+      const planCode = (planType === 'lifetime') ? 'L' : 'M';
+      const timeHex = Math.floor(Date.now() / (1000 * 60 * 60)).toString(36).toUpperCase();
+      const nonce = Math.floor(100 + Math.random() * 900).toString(36).toUpperCase();
+      const sig = computeHocaCodeSignature(clientEmail, planCode, timeHex, nonce);
+      const code = `TKP-${planCode}-${timeHex}-${nonce}-${sig}`;
+
+      const displayEl = document.getElementById('adminGeneratedCodeDisplay');
+      if (displayEl) {
+        const planTitle = planType === 'monthly' ? 'اشتراك شهري 30 يوماً (500 ج.م)' : 'مدى الحياة VIP (5000 ج.م)';
+        const waMsg = `أهلاً بك في منصة Turko PLUS+!\n\n✅ تم إصدار كود التفعيل المشفر الخاص بحسابك:\n📧 الإيميل المرخص: ${clientEmail}\n🔑 كود التفعيل: ${code}\n\n📌 ملاحظة هامة: سجل دخولك أولاً بنفس الإيميل أعلاه ثم ضع الكود مرة واحدة فقط، وسيظل حسابك مفعلاً طوال المدة تلقائياً دون الحاجة لكتابة الكود مرة أخرى (الكود مربوط بإيميلك حصرياً ولا يعمل على أي حساب آخر).`;
+
+        displayEl.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: center;">
+            <div style="font-size: 0.72rem; color: #fde047;">🔒 مرخص حصرياً للإيميل: <b>${clientEmail}</b></div>
+            <div style="font-size: 1.05rem; font-weight: 900; color: #86efac; font-family: monospace; letter-spacing: 1px; background: rgba(34, 197, 94, 0.15); padding: 6px 12px; border-radius: 6px; border: 1px solid #16a34a;">
+              ${code}
+            </div>
+            <div style="font-size: 0.72rem; color: #e2e8f0;">
+              باقة: <b>${planTitle}</b> (يُستخدم لمرة واحدة فقط)
+            </div>
+            <div style="display: flex; gap: 6px; width: 100%;">
+              <button type="button" onclick="copySpecificCode('${code}')" style="flex: 1; background: #2563eb; color: white; border: none; padding: 6px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; cursor: pointer;">
+                نسخ الكود 📋
+              </button>
+              <a href="https://wa.me/?text=${encodeURIComponent(waMsg)}" target="_blank" style="flex: 1; background: #059669; color: white; text-decoration: none; padding: 6px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; text-align: center; display: inline-block;">
+                إرسال للعميل واتس 💬
+              </a>
+            </div>
+          </div>
+        `;
+      }
+      showToast(`✅ تم توليد كود مشفر مربوط بالإيميل (${clientEmail})!`);
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateVodafoneBoxState();
+    });
 
 </script>
 </body>
